@@ -96,11 +96,14 @@ def validate(data, models, regions, variables, units, variables_units_combinatio
         # write validated data to excel
         styler.to_excel('validation.xlsx', index=False)
 
+
+    path = os.getcwd()
+    print('\n\n\nPath', path, '\n\n\n')
+
     st.success('Validation Done!')
 
     # check if file was generated
-    path = os.getcwd()
-    print(path)
+    
     if os.path.exists(path + '\\validation.xlsx'):
         save_file()
         with st.spinner('Loading Validated File...'):
