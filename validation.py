@@ -100,7 +100,7 @@ def validate(data, models, regions, variables, units, variables_units_combinatio
     path = os.getcwd()
     print('\n\n\nPath', path, '\n\n\n')
 
-    st.success('Validation Done!')
+    st.success(f'Validation Done! Validation file temporarily saved at {path}')
 
     # check if file was generated
     
