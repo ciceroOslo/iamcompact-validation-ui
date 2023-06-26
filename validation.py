@@ -9,11 +9,15 @@ st.title("Validator")
 #     placeholder = st.empty()
 
 def main():
-    uploaded_file = st.file_uploader("Upload data for validation", type=["xlsx", "xls"])
+    uploaded_file = st.file_uploader("Upload data for validation", type=["xlsx", "xls", "csv"])
     
     if uploaded_file is not None:
         # load data
-        data = pd.read_excel(uploaded_file)
+        if uploaded_file.type == 'text/csv':
+            data = pd.read_csv(uploaded_file)
+        else:
+            data = pd.read_excel(uploaded_file)
+
         st.dataframe(data)
 
         # load validation data
