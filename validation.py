@@ -3,18 +3,21 @@ import pandas as pd
 import os
 
 st.set_page_config(layout="wide")
-st.title("Validator")
+st.title("Modelling results validator")
 # col1, col2 = st.columns([1, 3])
 # with col2:
 #     placeholder = st.empty()
 
 def main():
-    uploaded_file = st.file_uploader("Upload data for validation", type=["xlsx", "xls"])
+    st.markdown("Upload modelling results in the IAMC timeseries format. You can find an example of the format [here](https://pyam-iamc.readthedocs.io/en/stable/).")
+
+    uploaded_file = st.file_uploader('', type=["xlsx", "xls"])
     
     if uploaded_file is not None:
         # load data
         data = pd.read_excel(uploaded_file)
-        st.dataframe(data)
+        df_container = st.empty()
+        df_container.dataframe(data)
 
         # load validation data
         models = pd.read_excel('available_models_regions_variables_units.xlsx', sheet_name='models').Model.unique()
@@ -24,7 +27,7 @@ def main():
         units = variables_units.Unit.unique()
         variables_units_combination = (variables_units['Variable'] + ' ' + variables_units['Unit']).unique()
 
-        st.button('Validate', on_click=validate, args=(data, models, regions, variables, units, variables_units_combination))
+        st.button('Validate', on_click=validate, args=(data, models, regions, variables, units, variables_units_combination, df_container))
 
 def count_errors(df, column):
     index = list(df[column].value_counts().index)
@@ -32,7 +35,7 @@ def count_errors(df, column):
     errors = df[column].value_counts()[index].values.sum()
     return errors
 
-def validate(data, models, regions, variables, units, variables_units_combination):
+def validate(data, models, regions, variables, units, variables_units_combination, df_container):
 
     with st.spinner('Validating...'):
         
@@ -100,15 +103,11 @@ def validate(data, models, regions, variables, units, variables_units_combinatio
     path = os.getcwd()
     print('\n\n\nPath', path, '\n\n\n')
 
-    st.success(f'Validation Done!')
-
     # check if file was generated
     
     if os.path.exists(os.path.join(path,'validation.xlsx')):
-        save_file()
         with st.spinner('Loading Validated File...'):
             validated = pd.read_excel('validation.xlsx')
-            st.title("Validated")
 
             # get data from styler object
             data = styler.data
@@ -138,17 +137,22 @@ def validate(data, models, regions, variables, units, variables_units_combinatio
             vetting_errors_warnings = count_errors(data, 'vetting_check')
 
             if model_errors or region_errors or variable_errors or unit_errors or variable_unit_errors or duplicates_count:
-                st.header(f'Errors with {model_errors} models, {region_errors} regions, {variable_errors} variables, {unit_errors} units,\
-                          {variable_unit_errors} variable units combinations. Found {vetting_errors_warnings} vetting errors and warnings. Found {duplicates_count} duplicates and {missing_values_count} missing or invalid values!')
+                st.error(f'Validation done! Errors found!')
+                st.markdown(f'Errors with {model_errors} models, {region_errors} regions, {variable_errors} variables, \
+                    {unit_errors} units, and {variable_unit_errors} variable units combinations. Found {vetting_errors_warnings} \
+                    vetting errors and warnings. Found {duplicates_count} duplicates and {missing_values_count} missing or invalid values! **Scroll the dataframe to the right to see all errors found.**')
             else:
-                st.header('No errors or duplicates found!')
+                st.success(f'Validation done! No errors or duplicates found')
             print(validated['model_check'][:10])
+
+            save_file()
             st.dataframe(validated.style.applymap(lambda x: f'background-color: red' if not pd.isna(x) else f'background-color: white', subset=['model_check', 'region_check', 'variable_check', 'unit_check', 'variable_unit_check', 'duplicates_check']))
         # st.button('Show validated file', on_click=show_file)
     else:
         print(30*'#')
         print('+ Validation file does not exists')
         print(30*'#'+"\n")
+    
 
 # @st.cache_data
 # def convert_df(df):
