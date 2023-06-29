@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import os
+pd.options.mode.chained_assignment = None  # default='warn'
 
 st.set_page_config(layout="wide")
 st.title("Validator")
@@ -10,21 +11,32 @@ st.title("Validator")
 
 def main():
     uploaded_file = st.file_uploader("Upload data for validation", type=["xlsx", "xls"])
-    
+    st.text('Data must include Model, Scenario, Region, Variable and Unit columns!')
+    flagColumns = True
+
     if uploaded_file is not None:
         # load data
         data = pd.read_excel(uploaded_file)
-        st.dataframe(data)
 
-        # load validation data
-        models = pd.read_excel('available_models_regions_variables_units.xlsx', sheet_name='models').Model.unique()
-        regions = pd.read_excel('available_models_regions_variables_units.xlsx', sheet_name='regions').Region.unique()
-        variables_units = pd.read_excel('available_models_regions_variables_units.xlsx', sheet_name='variable_units')
-        variables = variables_units.Variable.unique()
-        units = variables_units.Unit.unique()
-        variables_units_combination = (variables_units['Variable'] + ' ' + variables_units['Unit']).unique()
+        for column in ['Model', 'Region', 'Scenario', 'Variable', 'Unit']:
+            if column not in data.columns:
+                st.error(f'Column {column} is missing or has a different name!', icon="🚨")
+                flagColumns = False
+                break
+        
+        if flagColumns:
+            # load validation data
+            models = pd.read_excel('available_models_regions_variables_units.xlsx', sheet_name='models').Model.unique()
+            regions = pd.read_excel('available_models_regions_variables_units.xlsx', sheet_name='regions').Region.unique()
+            variables_units = pd.read_excel('available_models_regions_variables_units.xlsx', sheet_name='variable_units')
+            variables = variables_units.Variable.unique()
+            units = variables_units.Unit.unique()
+            variables_units_combination = (variables_units['Variable'] + ' ' + variables_units['Unit']).unique()
 
-        st.button('Validate', on_click=validate, args=(data, models, regions, variables, units, variables_units_combination))
+            st.dataframe(data)
+            st.button('Validate', on_click=validate, args=(data, models, regions, variables, units, variables_units_combination))
+        
+            
 
 def count_errors(df, column):
     index = list(df[column].value_counts().index)
@@ -33,121 +45,139 @@ def count_errors(df, column):
     return errors
 
 def validate(data, models, regions, variables, units, variables_units_combination):
+    try:
 
-    with st.spinner('Validating...'):
-        
-        # check if model is valid
-        data['model_check'] = data.Model.apply(lambda x: 'Model ' + x + ' not found!' if x not in models else '')
+        with st.spinner('Validating...'):
+            # check if model is valid
+            data['model_check'] = data.Model.apply(lambda x: 'Model ' + x + ' not found!' if x not in models else '')
 
-        # check if region is valid
-        data['region_check'] = data.Region.apply(lambda x: 'Region ' + x + ' not found!' if x not in regions else '')
+            # check if region is valid
+            data['region_check'] = data.Region.apply(lambda x: 'Region ' + x + ' not found!' if x not in regions else '')
 
-        # check if variable is valid
-        data['variable_check'] = data.Variable.apply(lambda x: 'Variable ' + x + ' not found!' if x not in variables else '')
+            # check if variable is valid
+            data['variable_check'] = data.Variable.apply(lambda x: 'Variable ' + x + ' not found!' if x not in variables else '')
 
-        # check if unit is valid
-        data['unit_check'] = data.Unit.apply(lambda x: 'Unit ' + x + ' not found!' if x not in units else '')
+            # check if unit is valid
+            data['unit_check'] = data.Unit.apply(lambda x: 'Unit ' + x + ' not found!' if x not in units else '')
 
-        # check if variable unit combination is valid
-        data['variable_unit_check']= data.apply(lambda x: f"Variable {x['Variable']} combined with unit {x['Unit']} not found!" if (x['Variable'] + ' ' + x['Unit']) not in variables_units_combination else '', axis=1)
+            # check if variable unit combination is valid
+            data['variable_unit_check']= data.apply(lambda x: f"Variable {x['Variable']} combined with unit {x['Unit']} not found!" if (x['Variable'] + ' ' + x['Unit']) not in variables_units_combination else '', axis=1)
 
-        # check if there are any duplicates (we consider duplicates those entries that have same Model, Scenario, Region and Variable)
-        data['duplicates_check'] = data.duplicated(['Model', 'Scenario', 'Region', 'Variable']).apply(lambda x: 'Duplicate' if x else '')
+            # check if there are any duplicates (we consider duplicates those entries that have same Model, Scenario, Region and Variable)
+            data['duplicates_check'] = data.duplicated(['Model', 'Scenario', 'Region', 'Variable']).apply(lambda x: 'Duplicate' if x else '')
 
-        # find possible mixed columns (strings and floats) and turn them to numeric columns, making the strings NaN
-        for column in data.columns:
-            if pd.api.types.infer_dtype(data[column]) == 'mixed-integer' or pd.api.types.infer_dtype(data[column]) == 'mixed-integer-float':
+            # find possible mixed columns (strings and floats) and turn them to numeric columns, making the strings NaN
+            numeric_columns = [column for column in data.columns if type(column) != str]
+            for column in numeric_columns:
+                # if pd.api.types.infer_dtype(data[column]) == 'mixed-integer' or pd.api.types.infer_dtype(data[column]) == 'mixed-integer-float':
                 data[column] = pd.to_numeric(data[column], errors = 'coerce')
 
-        # vetting checks
-        data['vetting_check'] = ''
+            # create empty vetting check column
+            data['vetting_check'] = ''
 
-        vetting_CO2_EIP_emissions = data[(data['Variable'] == 'Emissions|CO2|Energy and Industrial Processes') 
-            & (data['Region'] == 'World')].apply(lambda x: 'vetting error' if x[2020] < 30116.8 or x[2020] > 45175.2 else '', axis=1)
+            # create empty vettings list where the vetting results are stored as Series with index the original index of the entry and value the result of the vetting check
+            vettings_results = []
 
-        vetting_CH4_emissions = data[(data['Variable'] == 'Emissions|CH4') 
-            & (data['Region'] == 'World')].apply(lambda x: 'vetting error' if x[2020] < 303.2 or x[2020] > 454.8 else '', axis=1)
+            # list of dictionaries with the basic vettings
+            vetting_list = [{'variable': 'Emissions|CO2|Energy and Industrial Processes', 'low': 30116.8, 'high': 45175.2, 'year': 2020, 'error': 'Vetting error: CO2 EIP emissions'},
+                            {'variable': 'Emissions|CH4', 'low': 303.2, 'high': 454.8, 'year': 2020, 'error': 'Vetting error: CH4 emissions'},
+                            {'variable': 'Primary Energy', 'low': 462.4, 'high': 693.6, 'year': 2020, 'error': 'Vetting error: Primary Energy'},
+                            {'variable': 'Secondary Energy|Electricity|Nuclear', 'low': 6.839, 'high': 12.701, 'year': 2020, 'error': 'Vetting error: Electricity Nuclear'},
+                            {'variable': 'Emissions|CO2', 'low': 0, 'high': 1000000, 'year': 2030, 'error': 'Vetting warning: No net negative CO2 emissions before 2030'},
+                            {'variable': 'Secondary Energy|Electricity|Nuclear', 'low': 0, 'high': 20, 'year': 2030, 'error': 'Vetting warning: Electricity from Nuclear in 2030'},
+                            {'variable': 'Emissions|CH4', 'low': 100, 'high': 1000, 'year': 2040, 'error': 'Vetting warning: CH4 emissions in 2040'}]
 
-        vetting_Primary_Energy = data[(data['Variable'] == 'Primary Energy') 
-            & (data['Region'] == 'World')].apply(lambda x: 'vetting error' if x[2020] < 462.4 or x[2020] > 693.6 else '', axis=1)
+            # creating Series objects with index the index of the error or warning and value the vetting error or warning if exists and appending them to the vetting_results
+            for vetting in vetting_list:
+                # basic vetting checks
+                vettings_results.append(data[(data['Variable'] == vetting['variable']) 
+                    & (data['Region'] == 'World')].apply(lambda x: vetting['error'] if x[vetting['year']] < vetting['low'] or x[vetting['year']] > vetting['high'] else '', axis=1))
 
-        vetting_Electricity_Nuclear = data[(data['Variable'] == 'Secondary Energy|Electricity|Nuclear') 
-            & (data['Region'] == 'World')].apply(lambda x: 'vetting error' if x[2020] < 6.839 or x[2020] > 12.701 else '', axis=1)
+            # list of dictionaries with the sum vettings
+            vettings_list = [{'variable1': 'Emissions|CO2|AFOLU', 'variable2': 'Emissions|CO2|Energy and Industrial Processes', 'low': 26550.6, 'high': 61951.4, 'year': 2020, 'error': 'Vetting error: CO2 total emissions (EIP + AFOLU)'},
+                             {'variable1': 'Carbon Sequestration|CCS|Biomass|Energy', 'variable2': 'Carbon Sequestration|CCS|Fossil|Energy', 'low': 0, 'high': 250, 'year': 2020, 'error': 'Vetting error: CCS from Energy 2020 '},
+                             {'variable1': 'Secondary Energy|Electricity|Wind', 'variable2': 'Secondary Energy|Electricity|Solar', 'low': 4.255, 'high': 12.765, 'year': 2020, 'error': 'Vetting error: Electricity Solar & Wind'},
+                             {'variable1': 'Carbon Sequestration|CCS|Biomass|Energy', 'variable2': 'Carbon Sequestration|CCS|Fossil|Energy', 'low': 0, 'high': 2000, 'year': 2030, 'error': 'Vetting warning: CCS from Energy in 2030'}]
 
-        vetting_No_net_negative_CO2_emissions_before_2030 = data[(data['Variable'] == 'Emissions|CO2') 
-            & (data['Region'] == 'World')].apply(lambda x: 'vetting warning' if x[2030] < 0 or x[2030] > 1000000 else '', axis=1)
+            for vetting in vettings_list:
+                # vetting sums checks
+                vetting_group = data[((data['Variable'] == vetting['variable1']) | (data['Variable'] == vetting['variable2']))
+                                & (data['Region'] == 'World')].groupby(['Model', 'Scenario']).sum()[vetting['year']]
+                
+                # get indexes with sum out of bounds
+                indexes = vetting_group[(vetting_group < vetting['low']) | (vetting_group > vetting['high'])].index
+                for index in indexes:
+                    # append Series object with index the index of the error or warning and value the vetting error or warning
+                    vettings_results.append(pd.Series({data[(data['Model'] == index[0]) & (data['Scenario'] == index[1]) & (data['Variable'] == vetting['variable1']) & (data['Region'] == 'World')].index[0]: vetting['error']}))
+                    vettings_results.append(pd.Series({data[(data['Model'] == index[0]) & (data['Scenario'] == index[1]) & (data['Variable'] == vetting['variable2']) & (data['Region'] == 'World')].index[0]: vetting['error']}))
 
-        vetting_Electricity_from_Nuclear_in_2030 = data[(data['Variable'] == 'Secondary Energy|Electricity|Nuclear') 
-            & (data['Region'] == 'World')].apply(lambda x: 'vetting warning' if x[2030] < 0 or x[2030] > 20 else '', axis=1)
+            # percent change between 2010-2020 vetting check 
+            vettings_results.append(data[(data['Variable'] == 'Emissions|CO2|Energy and Industrial Processes') 
+                    & (data['Region'] == 'World')].apply(lambda x: 'Vetting error: CO2 emissions EIP 2010-2020 - % change' if abs((x[2020]-x[2010])/x[2010]) > 0.5 else '', axis=1))
 
-        vetting_CH4_emissions_in_2040 = data[(data['Variable'] == 'Emissions|CH4') 
-            & (data['Region'] == 'World')].apply(lambda x: 'vetting warning' if x[2040] < 100 or x[2040] > 1000 else '', axis=1)
+            # write vetting results to the original dataframe's vetting_check column
+            for vetting in vettings_results:
+                for key, value in vetting.to_dict().items():
+                    data['vetting_check'][key] = value
 
-        vettings = [vetting_CO2_EIP_emissions, vetting_CH4_emissions, vetting_Primary_Energy, vetting_Electricity_Nuclear,\
-            vetting_No_net_negative_CO2_emissions_before_2030, vetting_Electricity_from_Nuclear_in_2030, vetting_CH4_emissions_in_2040]
+            # color errors, duplicates and vetting errors with red, missing values and vetting warnings with yellow
+            styler = data.style.applymap(lambda x: f'background-color: red' if 'not found' in str(x) or 'Duplicate' in str(x) or 'Vetting error' in str(x) else (f'background-color: yellow' if str(x) == 'nan' or 'Vetting warning' in str(x) else f'background-color: white'))
 
-        for vetting in vettings:
-            for key, value in vetting.to_dict().items():
-                data['vetting_check'][key] = value
-
-        # color errors, duplicates and vetting errors with red, missing values and vetting warnings with yellow
-        styler = data.style.applymap(lambda x: f'background-color: red' if 'not found' in str(x) or 'Duplicate' in str(x) or 'vetting error' in str(x) else (f'background-color: yellow' if str(x) == 'nan' or 'vetting warning' in str(x) else f'background-color: white'))
-
-        # write validated data to excel
-        styler.to_excel('validation.xlsx', index=False)
+            # write validated data to excel
+            styler.to_excel('validation.xlsx', index=False)
 
 
-    path = os.getcwd()
-    print('\n\n\nPath', path, '\n\n\n')
+        path = os.getcwd()
 
-    st.success(f'Validation Done! Validation file temporarily saved at {path}')
+        st.success(f'Validation Done!')
 
-    # check if file was generated
-    
-    if os.path.exists(path + '\\validation.xlsx'):
-        save_file()
-        with st.spinner('Loading Validated File...'):
-            validated = pd.read_excel('validation.xlsx')
-            st.title("Validated")
+        # check if file was generated
+        
+        if os.path.exists(os.path.join(path,'validation.xlsx')):
+            save_file()
+            with st.spinner('Loading Validated File...'):
+                validated = pd.read_excel('validation.xlsx')
+                st.title("Validated")
 
-            # get data from styler object
-            data = styler.data
+                # get data from styler object
+                data = styler.data
 
-            # count errors in models
-            model_errors = count_errors(data, 'model_check')
+                # count errors in models
+                model_errors = count_errors(data, 'model_check')
 
-            # count errors in regions
-            region_errors = count_errors(data, 'region_check')
+                # count errors in regions
+                region_errors = count_errors(data, 'region_check')
 
-            # count errors in variables
-            variable_errors = count_errors(data, 'variable_check')
+                # count errors in variables
+                variable_errors = count_errors(data, 'variable_check')
 
-            # count errors in units
-            unit_errors = count_errors(data, 'unit_check')
+                # count errors in units
+                unit_errors = count_errors(data, 'unit_check')
 
-            # count errors in variable unit combinations
-            variable_unit_errors = count_errors(data, 'variable_unit_check')
+                # count errors in variable unit combinations
+                variable_unit_errors = count_errors(data, 'variable_unit_check')
 
-            # count duplicates
-            duplicates_count = count_errors(data, 'duplicates_check')
+                # count duplicates
+                duplicates_count = count_errors(data, 'duplicates_check')
 
-            # count missing or invalid values
-            missing_values_count = data.isna().sum().values.sum()
+                # count missing or invalid values
+                missing_values_count = data.isna().sum().values.sum()
 
-            # count vetting errors and warnings
-            vetting_errors_warnings = count_errors(data, 'vetting_check')
+                # count vetting errors and warnings
+                vetting_errors_warnings = count_errors(data, 'vetting_check')
 
-            if model_errors or region_errors or variable_errors or unit_errors or variable_unit_errors or duplicates_count:
-                st.header(f'Errors with {model_errors} models, {region_errors} regions, {variable_errors} variables, {unit_errors} units,\
-                          {variable_unit_errors} variable units combinations. Found {vetting_errors_warnings} vetting errors and warnings. Found {duplicates_count} duplicates and {missing_values_count} missing or invalid values!')
-            else:
-                st.header('No errors or duplicates found!')
-            print(validated['model_check'][:10])
-            st.dataframe(validated.style.applymap(lambda x: f'background-color: red' if not pd.isna(x) else f'background-color: white', subset=['model_check', 'region_check', 'variable_check', 'unit_check', 'variable_unit_check', 'duplicates_check']))
-        # st.button('Show validated file', on_click=show_file)
-    else:
-        print('Not exists')
-
+                if model_errors or region_errors or variable_errors or unit_errors or variable_unit_errors or duplicates_count:
+                    st.header(f'Errors with {model_errors} models, {region_errors} regions, {variable_errors} variables, {unit_errors} units,\
+                            {variable_unit_errors} variable units combinations. Found {vetting_errors_warnings} vetting errors and warnings. Found {duplicates_count} duplicates and {missing_values_count} missing or invalid values!')
+                else:
+                    st.header('No errors or duplicates found!')
+                print(validated['model_check'][:10])
+                st.dataframe(validated.style.applymap(lambda x: f'background-color: red' if not pd.isna(x) else f'background-color: white', subset=['model_check', 'region_check', 'variable_check', 'unit_check', 'variable_unit_check', 'duplicates_check']))
+            # st.button('Show validated file', on_click=show_file)
+        else:
+            print('Not exists')
+    except Exception as e:
+        st.error(f'The following error occured: {e}. Please load a valid file!', icon="🚨")
 # @st.cache_data
 # def convert_df(df):
 #     return df.to_csv().encode('utf-8')
