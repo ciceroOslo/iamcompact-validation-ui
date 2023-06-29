@@ -175,9 +175,12 @@ def validate(data, models, regions, variables, units, variables_units_combinatio
                 st.dataframe(validated.style.applymap(lambda x: f'background-color: red' if not pd.isna(x) else f'background-color: white', subset=['model_check', 'region_check', 'variable_check', 'unit_check', 'variable_unit_check', 'duplicates_check']))
             # st.button('Show validated file', on_click=show_file)
         else:
-            print('Not exists')
+            print(30*'#')
+            print('+ Validation file does not exist')
+            print(30*'#'+"\n")
     except Exception as e:
         st.error(f'The following error occured: {e}. Please load a valid file!', icon="🚨")
+
 # @st.cache_data
 # def convert_df(df):
 #     return df.to_csv().encode('utf-8')
