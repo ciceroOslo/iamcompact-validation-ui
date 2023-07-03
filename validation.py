@@ -91,7 +91,7 @@ def validate(data, models, regions, variables, units, variables_units_combinatio
             for vetting in vetting_list:
                 # basic vetting checks
                 vettings_results.append(data[(data['Variable'] == vetting['variable']) 
-                    & (data['Region'] == 'World')].apply(lambda x: vetting['error'] if x[vetting['year']] < vetting['low'] or x[vetting['year']] > vetting['high'] else '', axis=1))
+                    & (data['Region'] == 'World')].apply(lambda x: f"{vetting['error']} for year {vetting['year']}. Range must be between {vetting['low']} and {vetting['high']}." if x[vetting['year']] < vetting['low'] or x[vetting['year']] > vetting['high'] else '', axis=1))
 
             # list of dictionaries with the sum vettings
             vettings_list = [{'variable1': 'Emissions|CO2|AFOLU', 'variable2': 'Emissions|CO2|Energy and Industrial Processes', 'low': 26550.6, 'high': 61951.4, 'year': 2020, 'error': 'Vetting error: CO2 total emissions (EIP + AFOLU)'},
@@ -108,8 +108,8 @@ def validate(data, models, regions, variables, units, variables_units_combinatio
                 indexes = vetting_group[(vetting_group < vetting['low']) | (vetting_group > vetting['high'])].index
                 for index in indexes:
                     # append Series object with index the index of the error or warning and value the vetting error or warning
-                    vettings_results.append(pd.Series({data[(data['Model'] == index[0]) & (data['Scenario'] == index[1]) & (data['Variable'] == vetting['variable1']) & (data['Region'] == 'World')].index[0]: vetting['error']}))
-                    vettings_results.append(pd.Series({data[(data['Model'] == index[0]) & (data['Scenario'] == index[1]) & (data['Variable'] == vetting['variable2']) & (data['Region'] == 'World')].index[0]: vetting['error']}))
+                    vettings_results.append(pd.Series({data[(data['Model'] == index[0]) & (data['Scenario'] == index[1]) & (data['Variable'] == vetting['variable1']) & (data['Region'] == 'World')].index[0]: f"{vetting['error']} for year {vetting['year']}. Sum range must be between {vetting['low']} and {vetting['high']}."}))
+                    vettings_results.append(pd.Series({data[(data['Model'] == index[0]) & (data['Scenario'] == index[1]) & (data['Variable'] == vetting['variable2']) & (data['Region'] == 'World')].index[0]: f"{vetting['error']} for year {vetting['year']}. Sum range must be between {vetting['low']} and {vetting['high']}."}))
 
             # percent change between 2010-2020 vetting check 
             vettings_results.append(data[(data['Variable'] == 'Emissions|CO2|Energy and Industrial Processes') 
