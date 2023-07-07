@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import os
+import re
 pd.options.mode.chained_assignment = None  # default='warn'
 
 st.set_page_config(layout="wide")
@@ -17,6 +18,20 @@ def main():
     if uploaded_file is not None:
         # load data
         data = pd.read_excel(uploaded_file)
+        str_columns = [column for column in data.columns if type(column) == str]
+        model_df = data[str_columns].rename(columns=lambda x: re.sub('^[Mm][Oo][Dd][Ee][Ll]$', 'Model', x))['Model']
+        scenario_df = data[str_columns].rename(columns=lambda x: re.sub('^[Ss][Cc][Ee][Nn][Aa][Rr][Ii][Oo]$', 'Scenario', x))['Scenario']
+        region_df = data[str_columns].rename(columns=lambda x: re.sub('^[Rr][Ee][Gg][Ii][Oo][Nn]$', 'Region', x))['Region']
+        variable_df = data[str_columns].rename(columns=lambda x: re.sub('^[Vv][Aa][Rr][Ii][Aa][Bb][Ll][Ee]$', 'Variable', x))['Variable']
+        unit_df = data[str_columns].rename(columns=lambda x: re.sub('^[Uu][Nn][Ii][Tt]$', 'Unit', x))['Unit']
+
+        string_df = pd.concat([model_df, scenario_df, region_df, variable_df, unit_df], axis=1)
+        numeric_columns = [column for column in data.columns if type(column) != str]
+        numeric_df = data[numeric_columns]
+
+        data = pd.concat([string_df, numeric_df], axis=1)
+
+        del str_columns, model_df, scenario_df, region_df, variable_df, unit_df, numeric_columns, numeric_df
 
         for column in ['Model', 'Region', 'Scenario', 'Variable', 'Unit']:
             if column not in data.columns:
@@ -120,8 +135,58 @@ def validate(data, models, regions, variables, units, variables_units_combinatio
                 for key, value in vetting.to_dict().items():
                     data['vetting_check'][key] = value
 
+
+            # create a list with the aggregated variables
+            aggr_vars = []
+            unique_vars = data.Variable.unique()
+            for var in unique_vars:
+                var_levels = var.count('|')
+
+                if var_levels > 0:
+                    for level in range(0,var_levels):
+                        test_aggr_var = var.rsplit("|",level+1)[0]
+
+                        if test_aggr_var in unique_vars:
+                            if test_aggr_var not in aggr_vars:
+                                aggr_vars.append(test_aggr_var)
+                                break
+
+            # create dictionary with keys the aggregated variables and values the disaggregated variables
+            var_tree = {}
+            for var in unique_vars:
+                var_levels = var.count('|')
+
+                if var_levels > 0:
+                    for level in range(0,var_levels):
+                        test_aggr_var = var.rsplit("|",level+1)[0]
+
+                        if test_aggr_var in unique_vars:
+                            if test_aggr_var not in var_tree.keys():
+                                if var not in aggr_vars:
+                                    var_tree[test_aggr_var] = [var]
+                            else:
+                                if var not in aggr_vars:
+                                    var_tree[test_aggr_var].append(var)
+
+            # check basic sums
+            data['basic_sum_check'] = ''
+            for variable in var_tree.keys():
+                # get data that have the aggregated variable
+                agg_results = data[data['Variable'].isin(var_tree[f'{variable}'])].groupby(['Model', 'Scenario', 'Region']).sum()[numeric_columns]
+
+                for row in agg_results.index:
+                    for year in numeric_columns:
+                        values = data[(data['Model'] == row[0]) & (data['Scenario'] == row[1]) & (data['Region'] == row[2])  & (data['Variable'] == variable)][year].values
+                        if len(values) != 0:
+                            # find percentage difference using the formula |x1 - x2|/((x1+x2)/2)
+                            diff = (abs(values[0] - agg_results[year][row[0]][row[1]][row[2]]))/((values[0] + agg_results[year][row[0]][row[1]][row[2]])/2)
+                            
+                            # set difference margin at 2%
+                            if diff > 0.02:
+                                data.loc[(data['Model'] == row[0]) & (data['Scenario'] == row[1]) & (data['Region'] == row[2])  & (data['Variable'] == variable), 'basic_sum_check'] += f'Basic sum check error on year {year}.     \n'
+
             # color errors, duplicates and vetting errors with red, missing values and vetting warnings with yellow
-            styler = data.style.applymap(lambda x: f'background-color: red' if 'not found' in str(x) or 'Duplicate' in str(x) or 'Vetting error' in str(x) else (f'background-color: yellow' if str(x) == 'nan' or 'Vetting warning' in str(x) else f'background-color: white'))
+            styler = data.style.applymap(lambda x: f'background-color: red' if 'not found' in str(x) or 'Duplicate' in str(x) or 'Vetting error' in str(x) else (f'background-color: yellow' if str(x) == 'nan' or 'Vetting warning' in str(x) or 'sum check error' in str(x) else f'background-color: white'))
 
             # write validated data to excel
             styler.to_excel('validation.xlsx', index=False)
@@ -166,9 +231,12 @@ def validate(data, models, regions, variables, units, variables_units_combinatio
                 # count vetting errors and warnings
                 vetting_errors_warnings = count_errors(data, 'vetting_check')
 
+                # count basic sum errors
+                basic_sum_check_errors = data.basic_sum_check.str.count('year').sum()
+
                 if model_errors or region_errors or variable_errors or unit_errors or variable_unit_errors or duplicates_count:
                     st.header(f'Errors with {model_errors} models, {region_errors} regions, {variable_errors} variables, {unit_errors} units,\
-                            {variable_unit_errors} variable units combinations. Found {vetting_errors_warnings} vetting errors and warnings. Found {duplicates_count} duplicates and {missing_values_count} missing or invalid values!')
+                            {variable_unit_errors} variable units combinations! Found {vetting_errors_warnings} vetting errors and warnings! Found {duplicates_count} duplicates and {missing_values_count} missing or invalid values! Found {basic_sum_check_errors} basic sum errors across variables!')
                 else:
                     st.header('No errors or duplicates found!')
                 print(validated['model_check'][:10])
