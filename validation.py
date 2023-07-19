@@ -64,7 +64,7 @@ def count_errors(df, column):
     errors = df[column].value_counts()[index].values.sum()
     return errors
 
-def validate(data, models, regions, variables, units, variables_units_combination, df_container):
+def validate(data, models, regions, variables, units, variables_units_combination):
 
         with st.spinner('Validating...'):
             # check if model is valid
@@ -250,8 +250,8 @@ def validate(data, models, regions, variables, units, variables_units_combinatio
             print(30*'#')
             print('+ Validation file does not exist')
             print(30*'#'+"\n")
-    except Exception as e:
-        st.error(f'The following error occured: {e}. Please load a valid file!', icon="🚨")
+    # except Exception as e:
+    #     st.error(f'The following error occured: {e}. Please load a valid file!', icon="🚨")
 
         
 # @st.cache_data
