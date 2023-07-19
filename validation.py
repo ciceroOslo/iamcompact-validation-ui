@@ -5,14 +5,16 @@ import re
 pd.options.mode.chained_assignment = None  # default='warn'
 
 st.set_page_config(layout="wide")
-st.title("Validator")
+st.title("Modelling results validator")
 # col1, col2 = st.columns([1, 3])
 # with col2:
 #     placeholder = st.empty()
 
 def main():
+    st.markdown("Upload modelling results in the IAMC timeseries format. You can find an example of the format [here](https://pyam-iamc.readthedocs.io/en/stable/).")
+
     uploaded_file = st.file_uploader("Upload data for validation", type=["xlsx", "xls", "csv"])
-    st.text('Data must include Model, Scenario, Region, Variable and Unit columns!')
+
     flagColumns = True
 
     if uploaded_file is not None:
@@ -62,8 +64,7 @@ def count_errors(df, column):
     errors = df[column].value_counts()[index].values.sum()
     return errors
 
-def validate(data, models, regions, variables, units, variables_units_combination):
-    try:
+def validate(data, models, regions, variables, units, variables_units_combination, df_container):
 
         with st.spinner('Validating...'):
             # check if model is valid
@@ -252,6 +253,7 @@ def validate(data, models, regions, variables, units, variables_units_combinatio
     except Exception as e:
         st.error(f'The following error occured: {e}. Please load a valid file!', icon="🚨")
 
+        
 # @st.cache_data
 # def convert_df(df):
 #     return df.to_csv().encode('utf-8')
