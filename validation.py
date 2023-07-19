@@ -11,13 +11,17 @@ st.title("Validator")
 #     placeholder = st.empty()
 
 def main():
-    uploaded_file = st.file_uploader("Upload data for validation", type=["xlsx", "xls"])
+    uploaded_file = st.file_uploader("Upload data for validation", type=["xlsx", "xls", "csv"])
     st.text('Data must include Model, Scenario, Region, Variable and Unit columns!')
     flagColumns = True
 
     if uploaded_file is not None:
         # load data
-        data = pd.read_excel(uploaded_file)
+        if uploaded_file.type == 'text/csv':
+            data = pd.read_csv(uploaded_file)
+        else:
+            data = pd.read_excel(uploaded_file)
+
         str_columns = [column for column in data.columns if type(column) == str]
         model_df = data[str_columns].rename(columns=lambda x: re.sub('^[Mm][Oo][Dd][Ee][Ll]$', 'Model', x))['Model']
         scenario_df = data[str_columns].rename(columns=lambda x: re.sub('^[Ss][Cc][Ee][Nn][Aa][Rr][Ii][Oo]$', 'Scenario', x))['Scenario']
@@ -52,7 +56,6 @@ def main():
             st.button('Validate', on_click=validate, args=(data, models, regions, variables, units, variables_units_combination))
         
             
-
 def count_errors(df, column):
     index = list(df[column].value_counts().index)
     index.remove('')
