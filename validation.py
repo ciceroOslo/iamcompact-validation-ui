@@ -6,9 +6,6 @@ pd.options.mode.chained_assignment = None  # default='warn'
 
 st.set_page_config(layout="wide")
 st.title("Modelling results validator")
-# col1, col2 = st.columns([1, 3])
-# with col2:
-#     placeholder = st.empty()
 
 def main():
     st.markdown("Upload modelling results in the IAMC timeseries format. You can find an example of the format [here](https://pyam-iamc.readthedocs.io/en/stable/).")
@@ -253,14 +250,8 @@ def validate(data, models, regions, variables, units, variables_units_combinatio
     # except Exception as e:
     #     st.error(f'The following error occured: {e}. Please load a valid file!', icon="🚨")
 
-        
-# @st.cache_data
-# def convert_df(df):
-#     return df.to_csv().encode('utf-8')
 
 def save_file():
-    # csv = convert_df(data)
-    # st.download_button('Save validated file', csv, file_name='validated.csv', mime='text/csv')
 
     with open('validation.xlsx', 'rb') as template_file:
         template_byte = template_file.read()
@@ -269,8 +260,6 @@ def save_file():
                             data=template_byte,
                             file_name="validated.xlsx",
                             mime='application/octet-stream')
-
-# def show_file():
     
 
 if __name__ == "__main__":
