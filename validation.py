@@ -5,14 +5,21 @@ import re
 pd.options.mode.chained_assignment = None  # default='warn'
 
 st.set_page_config(layout="wide")
-st.title("Modelling results validator")
+
 
 def main():
-    st.markdown("Upload modelling results in the IAMC timeseries format. You can find an example of the format [here](https://pyam-iamc.readthedocs.io/en/stable/).")
+    KNOWN_MODELS_REGIONS_VARS = 'input_data/available_models_regions_variables_units.xlsx'
 
-    uploaded_file = st.file_uploader("Upload data for validation", type=["xlsx", "xls", "csv"])
+    models,regions,variables_units,variables,units,variables_units_combination = load_known_names()
 
-    flagColumns = True
+    st.title("Modelling results validator")
+
+    st.markdown("Upload a spreadsheet file with modelling results in an IAMC timeseries format. \
+        The file should include five columns called Model, Scenario, Region, Variable, and Unit and \
+        a number of columns with years for column names (e.g., 2010, 2015, 2020, etc.). \
+        You can find an example of the format [here](https://pyam-iamc.readthedocs.io/en/stable/).")
+
+    uploaded_file = st.file_uploader("Upload data file for validation", type=["xlsx", "xls", "csv"])
 
     if uploaded_file is not None:
         # load data
@@ -21,45 +28,56 @@ def main():
         else:
             data = pd.read_excel(uploaded_file)
 
-        str_columns = [column for column in data.columns if type(column) == str]
-        model_df = data[str_columns].rename(columns=lambda x: re.sub('^[Mm][Oo][Dd][Ee][Ll]$', 'Model', x))['Model']
-        scenario_df = data[str_columns].rename(columns=lambda x: re.sub('^[Ss][Cc][Ee][Nn][Aa][Rr][Ii][Oo]$', 'Scenario', x))['Scenario']
-        region_df = data[str_columns].rename(columns=lambda x: re.sub('^[Rr][Ee][Gg][Ii][Oo][Nn]$', 'Region', x))['Region']
-        variable_df = data[str_columns].rename(columns=lambda x: re.sub('^[Vv][Aa][Rr][Ii][Aa][Bb][Ll][Ee]$', 'Variable', x))['Variable']
-        unit_df = data[str_columns].rename(columns=lambda x: re.sub('^[Uu][Nn][Ii][Tt]$', 'Unit', x))['Unit']
+        data, cleaning_error = clean_results_dataset(data)
 
-        string_df = pd.concat([model_df, scenario_df, region_df, variable_df, unit_df], axis=1)
-        numeric_columns = [column for column in data.columns if type(column) != str]
-        numeric_df = data[numeric_columns]
-
-        data = pd.concat([string_df, numeric_df], axis=1)
-
-        del str_columns, model_df, scenario_df, region_df, variable_df, unit_df, numeric_columns, numeric_df
-
-        for column in ['Model', 'Region', 'Scenario', 'Variable', 'Unit']:
-            if column not in data.columns:
-                st.error(f'Column {column} is missing or has a different name!', icon="🚨")
-                flagColumns = False
-                break
-        
-        if flagColumns:
-            # load validation data
-            models = pd.read_excel('available_models_regions_variables_units.xlsx', sheet_name='models').Model.unique()
-            regions = pd.read_excel('available_models_regions_variables_units.xlsx', sheet_name='regions').Region.unique()
-            variables_units = pd.read_excel('available_models_regions_variables_units.xlsx', sheet_name='variable_units')
-            variables = variables_units.Variable.unique()
-            units = variables_units.Unit.unique()
-            variables_units_combination = (variables_units['Variable'] + ' ' + variables_units['Unit']).unique()
-
+        if cleaning_error:
+            st.info('Please fix the errors and upload a new file.', icon="ℹ️")
+            st.dataframe(data)
+        else:
             st.dataframe(data)
             st.button('Validate', on_click=validate, args=(data, models, regions, variables, units, variables_units_combination))
         
-            
-def count_errors(df, column):
-    index = list(df[column].value_counts().index)
-    index.remove('')
-    errors = df[column].value_counts()[index].values.sum()
-    return errors
+
+def clean_results_dataset(df):
+    error = False
+
+    str_cols = pd.to_numeric(df.columns, errors='coerce').isna()
+    numeric_cols = pd.to_numeric(df.columns, errors='coerce').notna()
+
+    string_df = df.loc[:,str_cols].rename(columns=lambda x: re.sub('^[Mm][Oo][Dd][Ee][Ll]$', 'Model', x)) \
+                            .rename(columns=lambda x: re.sub('^[Ss][Cc][Ee][Nn][Aa][Rr][Ii][Oo]$', 'Scenario', x)) \
+                            .rename(columns=lambda x: re.sub('^[Rr][Ee][Gg][Ii][Oo][Nn]$', 'Region', x)) \
+                            .rename(columns=lambda x: re.sub('^[Vv][Aa][Rr][Ii][Aa][Bb][Ll][Ee]$', 'Variable', x)) \
+                            .rename(columns=lambda x: re.sub('^[Uu][Nn][Ii][Tt]$', 'Unit', x))
+
+
+    if numeric_cols.sum()==0:
+        st.error(f'No year columns!', icon="🚨")
+        error = True
+
+    numeric_df = df.loc[:,numeric_cols]
+
+    df = pd.concat([string_df, numeric_df], axis=1)
+
+    for column in ['Model', 'Region', 'Scenario', 'Variable', 'Unit']:
+        if column not in df.columns:
+            st.error(f'Column {column} is missing or has a different name!', icon="🚨")
+            error = True
+
+    return df, error
+
+
+@st.cache_data
+def load_known_names():
+    models = pd.read_excel(KNOWN_MODELS_REGIONS_VARS, sheet_name='models').Model.unique()
+    regions = pd.read_excel(KNOWN_MODELS_REGIONS_VARS, sheet_name='regions').Region.unique()
+    variables_units = pd.read_excel(KNOWN_MODELS_REGIONS_VARS, sheet_name='variable_units')
+    variables = variables_units.Variable.unique()
+    units = variables_units.Unit.unique()
+    variables_units_combination = (variables_units['Variable'] + ' ' + variables_units['Unit']).unique()
+
+    return models,regions,variables_units,variables,units,variables_units_combination
+
 
 def validate(data, models, regions, variables, units, variables_units_combination):
 
@@ -171,20 +189,20 @@ def validate(data, models, regions, variables, units, variables_units_combinatio
 
             # check basic sums
             data['basic_sum_check'] = ''
-            for variable in var_tree.keys():
-                # get data that have the aggregated variable
-                agg_results = data[data['Variable'].isin(var_tree[f'{variable}'])].groupby(['Model', 'Scenario', 'Region']).sum()[numeric_columns]
+            # for variable in var_tree.keys():
+            #     # get data that have the aggregated variable
+            #     agg_results = data[data['Variable'].isin(var_tree[f'{variable}'])].groupby(['Model', 'Scenario', 'Region']).sum()[numeric_columns]
 
-                for row in agg_results.index:
-                    for year in numeric_columns:
-                        values = data[(data['Model'] == row[0]) & (data['Scenario'] == row[1]) & (data['Region'] == row[2])  & (data['Variable'] == variable)][year].values
-                        if len(values) != 0:
-                            # find percentage difference using the formula |x1 - x2|/((x1+x2)/2)
-                            diff = (abs(values[0] - agg_results[year][row[0]][row[1]][row[2]]))/((values[0] + agg_results[year][row[0]][row[1]][row[2]])/2)
+            #     for row in agg_results.index:
+            #         for year in numeric_columns:
+            #             values = data[(data['Model'] == row[0]) & (data['Scenario'] == row[1]) & (data['Region'] == row[2])  & (data['Variable'] == variable)][year].values
+            #             if len(values) != 0:
+            #                 # find percentage difference using the formula |x1 - x2|/((x1+x2)/2)
+            #                 diff = (abs(values[0] - agg_results[year][row[0]][row[1]][row[2]]))/((values[0] + agg_results[year][row[0]][row[1]][row[2]])/2)
                             
-                            # set difference margin at 2%
-                            if diff > 0.02:
-                                data.loc[(data['Model'] == row[0]) & (data['Scenario'] == row[1]) & (data['Region'] == row[2])  & (data['Variable'] == variable), 'basic_sum_check'] += f'Basic sum check error on year {year}.     \n'
+            #                 # set difference margin at 2%
+            #                 if diff > 0.02:
+            #                     data.loc[(data['Model'] == row[0]) & (data['Scenario'] == row[1]) & (data['Region'] == row[2])  & (data['Variable'] == variable), 'basic_sum_check'] += f'Basic sum check error on year {year}.     \n'
 
             # color errors, duplicates and vetting errors with red, missing values and vetting warnings with yellow
             styler = data.style.applymap(lambda x: f'background-color: red' if 'not found' in str(x) or 'Duplicate' in str(x) or 'Vetting error' in str(x) else (f'background-color: yellow' if str(x) == 'nan' or 'Vetting warning' in str(x) or 'sum check error' in str(x) else f'background-color: white'))
@@ -250,6 +268,12 @@ def validate(data, models, regions, variables, units, variables_units_combinatio
     # except Exception as e:
     #     st.error(f'The following error occured: {e}. Please load a valid file!', icon="🚨")
 
+
+def count_errors(df, column):
+    index = list(df[column].value_counts().index)
+    index.remove('')
+    errors = df[column].value_counts()[index].values.sum()
+    return errors
 
 def save_file():
 

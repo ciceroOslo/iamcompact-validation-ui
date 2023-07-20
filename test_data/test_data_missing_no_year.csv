@@ -1,0 +1,1630 @@
+﻿Model,Scenario,Region,Variable,Unit
+GCAM4,Baseline,USA,Agricultural Demand,million t DM/yr
+GCAM,Baseline,World,Agricultural Demand,million t DM/yr
+GCAM,Baseline,USA,Agricultural Demand|Crops|Energys,million t DM/yr
+GCAM,Baseline,World,Agricultural Demand|Crops|Energy,million t DM/yr
+GCAM,Baseline,USA,Agricultural Demand|Crops|Feed,million t DM/yr
+GCAM,Baseline,World,Agricultural Demand|Crops|Feed,million t DM/yr
+GCAM,Baseline,USA,Agricultural Demand|Crops|Food,million t DM/yr
+GCAM,Baseline,World,Agricultural Demand|Crops|Food,million t DM/yr
+GCAM,Baseline,USA,Agricultural Demand|Crops|Other,million t DM/yr
+GCAM,Baseline,World,Agricultural Demand|Crops|Other,million t DM/yr
+GCAM,Baseline,USA,Agricultural Demand|Livestock,million t DM/yr
+GCAM,Baseline,World,Agricultural Demand|Livestock,million t DM/yr
+GCAM,Baseline,USA,Agricultural Demand|Livestock|Food,million t DM/yr
+GCAM,Baseline,World,Agricultural Demand|Livestock|Food,million t DM/yr
+GCAM,Baseline,USA,Agricultural Demand|Livestock|Other,million t DM/yr
+GCAM,Baseline,World,Agricultural Demand|Livestock|Other,million t DM/yr
+GCAM,Baseline,USA,Capacity Additions|Electricity|Biomass,GW/yr
+GCAM,Baseline,World,Capacity Additions|Electricity|Biomass,GW/yr
+GCAM,Baseline,USA,Capacity Additions|Electricity|Biomass|w/o CCS,GW/yr
+GCAM,Baseline,World,Capacity Additions|Electricity|Biomass|w/o CCS,GW/yr
+GCAM,Baseline,USA,Capacity Additions|Electricity|Coal,GW/yr
+GCAM,Baseline,World,Capacity Additions|Electricity|Coal,GW/yr
+GCAM,Baseline,USA,Capacity Additions|Electricity|Coal|w/o CCS,GW/yr
+GCAM,Baseline,World,Capacity Additions|Electricity|Coal|w/o CCS,GW/yr
+GCAM,Baseline,USA,Capacity Additions|Electricity|Gas,GW/yr
+GCAM,Baseline,World,Capacity Additions|Electricity|Gas,GW/yr
+GCAM,Baseline,USA,Capacity Additions|Electricity|Gas|w/o CCS,GW/yr
+GCAM,Baseline,World,Capacity Additions|Electricity|Gas|w/o CCS,GW/yr
+GCAM,Baseline,USA,Capacity Additions|Electricity|Geothermal,GW/yr
+GCAM,Baseline,World,Capacity Additions|Electricity|Geothermal,GW/yr
+GCAM,Baseline,USA,Capacity Additions|Electricity|Nuclear,GW/yr
+GCAM,Baseline,World,Capacity Additions|Electricity|Nuclear,GW/yr
+GCAM,Baseline,USA,Capacity Additions|Electricity|Oil,GW/yr
+GCAM,Baseline,World,Capacity Additions|Electricity|Oil,GW/yr
+GCAM,Baseline,USA,Capacity Additions|Electricity|Oil|w/o CCS,GW/yr
+GCAM,Baseline,World,Capacity Additions|Electricity|Oil|w/o CCS,GW/yr
+GCAM,Baseline,USA,Capacity Additions|Electricity|Solar,GW/yr
+GCAM,Baseline,World,Capacity Additions|Electricity|Solar,GW/yr
+GCAM,Baseline,USA,Capacity Additions|Electricity|Solar|CSP,GW/yr
+GCAM,Baseline,World,Capacity Additions|Electricity|Solar|CSP,GW/yr
+GCAM,Baseline,USA,Capacity Additions|Electricity|Solar|PV,GW/yr
+GCAM,Baseline,World,Capacity Additions|Electricity|Solar|PV,GW/yr
+GCAM,Baseline,USA,Capacity Additions|Electricity|Wind,GW/yr
+GCAM,Baseline,World,Capacity Additions|Electricity|Wind,GW/yr
+GCAM,Baseline,USA,Capacity Additions|Electricity|Wind|Offshore,GW/yr
+GCAM,Baseline,World,Capacity Additions|Electricity|Wind|Offshore,GW/yr
+GCAM,Baseline,USA,Capacity Additions|Electricity|Wind|Onshore,GW/yr
+GCAM,Baseline,World,Capacity Additions|Electricity|Wind|Onshore,GW/yr
+GCAM,Baseline,USA,Capacity|Electricity,GW
+GCAM,Baseline,World,Capacity|Electricity,GW
+GCAM,Baseline,USA,Capacity|Electricity|Biomass,GW
+GCAM,Baseline,World,Capacity|Electricity|Biomass,GW
+GCAM,Baseline,USA,Capacity|Electricity|Biomass|w/o CCS,GW
+GCAM,Baseline,World,Capacity|Electricity|Biomass|w/o CCS,GW
+GCAM,Baseline,USA,Capacity|Electricity|Coal,GW
+GCAM,Baseline,World,Capacity|Electricity|Coal,GW
+GCAM,Baseline,USA,Capacity|Electricity|Coal|w/o CCS,GW
+GCAM,Baseline,World,Capacity|Electricity|Coal|w/o CCS,GW
+GCAM,Baseline,USA,Capacity|Electricity|Gas,GW
+GCAM,Baseline,World,Capacity|Electricity|Gas,GW
+GCAM,Baseline,USA,Capacity|Electricity|Gas|w/o CCS,GW
+GCAM,Baseline,World,Capacity|Electricity|Gas|w/o CCS,GW
+GCAM,Baseline,USA,Capacity|Electricity|Geothermal,GW
+GCAM,Baseline,World,Capacity|Electricity|Geothermal,GW
+GCAM,Baseline,USA,Capacity|Electricity|Hydro,GW
+GCAM,Baseline,World,Capacity|Electricity|Hydro,GW
+GCAM,Baseline,USA,Capacity|Electricity|Nuclear,GW
+GCAM,Baseline,World,Capacity|Electricity|Nuclear,GW
+GCAM,Baseline,USA,Capacity|Electricity|Oil,GW
+GCAM,Baseline,World,Capacity|Electricity|Oil,GW
+GCAM,Baseline,USA,Capacity|Electricity|Oil|w/o CCS,GW
+GCAM,Baseline,World,Capacity|Electricity|Oil|w/o CCS,GW
+GCAM,Baseline,USA,Capacity|Electricity|Solar,GW
+GCAM,Baseline,World,Capacity|Electricity|Solar,GW
+GCAM,Baseline,USA,Capacity|Electricity|Solar|CSP,GW
+GCAM,Baseline,World,Capacity|Electricity|Solar|CSP,GW
+GCAM,Baseline,USA,Capacity|Electricity|Solar|PV,GW
+GCAM,Baseline,World,Capacity|Electricity|Solar|PV,GW
+GCAM,Baseline,USA,Capacity|Electricity|Wind,GW
+GCAM,Baseline,World,Capacity|Electricity|Wind,GW
+GCAM,Baseline,USA,Capacity|Electricity|Wind|Offshore,GW
+GCAM,Baseline,World,Capacity|Electricity|Wind|Offshore,GW
+GCAM,Baseline,USA,Capacity|Electricity|Wind|Onshore,GW
+GCAM,Baseline,World,Capacity|Electricity|Wind|Onshore,GW
+GCAM,Baseline,World,Concentration|CO2,ppm
+GCAM,Baseline,USA,Emissions|C2F6,kt C2F6/yr
+GCAM,Baseline,World,Emissions|C2F6,kt C2F6/yr
+GCAM,Baseline,USA,Emissions|CH4,Mt CH4/yr
+GCAM,Baseline,World,Emissions|CH4,Mt CH4/yr
+GCAM,Baseline,USA,Emissions|CH4|AFOLU,Mt CH4/yr
+GCAM,Baseline,World,Emissions|CH4|AFOLU,Mt CH4/yr
+GCAM,Baseline,USA,Emissions|CH4|Energy,Mt CH4/yr
+GCAM,Baseline,World,Emissions|CH4|Energy,Mt CH4/yr
+GCAM,Baseline,USA,Emissions|CO,Mt CO/yr
+GCAM,Baseline,World,Emissions|CO,Mt CO/yr
+GCAM,Baseline,USA,Emissions|CO2,Mt CO2/yr
+GCAM,Baseline,World,Emissions|CO2,Mt CO2/yr
+GCAM,Baseline,USA,Emissions|CO2|AFOLU,Mt CO2/yr
+GCAM,Baseline,World,Emissions|CO2|AFOLU,Mt CO2/yr
+GCAM,Baseline,USA,Emissions|CO2|Energy,Mt CO2/yr
+GCAM,Baseline,World,Emissions|CO2|Energy,Mt CO2/yr
+GCAM,Baseline,USA,Emissions|CO2|Energy and Industrial Processes,Mt CO2/yr
+GCAM,Baseline,World,Emissions|CO2|Energy and Industrial Processes,Mt CO2/yr
+GCAM,Baseline,USA,Emissions|CO2|Energy|Demand,Mt CO2/yr
+GCAM,Baseline,World,Emissions|CO2|Energy|Demand,Mt CO2/yr
+GCAM,Baseline,USA,Emissions|CO2|Energy|Demand|Industry,Mt CO2/yr
+GCAM,Baseline,World,Emissions|CO2|Energy|Demand|Industry,Mt CO2/yr
+GCAM,Baseline,USA,Emissions|CO2|Energy|Demand|Residential and Commercial,Mt CO2/yr
+GCAM,Baseline,World,Emissions|CO2|Energy|Demand|Residential and Commercial,Mt CO2/yr
+GCAM,Baseline,USA,Emissions|CO2|Energy|Demand|Residential and Commercial|Commercial,Mt CO2/yr
+GCAM,Baseline,World,Emissions|CO2|Energy|Demand|Residential and Commercial|Commercial,Mt CO2/yr
+GCAM,Baseline,USA,Emissions|CO2|Energy|Demand|Residential and Commercial|Residential,Mt CO2/yr
+GCAM,Baseline,World,Emissions|CO2|Energy|Demand|Residential and Commercial|Residential,Mt CO2/yr
+GCAM,Baseline,USA,Emissions|CO2|Energy|Demand|Transportation,Mt CO2/yr
+GCAM,Baseline,World,Emissions|CO2|Energy|Demand|Transportation,Mt CO2/yr
+GCAM,Baseline,USA,Emissions|CO2|Energy|Demand|Transportation|Aviation|International,Mt CO2/yr
+GCAM,Baseline,World,Emissions|CO2|Energy|Demand|Transportation|Aviation|International,Mt CO2/yr
+GCAM,Baseline,USA,Emissions|CO2|Energy|Demand|Transportation|Maritime|International,Mt CO2/yr
+GCAM,Baseline,World,Emissions|CO2|Energy|Demand|Transportation|Maritime|International,Mt CO2/yr
+GCAM,Baseline,USA,Emissions|CO2|Energy|Supply,Mt CO2/yr
+GCAM,Baseline,World,Emissions|CO2|Energy|Supply,Mt CO2/yr
+GCAM,Baseline,USA,Emissions|CO2|Energy|Supply|Electricity,Mt CO2/yr
+GCAM,Baseline,World,Emissions|CO2|Energy|Supply|Electricity,Mt CO2/yr
+GCAM,Baseline,USA,Emissions|CO2|Energy|Supply|Gases,Mt CO2/yr
+GCAM,Baseline,World,Emissions|CO2|Energy|Supply|Gases,Mt CO2/yr
+GCAM,Baseline,World,Emissions|CO2|Energy|Supply|Heat,Mt CO2/yr
+GCAM,Baseline,USA,Emissions|CO2|Energy|Supply|Liquids,Mt CO2/yr
+GCAM,Baseline,World,Emissions|CO2|Energy|Supply|Liquids,Mt CO2/yr
+GCAM,Baseline,USA,Emissions|CO2|Energy|Supply|Other Sector,Mt CO2/yr
+GCAM,Baseline,World,Emissions|CO2|Energy|Supply|Other Sector,Mt CO2/yr
+GCAM,Baseline,USA,Emissions|CO2|Energy|Supply|Solids,Mt CO2/yr
+GCAM,Baseline,World,Emissions|CO2|Energy|Supply|Solids,Mt CO2/yr
+GCAM,Baseline,USA,Emissions|CO2|Industrial Processes,Mt CO2/yr
+GCAM,Baseline,World,Emissions|CO2|Industrial Processes,Mt CO2/yr
+GCAM,Baseline,USA,Emissions|F-Gases,Mt CO2-equiv/yr
+GCAM,Baseline,World,Emissions|F-Gases,Mt CO2-equiv/yr
+GCAM,Baseline,USA,Emissions|HFC,kt HFC134a-equiv/yr
+GCAM,Baseline,World,Emissions|HFC,kt HFC134a-equiv/yr
+GCAM,Baseline,USA,Emissions|HFC|HFC125,kt HFC125/yr
+GCAM,Baseline,World,Emissions|HFC|HFC125,kt HFC125/yr
+GCAM,Baseline,USA,Emissions|HFC|HFC134a,kt HFC134a/yr
+GCAM,Baseline,World,Emissions|HFC|HFC134a,kt HFC134a/yr
+GCAM,Baseline,USA,Emissions|HFC|HFC143a,kt HFC143a/yr
+GCAM,Baseline,World,Emissions|HFC|HFC143a,kt HFC143a/yr
+GCAM,Baseline,USA,Emissions|HFC|HFC227ea,kt HFC227ea/yr
+GCAM,Baseline,World,Emissions|HFC|HFC227ea,kt HFC227ea/yr
+GCAM,Baseline,USA,Emissions|HFC|HFC23,kt HFC23/yr
+GCAM,Baseline,World,Emissions|HFC|HFC23,kt HFC23/yr
+GCAM,Baseline,USA,Emissions|HFC|HFC245fa,kt HFC245fa/yr
+GCAM,Baseline,World,Emissions|HFC|HFC245fa,kt HFC245fa/yr
+GCAM,Baseline,USA,Emissions|HFC|HFC32,kt HFC32/yr
+GCAM,Baseline,World,Emissions|HFC|HFC32,kt HFC32/yr
+GCAM,Baseline,World,Emissions|HFC|HFC43-10,kt HFC43-10/yr
+GCAM,Baseline,USA,Emissions|Kyoto Gases,Mt CO2-equiv/yr
+GCAM,Baseline,World,Emissions|Kyoto Gases,Mt CO2-equiv/yr
+GCAM,Baseline,USA,Emissions|N2O,kt N2O/yr
+GCAM,Baseline,World,Emissions|N2O,kt N2O/yr
+GCAM,Baseline,USA,Emissions|N2O|AFOLU,kt N2O/yr
+GCAM,Baseline,World,Emissions|N2O|AFOLU,kt N2O/yr
+GCAM,Baseline,USA,Emissions|N2O|Energy,kt N2O/yr
+GCAM,Baseline,World,Emissions|N2O|Energy,kt N2O/yr
+GCAM,Baseline,USA,Emissions|NH3,Mt NH3/yr
+GCAM,Baseline,World,Emissions|NH3,Mt NH3/yr
+GCAM,Baseline,USA,Emissions|NOx,Mt NO2/yr
+GCAM,Baseline,World,Emissions|NOx,Mt NO2/yr
+GCAM,Baseline,USA,Emissions|OC,Mt OC/yr
+GCAM,Baseline,World,Emissions|OC,Mt OC/yr
+GCAM,Baseline,USA,Emissions|PFC,kt CF4-equiv/yr
+GCAM,Baseline,World,Emissions|PFC,kt CF4-equiv/yr
+GCAM,Baseline,USA,Emissions|SF6,kt SF6/yr
+GCAM,Baseline,World,Emissions|SF6,kt SF6/yr
+GCAM,Baseline,USA,Emissions|Sulfur,Mt SO2/yr
+GCAM,Baseline,World,Emissions|Sulfur,Mt SO2/yr
+GCAM,Baseline,USA,Emissions|VOC,Mt VOC/yr
+GCAM,Baseline,World,Emissions|VOC,Mt VOC/yr
+GCAM,Baseline,USA,Energy Service|Transportation|Freight,bn tkm/yr
+GCAM,Baseline,World,Energy Service|Transportation|Freight,bn tkm/yr
+GCAM,Baseline,USA,Energy Service|Transportation|Passenger,bn pkm/yr
+GCAM,Baseline,World,Energy Service|Transportation|Passenger,bn pkm/yr
+GCAM,Baseline,USA,Final Energy,EJ/yr
+GCAM,Baseline,World,Final Energy,EJ/yr
+GCAM,Baseline,USA,Final Energy|Electricity,EJ/yr
+GCAM,Baseline,World,Final Energy|Electricity,EJ/yr
+GCAM,Baseline,USA,Final Energy|Gases,EJ/yr
+GCAM,Baseline,World,Final Energy|Gases,EJ/yr
+GCAM,Baseline,World,Final Energy|Heat,EJ/yr
+GCAM,Baseline,USA,Final Energy|Hydrogen,EJ/yr
+GCAM,Baseline,World,Final Energy|Hydrogen,EJ/yr
+GCAM,Baseline,USA,Final Energy|Industry,EJ/yr
+GCAM,Baseline,World,Final Energy|Industry,EJ/yr
+GCAM,Baseline,USA,Final Energy|Industry|Electricity,EJ/yr
+GCAM,Baseline,World,Final Energy|Industry|Electricity,EJ/yr
+GCAM,Baseline,USA,Final Energy|Industry|Gases,EJ/yr
+GCAM,Baseline,World,Final Energy|Industry|Gases,EJ/yr
+GCAM,Baseline,World,Final Energy|Industry|Heat,EJ/yr
+GCAM,Baseline,USA,Final Energy|Industry|Hydrogen,EJ/yr
+GCAM,Baseline,World,Final Energy|Industry|Hydrogen,EJ/yr
+GCAM,Baseline,USA,Final Energy|Industry|Liquids,EJ/yr
+GCAM,Baseline,World,Final Energy|Industry|Liquids,EJ/yr
+GCAM,Baseline,USA,Final Energy|Industry|Solids,EJ/yr
+GCAM,Baseline,World,Final Energy|Industry|Solids,EJ/yr
+GCAM,Baseline,USA,Final Energy|Industry|Solids|Biomass,EJ/yr
+GCAM,Baseline,World,Final Energy|Industry|Solids|Biomass,EJ/yr
+GCAM,Baseline,USA,Final Energy|Industry|Solids|Coal,EJ/yr
+GCAM,Baseline,World,Final Energy|Industry|Solids|Coal,EJ/yr
+GCAM,Baseline,USA,Final Energy|Liquids,EJ/yr
+GCAM,Baseline,World,Final Energy|Liquids,EJ/yr
+GCAM,Baseline,USA,Final Energy|Non-Energy Use,EJ/yr
+GCAM,Baseline,World,Final Energy|Non-Energy Use,EJ/yr
+GCAM,Baseline,USA,Final Energy|Residential and Commercial,EJ/yr
+GCAM,Baseline,World,Final Energy|Residential and Commercial,EJ/yr
+GCAM,Baseline,USA,Final Energy|Residential and Commercial|Electricity,EJ/yr
+GCAM,Baseline,World,Final Energy|Residential and Commercial|Electricity,EJ/yr
+GCAM,Baseline,USA,Final Energy|Residential and Commercial|Gases,EJ/yr
+GCAM,Baseline,World,Final Energy|Residential and Commercial|Gases,EJ/yr
+GCAM,Baseline,World,Final Energy|Residential and Commercial|Heat,EJ/yr
+GCAM,Baseline,USA,Final Energy|Residential and Commercial|Liquids,EJ/yr
+GCAM,Baseline,World,Final Energy|Residential and Commercial|Liquids,EJ/yr
+GCAM,Baseline,USA,Final Energy|Residential and Commercial|Solids,EJ/yr
+GCAM,Baseline,World,Final Energy|Residential and Commercial|Solids,EJ/yr
+GCAM,Baseline,USA,Final Energy|Residential and Commercial|Solids|Biomass,EJ/yr
+GCAM,Baseline,World,Final Energy|Residential and Commercial|Solids|Biomass,EJ/yr
+GCAM,Baseline,USA,Final Energy|Residential and Commercial|Solids|Coal,EJ/yr
+GCAM,Baseline,World,Final Energy|Residential and Commercial|Solids|Coal,EJ/yr
+GCAM,Baseline,USA,Final Energy|Solids,EJ/yr
+GCAM,Baseline,World,Final Energy|Solids,EJ/yr
+GCAM,Baseline,USA,Final Energy|Solids|Biomass,EJ/yr
+GCAM,Baseline,World,Final Energy|Solids|Biomass,EJ/yr
+GCAM,Baseline,World,Final Energy|Solids|Biomass|Traditional,EJ/yr
+GCAM,Baseline,USA,Final Energy|Solids|Coal,EJ/yr
+GCAM,Baseline,World,Final Energy|Solids|Coal,EJ/yr
+GCAM,Baseline,USA,Final Energy|Transportation,EJ/yr
+GCAM,Baseline,World,Final Energy|Transportation,EJ/yr
+GCAM,Baseline,USA,Final Energy|Transportation|Electricity,EJ/yr
+GCAM,Baseline,World,Final Energy|Transportation|Electricity,EJ/yr
+GCAM,Baseline,USA,Final Energy|Transportation|Freight,EJ/yr
+GCAM,Baseline,World,Final Energy|Transportation|Freight,EJ/yr
+GCAM,Baseline,USA,Final Energy|Transportation|Gases,EJ/yr
+GCAM,Baseline,World,Final Energy|Transportation|Gases,EJ/yr
+GCAM,Baseline,USA,Final Energy|Transportation|Hydrogen,EJ/yr
+GCAM,Baseline,World,Final Energy|Transportation|Hydrogen,EJ/yr
+GCAM,Baseline,USA,Final Energy|Transportation|Liquids,EJ/yr
+GCAM,Baseline,World,Final Energy|Transportation|Liquids,EJ/yr
+GCAM,Baseline,USA,Final Energy|Transportation|Liquids|Biomass,EJ/yr
+GCAM,Baseline,World,Final Energy|Transportation|Liquids|Biomass,EJ/yr
+GCAM,Baseline,USA,Final Energy|Transportation|Passenger,EJ/yr
+GCAM,Baseline,World,Final Energy|Transportation|Passenger,EJ/yr
+GCAM,Baseline,World,Forcing,W/m2
+GCAM,Baseline,USA,GDP|MER,billion US$2010/yr OR local currency
+GCAM,Baseline,World,GDP|MER,billion US$2010/yr OR local currency
+GCAM,Baseline,USA,GDP|PPP,billion US$2010/yr OR local currency
+GCAM,Baseline,World,GDP|PPP,billion US$2010/yr OR local currency
+GCAM,Baseline,USA,Investment|Energy Supply|Electricity,billion US$2010/yr or local currency/yr
+GCAM,Baseline,World,Investment|Energy Supply|Electricity,billion US$2010/yr or local currency/yr
+GCAM,Baseline,USA,Investment|Energy Supply|Electricity|Biomass,billion US$2010/yr OR local currency
+GCAM,Baseline,World,Investment|Energy Supply|Electricity|Biomass,billion US$2010/yr OR local currency
+GCAM,Baseline,USA,Investment|Energy Supply|Electricity|Biomass|w/o CCS,billion US$2010/yr OR local currency
+GCAM,Baseline,World,Investment|Energy Supply|Electricity|Biomass|w/o CCS,billion US$2010/yr OR local currency
+GCAM,Baseline,USA,Investment|Energy Supply|Electricity|Coal,billion US$2010/yr OR local currency
+GCAM,Baseline,World,Investment|Energy Supply|Electricity|Coal,billion US$2010/yr OR local currency
+GCAM,Baseline,USA,Investment|Energy Supply|Electricity|Coal|w/o CCS,billion US$2010/yr OR local currency
+GCAM,Baseline,World,Investment|Energy Supply|Electricity|Coal|w/o CCS,billion US$2010/yr OR local currency
+GCAM,Baseline,USA,Investment|Energy Supply|Electricity|Fossil,billion US$2010/yr OR local currency
+GCAM,Baseline,World,Investment|Energy Supply|Electricity|Fossil,billion US$2010/yr OR local currency
+GCAM,Baseline,USA,Investment|Energy Supply|Electricity|Gas,billion US$2010/yr OR local currency
+GCAM,Baseline,World,Investment|Energy Supply|Electricity|Gas,billion US$2010/yr OR local currency
+GCAM,Baseline,USA,Investment|Energy Supply|Electricity|Gas|w/o CCS,billion US$2010/yr OR local currency
+GCAM,Baseline,World,Investment|Energy Supply|Electricity|Gas|w/o CCS,billion US$2010/yr OR local currency
+GCAM,Baseline,USA,Investment|Energy Supply|Electricity|Geothermal,billion US$2010/yr OR local currency
+GCAM,Baseline,World,Investment|Energy Supply|Electricity|Geothermal,billion US$2010/yr OR local currency
+GCAM,Baseline,USA,Investment|Energy Supply|Electricity|Hydro,billion US$2010/yr OR local currency
+GCAM,Baseline,World,Investment|Energy Supply|Electricity|Hydro,billion US$2010/yr OR local currency
+GCAM,Baseline,USA,Investment|Energy Supply|Electricity|Non-Biomass Renewables,billion US$2010/yr OR local currency
+GCAM,Baseline,World,Investment|Energy Supply|Electricity|Non-Biomass Renewables,billion US$2010/yr OR local currency
+GCAM,Baseline,USA,Investment|Energy Supply|Electricity|Nuclear,billion US$2010/yr OR local currency
+GCAM,Baseline,World,Investment|Energy Supply|Electricity|Nuclear,billion US$2010/yr OR local currency
+GCAM,Baseline,USA,Investment|Energy Supply|Electricity|Oil,billion US$2010/yr OR local currency
+GCAM,Baseline,World,Investment|Energy Supply|Electricity|Oil,billion US$2010/yr OR local currency
+GCAM,Baseline,USA,Investment|Energy Supply|Electricity|Oil|w/o CCS,billion US$2010/yr OR local currency
+GCAM,Baseline,World,Investment|Energy Supply|Electricity|Oil|w/o CCS,billion US$2010/yr OR local currency
+GCAM,Baseline,USA,Investment|Energy Supply|Electricity|Solar,billion US$2010/yr OR local currency
+GCAM,Baseline,World,Investment|Energy Supply|Electricity|Solar,billion US$2010/yr OR local currency
+GCAM,Baseline,USA,Investment|Energy Supply|Electricity|Wind,billion US$2010/yr OR local currency
+GCAM,Baseline,World,Investment|Energy Supply|Electricity|Wind,billion US$2010/yr OR local currency
+GCAM,Baseline,USA,Land Cover|Built-up Area,million ha
+GCAM,Baseline,World,Land Cover|Built-up Area,million ha
+GCAM,Baseline,USA,Land Cover|Cropland,million ha
+GCAM,Baseline,World,Land Cover|Cropland,million ha
+GCAM,Baseline,USA,Land Cover|Forest,million ha
+GCAM,Baseline,World,Land Cover|Forest,million ha
+GCAM,Baseline,USA,Land Cover|Pasture,million ha
+GCAM,Baseline,World,Land Cover|Pasture,million ha
+GCAM,Baseline,USA,Population,million
+GCAM,Baseline,World,Population,million
+GCAM,Baseline,USA,Price|Agriculture|Corn|Index,Index (2010 = 1)
+GCAM,Baseline,World,Price|Agriculture|Corn|Index,Index (2010 = 1)
+GCAM,Baseline,USA,Price|Agriculture|Rice|Index,Index (2010 = 1)
+GCAM,Baseline,World,Price|Agriculture|Rice|Index,Index (2010 = 1)
+GCAM,Baseline,USA,Price|Agriculture|Soybean|Index,Index (2010 = 1)
+GCAM,Baseline,World,Price|Agriculture|Soybean|Index,Index (2010 = 1)
+GCAM,Baseline,USA,Price|Agriculture|Wheat|Index,Index (2010 = 1)
+GCAM,Baseline,World,Price|Agriculture|Wheat|Index,Index (2010 = 1)
+GCAM,Baseline,USA,Price|Final Energy|Residential and Commercial|Residential|Electricity,US$2010/GJ or local currency/GJ
+GCAM,Baseline,World,Price|Final Energy|Residential and Commercial|Residential|Electricity,US$2010/GJ or local currency/GJ
+GCAM,Baseline,USA,Price|Final Energy|Residential and Commercial|Residential|Gases|Natural Gas,US$2010/GJ or local currency/GJ
+GCAM,Baseline,World,Price|Final Energy|Residential and Commercial|Residential|Gases|Natural Gas,US$2010/GJ or local currency/GJ
+GCAM,Baseline,USA,Price|Final Energy|Residential and Commercial|Residential|Liquids,US$2010/GJ or local currency/GJ
+GCAM,Baseline,World,Price|Final Energy|Residential and Commercial|Residential|Liquids,US$2010/GJ or local currency/GJ
+GCAM,Baseline,USA,Price|Final Energy|Residential and Commercial|Residential|Solids|Biomass,US$2010/GJ or local currency/GJ
+GCAM,Baseline,World,Price|Final Energy|Residential and Commercial|Residential|Solids|Biomass,US$2010/GJ or local currency/GJ
+GCAM,Baseline,USA,Price|Final Energy|Residential and Commercial|Residential|Solids|Coal,US$2010/GJ or local currency/GJ
+GCAM,Baseline,World,Price|Final Energy|Residential and Commercial|Residential|Solids|Coal,US$2010/GJ or local currency/GJ
+GCAM,Baseline,USA,Price|Final Energy|Transportation|Electricity,US$2010/GJ or local currency/GJ
+GCAM,Baseline,World,Price|Final Energy|Transportation|Electricity,US$2010/GJ or local currency/GJ
+GCAM,Baseline,USA,Price|Final Energy|Transportation|Gases,US$2010/GJ or local currency/GJ
+GCAM,Baseline,World,Price|Final Energy|Transportation|Gases,US$2010/GJ or local currency/GJ
+GCAM,Baseline,USA,Price|Final Energy|Transportation|Hydrogen,US$2010/GJ or local currency/GJ
+GCAM,Baseline,World,Price|Final Energy|Transportation|Hydrogen,US$2010/GJ or local currency/GJ
+GCAM,Baseline,USA,Price|Final Energy|Transportation|Liquids,US$2010/GJ or local currency/GJ
+GCAM,Baseline,World,Price|Final Energy|Transportation|Liquids,US$2010/GJ or local currency/GJ
+GCAM,Baseline,USA,Price|Primary Energy|Biomass,US$2010/GJ or local currency/GJ
+GCAM,Baseline,World,Price|Primary Energy|Biomass,US$2010/GJ or local currency/GJ
+GCAM,Baseline,USA,Price|Primary Energy|Coal,US$2010/GJ or local currency/GJ
+GCAM,Baseline,World,Price|Primary Energy|Coal,US$2010/GJ or local currency/GJ
+GCAM,Baseline,USA,Price|Primary Energy|Gas,US$2010/GJ or local currency/GJ
+GCAM,Baseline,World,Price|Primary Energy|Gas,US$2010/GJ or local currency/GJ
+GCAM,Baseline,USA,Price|Primary Energy|Oil,US$2010/GJ or local currency/GJ
+GCAM,Baseline,World,Price|Primary Energy|Oil,US$2010/GJ or local currency/GJ
+GCAM,Baseline,USA,Price|Secondary Energy|Electricity,US$2010/GJ or local currency/GJ
+GCAM,Baseline,World,Price|Secondary Energy|Electricity,US$2010/GJ or local currency/GJ
+GCAM,Baseline,USA,Price|Secondary Energy|Gases|Natural Gas,US$2010/GJ or local currency/GJ
+GCAM,Baseline,World,Price|Secondary Energy|Gases|Natural Gas,US$2010/GJ or local currency/GJ
+GCAM,Baseline,USA,Price|Secondary Energy|Hydrogen,US$2010/GJ or local currency/GJ
+GCAM,Baseline,World,Price|Secondary Energy|Hydrogen,US$2010/GJ or local currency/GJ
+GCAM,Baseline,USA,Price|Secondary Energy|Liquids,US$2010/GJ or local currency/GJ
+GCAM,Baseline,World,Price|Secondary Energy|Liquids,US$2010/GJ or local currency/GJ
+GCAM,Baseline,USA,Price|Secondary Energy|Liquids|Biomass,US$2010/GJ or local currency/GJ
+GCAM,Baseline,World,Price|Secondary Energy|Liquids|Biomass,US$2010/GJ or local currency/GJ
+GCAM,Baseline,USA,Price|Secondary Energy|Liquids|Oil,US$2010/GJ or local currency/GJ
+GCAM,Baseline,World,Price|Secondary Energy|Liquids|Oil,US$2010/GJ or local currency/GJ
+GCAM,Baseline,USA,Price|Secondary Energy|Solids|Biomass,US$2010/GJ or local currency/GJ
+GCAM,Baseline,World,Price|Secondary Energy|Solids|Biomass,US$2010/GJ or local currency/GJ
+GCAM,Baseline,USA,Price|Secondary Energy|Solids|Coal,US$2010/GJ or local currency/GJ
+GCAM,Baseline,World,Price|Secondary Energy|Solids|Coal,US$2010/GJ or local currency/GJ
+GCAM,Baseline,USA,Primary Energy,EJ/yr
+GCAM,Baseline,World,Primary Energy,EJ/yr
+GCAM,Baseline,USA,Primary Energy|Biomass,EJ/yr
+GCAM,Baseline,World,Primary Energy|Biomass,EJ/yr
+GCAM,Baseline,USA,Primary Energy|Biomass|Modern,EJ/yr
+GCAM,Baseline,World,Primary Energy|Biomass|Modern,EJ/yr
+GCAM,Baseline,USA,Primary Energy|Biomass|Modern|w/o CCS,EJ/yr
+GCAM,Baseline,World,Primary Energy|Biomass|Modern|w/o CCS,EJ/yr
+GCAM,Baseline,World,Primary Energy|Biomass|Traditional,EJ/yr
+GCAM,Baseline,USA,Primary Energy|Coal,EJ/yr
+GCAM,Baseline,World,Primary Energy|Coal,EJ/yr
+GCAM,Baseline,USA,Primary Energy|Coal|w/o CCS,EJ/yr
+GCAM,Baseline,World,Primary Energy|Coal|w/o CCS,EJ/yr
+GCAM,Baseline,USA,Primary Energy|Gas,EJ/yr
+GCAM,Baseline,World,Primary Energy|Gas,EJ/yr
+GCAM,Baseline,USA,Primary Energy|Gas|w/o CCS,EJ/yr
+GCAM,Baseline,World,Primary Energy|Gas|w/o CCS,EJ/yr
+GCAM,Baseline,USA,Primary Energy|Geothermal,EJ/yr
+GCAM,Baseline,World,Primary Energy|Geothermal,EJ/yr
+GCAM,Baseline,USA,Primary Energy|Hydro,EJ/yr
+GCAM,Baseline,World,Primary Energy|Hydro,EJ/yr
+GCAM,Baseline,USA,Primary Energy|Nuclear,EJ/yr
+GCAM,Baseline,World,Primary Energy|Nuclear,EJ/yr
+GCAM,Baseline,USA,Primary Energy|Oil,EJ/yr
+GCAM,Baseline,World,Primary Energy|Oil,EJ/yr
+GCAM,Baseline,USA,Primary Energy|Oil|w/o CCS,EJ/yr
+GCAM,Baseline,World,Primary Energy|Oil|w/o CCS,EJ/yr
+GCAM,Baseline,USA,Primary Energy|Solar,EJ/yr
+GCAM,Baseline,World,Primary Energy|Solar,EJ/yr
+GCAM,Baseline,USA,Primary Energy|Wind,EJ/yr
+GCAM,Baseline,World,Primary Energy|Wind,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Electricity,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Electricity,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Electricity|Biomass,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Electricity|Biomass,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Electricity|Biomass|w/o CCS,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Electricity|Biomass|w/o CCS,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Electricity|Coal,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Electricity|Coal,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Electricity|Coal|w/o CCS,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Electricity|Coal|w/o CCS,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Electricity|Gas,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Electricity|Gas,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Electricity|Gas|w/o CCS,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Electricity|Gas|w/o CCS,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Electricity|Geothermal,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Electricity|Geothermal,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Electricity|Hydro,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Electricity|Hydro,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Electricity|Non-Biomass Renewables,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Electricity|Non-Biomass Renewables,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Electricity|Nuclear,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Electricity|Nuclear,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Electricity|Oil,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Electricity|Oil,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Electricity|Oil|w/o CCS,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Electricity|Oil|w/o CCS,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Electricity|Solar,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Electricity|Solar,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Electricity|Solar|CSP,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Electricity|Solar|CSP,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Electricity|Solar|PV,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Electricity|Solar|PV,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Electricity|Wind,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Electricity|Wind,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Electricity|Wind|Offshore,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Electricity|Wind|Offshore,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Electricity|Wind|Onshore,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Electricity|Wind|Onshore,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Gases,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Gases,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Gases|Biomass,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Gases|Biomass,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Gases|Coal,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Gases|Coal,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Gases|Natural Gas,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Gases|Natural Gas,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Hydrogen,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Hydrogen,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Hydrogen|Biomass,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Hydrogen|Biomass,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Hydrogen|Biomass|w/o CCS,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Hydrogen|Biomass|w/o CCS,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Hydrogen|Electricity,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Hydrogen|Electricity,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Hydrogen|Fossil,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Hydrogen|Fossil,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Hydrogen|Fossil|w/o CCS,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Hydrogen|Fossil|w/o CCS,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Liquids,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Liquids,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Liquids|Biomass,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Liquids|Biomass,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Liquids|Biomass|w/o CCS,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Liquids|Biomass|w/o CCS,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Liquids|Coal,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Liquids|Coal,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Liquids|Coal|w/o CCS,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Liquids|Coal|w/o CCS,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Liquids|Gas,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Liquids|Gas,EJ/yr
+GCAM,Baseline,USA,Secondary Energy|Liquids|Oil,EJ/yr
+GCAM,Baseline,World,Secondary Energy|Liquids|Oil,EJ/yr
+GCAM,Baseline,World,Temperature|Global Mean,°C
+GCAM,Baseline,USA,Trade|Primary Energy|Coal|Volume,EJ/yr
+GCAM,Baseline,World,Trade|Primary Energy|Coal|Volume,EJ/yr
+GCAM,Baseline,USA,Trade|Primary Energy|Gas|Volume,EJ/yr
+GCAM,Baseline,World,Trade|Primary Energy|Gas|Volume,EJ/yr
+GCAM,Baseline,USA,Trade|Primary Energy|Oil|Volume,EJ/yr
+GCAM,Baseline,World,Trade|Primary Energy|Oil|Volume,EJ/yr
+GCAM,CP_EI,USA,Agricultural Demand,million t DM/yr
+GCAM,CP_EI,World,Agricultural Demand,million t DM/yr
+GCAM,CP_EI,USA,Agricultural Demand|Crops|Energy,million t DM/yr
+GCAM,CP_EI,World,Agricultural Demand|Crops|Energy,million t DM/yr
+GCAM,CP_EI,USA,Agricultural Demand|Crops|Feed,million t DM/yr
+GCAM,CP_EI,World,Agricultural Demand|Crops|Feed,million t DM/yr
+GCAM,CP_EI,USA,Agricultural Demand|Crops|Food,million t DM/yr
+GCAM,CP_EI,World,Agricultural Demand|Crops|Food,million t DM/yr
+GCAM,CP_EI,USA,Agricultural Demand|Crops|Other,million t DM/yr
+GCAM,CP_EI,World,Agricultural Demand|Crops|Other,million t DM/yr
+GCAM,CP_EI,USA,Agricultural Demand|Livestock,million t DM/yr
+GCAM,CP_EI,World,Agricultural Demand|Livestock,million t DM/yr
+GCAM,CP_EI,USA,Agricultural Demand|Livestock|Food,million t DM/yr
+GCAM,CP_EI,World,Agricultural Demand|Livestock|Food,million t DM/yr
+GCAM,CP_EI,USA,Agricultural Demand|Livestock|Other,million t DM/yr
+GCAM,CP_EI,World,Agricultural Demand|Livestock|Other,million t DM/yr
+GCAM,CP_EI,USA,Capacity Additions|Electricity|Biomass,GW/yr
+GCAM,CP_EI,World,Capacity Additions|Electricity|Biomass,GW/yr
+GCAM,CP_EI,USA,Capacity Additions|Electricity|Biomass|w/ CCS,GW/yr
+GCAM,CP_EI,World,Capacity Additions|Electricity|Biomass|w/ CCS,GW/yr
+GCAM,CP_EI,USA,Capacity Additions|Electricity|Biomass|w/o CCS,GW/yr
+GCAM,CP_EI,World,Capacity Additions|Electricity|Biomass|w/o CCS,GW/yr
+GCAM,CP_EI,USA,Capacity Additions|Electricity|Coal,GW/yr
+GCAM,CP_EI,World,Capacity Additions|Electricity|Coal,GW/yr
+GCAM,CP_EI,USA,Capacity Additions|Electricity|Coal|w/ CCS,GW/yr
+GCAM,CP_EI,World,Capacity Additions|Electricity|Coal|w/ CCS,GW/yr
+GCAM,CP_EI,USA,Capacity Additions|Electricity|Coal|w/o CCS,GW/yr
+GCAM,CP_EI,World,Capacity Additions|Electricity|Coal|w/o CCS,GW/yr
+GCAM,CP_EI,USA,Capacity Additions|Electricity|Gas,GW/yr
+GCAM,CP_EI,World,Capacity Additions|Electricity|Gas,GW/yr
+GCAM,CP_EI,USA,Capacity Additions|Electricity|Gas|w/ CCS,GW/yr
+GCAM,CP_EI,World,Capacity Additions|Electricity|Gas|w/ CCS,GW/yr
+GCAM,CP_EI,USA,Capacity Additions|Electricity|Gas|w/o CCS,GW/yr
+GCAM,CP_EI,World,Capacity Additions|Electricity|Gas|w/o CCS,GW/yr
+GCAM,CP_EI,USA,Capacity Additions|Electricity|Geothermal,GW/yr
+GCAM,CP_EI,World,Capacity Additions|Electricity|Geothermal,GW/yr
+GCAM,CP_EI,USA,Capacity Additions|Electricity|Nuclear,GW/yr
+GCAM,CP_EI,World,Capacity Additions|Electricity|Nuclear,GW/yr
+GCAM,CP_EI,USA,Capacity Additions|Electricity|Oil,GW/yr
+GCAM,CP_EI,World,Capacity Additions|Electricity|Oil,GW/yr
+GCAM,CP_EI,USA,Capacity Additions|Electricity|Oil|w/ CCS,GW/yr
+GCAM,CP_EI,World,Capacity Additions|Electricity|Oil|w/ CCS,GW/yr
+GCAM,CP_EI,USA,Capacity Additions|Electricity|Oil|w/o CCS,GW/yr
+GCAM,CP_EI,World,Capacity Additions|Electricity|Oil|w/o CCS,GW/yr
+GCAM,CP_EI,USA,Capacity Additions|Electricity|Solar,GW/yr
+GCAM,CP_EI,World,Capacity Additions|Electricity|Solar,GW/yr
+GCAM,CP_EI,USA,Capacity Additions|Electricity|Solar|CSP,GW/yr
+GCAM,CP_EI,World,Capacity Additions|Electricity|Solar|CSP,GW/yr
+GCAM,CP_EI,USA,Capacity Additions|Electricity|Solar|PV,GW/yr
+GCAM,CP_EI,World,Capacity Additions|Electricity|Solar|PV,GW/yr
+GCAM,CP_EI,USA,Capacity Additions|Electricity|Wind,GW/yr
+GCAM,CP_EI,World,Capacity Additions|Electricity|Wind,GW/yr
+GCAM,CP_EI,USA,Capacity Additions|Electricity|Wind|Offshore,GW/yr
+GCAM,CP_EI,World,Capacity Additions|Electricity|Wind|Offshore,GW/yr
+GCAM,CP_EI,USA,Capacity Additions|Electricity|Wind|Onshore,GW/yr
+GCAM,CP_EI,World,Capacity Additions|Electricity|Wind|Onshore,GW/yr
+GCAM,CP_EI,USA,Capacity|Electricity,GW
+GCAM,CP_EI,World,Capacity|Electricity,GW
+GCAM,CP_EI,USA,Capacity|Electricity|Biomass,GW
+GCAM,CP_EI,World,Capacity|Electricity|Biomass,GW
+GCAM,CP_EI,USA,Capacity|Electricity|Biomass|w/ CCS,GW
+GCAM,CP_EI,World,Capacity|Electricity|Biomass|w/ CCS,GW
+GCAM,CP_EI,USA,Capacity|Electricity|Biomass|w/o CCS,GW
+GCAM,CP_EI,World,Capacity|Electricity|Biomass|w/o CCS,GW
+GCAM,CP_EI,USA,Capacity|Electricity|Coal,GW
+GCAM,CP_EI,World,Capacity|Electricity|Coal,GW
+GCAM,CP_EI,USA,Capacity|Electricity|Coal|w/ CCS,GW
+GCAM,CP_EI,World,Capacity|Electricity|Coal|w/ CCS,GW
+GCAM,CP_EI,USA,Capacity|Electricity|Coal|w/o CCS,GW
+GCAM,CP_EI,World,Capacity|Electricity|Coal|w/o CCS,GW
+GCAM,CP_EI,USA,Capacity|Electricity|Gas,GW
+GCAM,CP_EI,World,Capacity|Electricity|Gas,GW
+GCAM,CP_EI,USA,Capacity|Electricity|Gas|w/ CCS,GW
+GCAM,CP_EI,World,Capacity|Electricity|Gas|w/ CCS,GW
+GCAM,CP_EI,USA,Capacity|Electricity|Gas|w/o CCS,GW
+GCAM,CP_EI,World,Capacity|Electricity|Gas|w/o CCS,GW
+GCAM,CP_EI,USA,Capacity|Electricity|Geothermal,GW
+GCAM,CP_EI,World,Capacity|Electricity|Geothermal,GW
+GCAM,CP_EI,USA,Capacity|Electricity|Hydro,GW
+GCAM,CP_EI,World,Capacity|Electricity|Hydro,GW
+GCAM,CP_EI,USA,Capacity|Electricity|Nuclear,GW
+GCAM,CP_EI,World,Capacity|Electricity|Nuclear,GW
+GCAM,CP_EI,USA,Capacity|Electricity|Oil,GW
+GCAM,CP_EI,World,Capacity|Electricity|Oil,GW
+GCAM,CP_EI,USA,Capacity|Electricity|Oil|w/ CCS,GW
+GCAM,CP_EI,World,Capacity|Electricity|Oil|w/ CCS,GW
+GCAM,CP_EI,USA,Capacity|Electricity|Oil|w/o CCS,GW
+GCAM,CP_EI,World,Capacity|Electricity|Oil|w/o CCS,GW
+GCAM,CP_EI,USA,Capacity|Electricity|Solar,GW
+GCAM,CP_EI,World,Capacity|Electricity|Solar,GW
+GCAM,CP_EI,USA,Capacity|Electricity|Solar|CSP,GW
+GCAM,CP_EI,World,Capacity|Electricity|Solar|CSP,GW
+GCAM,CP_EI,USA,Capacity|Electricity|Solar|PV,GW
+GCAM,CP_EI,World,Capacity|Electricity|Solar|PV,GW
+GCAM,CP_EI,USA,Capacity|Electricity|Wind,GW
+GCAM,CP_EI,World,Capacity|Electricity|Wind,GW
+GCAM,CP_EI,USA,Capacity|Electricity|Wind|Offshore,GW
+GCAM,CP_EI,World,Capacity|Electricity|Wind|Offshore,GW
+GCAM,CP_EI,USA,Capacity|Electricity|Wind|Onshore,GW
+GCAM,CP_EI,World,Capacity|Electricity|Wind|Onshore,GW
+GCAM,CP_EI,USA,Carbon Sequestration|CCS,Mt CO2/yr
+GCAM,CP_EI,World,Carbon Sequestration|CCS,Mt CO2/yr
+GCAM,CP_EI,USA,Carbon Sequestration|CCS|Biomass,Mt CO2/yr
+GCAM,CP_EI,World,Carbon Sequestration|CCS|Biomass,Mt CO2/yr
+GCAM,CP_EI,USA,Carbon Sequestration|CCS|Biomass|Energy,Mt CO2/yr
+GCAM,CP_EI,World,Carbon Sequestration|CCS|Biomass|Energy,Mt CO2/yr
+GCAM,CP_EI,USA,Carbon Sequestration|CCS|Biomass|Energy|Supply,Mt CO2/yr
+GCAM,CP_EI,World,Carbon Sequestration|CCS|Biomass|Energy|Supply,Mt CO2/yr
+GCAM,CP_EI,USA,Carbon Sequestration|CCS|Biomass|Energy|Supply|Electricity,Mt CO2/yr
+GCAM,CP_EI,World,Carbon Sequestration|CCS|Biomass|Energy|Supply|Electricity,Mt CO2/yr
+GCAM,CP_EI,USA,Carbon Sequestration|CCS|Fossil,Mt CO2/yr
+GCAM,CP_EI,World,Carbon Sequestration|CCS|Fossil,Mt CO2/yr
+GCAM,CP_EI,USA,Carbon Sequestration|CCS|Fossil|Energy,Mt CO2/yr
+GCAM,CP_EI,World,Carbon Sequestration|CCS|Fossil|Energy,Mt CO2/yr
+GCAM,CP_EI,USA,Carbon Sequestration|CCS|Fossil|Energy|Supply,Mt CO2/yr
+GCAM,CP_EI,World,Carbon Sequestration|CCS|Fossil|Energy|Supply,Mt CO2/yr
+GCAM,CP_EI,USA,Carbon Sequestration|CCS|Fossil|Energy|Supply|Electricity,Mt CO2/yr
+GCAM,CP_EI,World,Carbon Sequestration|CCS|Fossil|Energy|Supply|Electricity,Mt CO2/yr
+GCAM,CP_EI,USA,Carbon Sequestration|CCS|Industrial Processes,Mt CO2/yr
+GCAM,CP_EI,World,Carbon Sequestration|CCS|Industrial Processes,Mt CO2/yr
+GCAM,CP_EI,World,Concentration|CO2,ppm
+GCAM,CP_EI,USA,Emissions|C2F6,kt C2F6/yr
+GCAM,CP_EI,World,Emissions|C2F6,kt C2F6/yr
+GCAM,CP_EI,USA,Emissions|CH4,Mt CH4/yr
+GCAM,CP_EI,World,Emissions|CH4,Mt CH4/yr
+GCAM,CP_EI,USA,Emissions|CH4|AFOLU,Mt CH4/yr
+GCAM,CP_EI,World,Emissions|CH4|AFOLU,Mt CH4/yr
+GCAM,CP_EI,USA,Emissions|CH4|Energy,Mt CH4/yr
+GCAM,CP_EI,World,Emissions|CH4|Energy,Mt CH4/yr
+GCAM,CP_EI,USA,Emissions|CO,Mt CO/yr
+GCAM,CP_EI,World,Emissions|CO,Mt CO/yr
+GCAM,CP_EI,USA,Emissions|CO2,Mt CO2/yr
+GCAM,CP_EI,World,Emissions|CO2,Mt CO2/yr
+GCAM,CP_EI,USA,Emissions|CO2|AFOLU,Mt CO2/yr
+GCAM,CP_EI,World,Emissions|CO2|AFOLU,Mt CO2/yr
+GCAM,CP_EI,USA,Emissions|CO2|Energy,Mt CO2/yr
+GCAM,CP_EI,World,Emissions|CO2|Energy,Mt CO2/yr
+GCAM,CP_EI,USA,Emissions|CO2|Energy and Industrial Processes,Mt CO2/yr
+GCAM,CP_EI,World,Emissions|CO2|Energy and Industrial Processes,Mt CO2/yr
+GCAM,CP_EI,USA,Emissions|CO2|Energy|Demand,Mt CO2/yr
+GCAM,CP_EI,World,Emissions|CO2|Energy|Demand,Mt CO2/yr
+GCAM,CP_EI,USA,Emissions|CO2|Energy|Demand|Industry,Mt CO2/yr
+GCAM,CP_EI,World,Emissions|CO2|Energy|Demand|Industry,Mt CO2/yr
+GCAM,CP_EI,USA,Emissions|CO2|Energy|Demand|Residential and Commercial,Mt CO2/yr
+GCAM,CP_EI,World,Emissions|CO2|Energy|Demand|Residential and Commercial,Mt CO2/yr
+GCAM,CP_EI,USA,Emissions|CO2|Energy|Demand|Residential and Commercial|Commercial,Mt CO2/yr
+GCAM,CP_EI,World,Emissions|CO2|Energy|Demand|Residential and Commercial|Commercial,Mt CO2/yr
+GCAM,CP_EI,USA,Emissions|CO2|Energy|Demand|Residential and Commercial|Residential,Mt CO2/yr
+GCAM,CP_EI,World,Emissions|CO2|Energy|Demand|Residential and Commercial|Residential,Mt CO2/yr
+GCAM,CP_EI,USA,Emissions|CO2|Energy|Demand|Transportation,Mt CO2/yr
+GCAM,CP_EI,World,Emissions|CO2|Energy|Demand|Transportation,Mt CO2/yr
+GCAM,CP_EI,USA,Emissions|CO2|Energy|Demand|Transportation|Aviation|International,Mt CO2/yr
+GCAM,CP_EI,World,Emissions|CO2|Energy|Demand|Transportation|Aviation|International,Mt CO2/yr
+GCAM,CP_EI,USA,Emissions|CO2|Energy|Demand|Transportation|Maritime|International,Mt CO2/yr
+GCAM,CP_EI,World,Emissions|CO2|Energy|Demand|Transportation|Maritime|International,Mt CO2/yr
+GCAM,CP_EI,USA,Emissions|CO2|Energy|Supply,Mt CO2/yr
+GCAM,CP_EI,World,Emissions|CO2|Energy|Supply,Mt CO2/yr
+GCAM,CP_EI,USA,Emissions|CO2|Energy|Supply|Electricity,Mt CO2/yr
+GCAM,CP_EI,World,Emissions|CO2|Energy|Supply|Electricity,Mt CO2/yr
+GCAM,CP_EI,USA,Emissions|CO2|Energy|Supply|Gases,Mt CO2/yr
+GCAM,CP_EI,World,Emissions|CO2|Energy|Supply|Gases,Mt CO2/yr
+GCAM,CP_EI,World,Emissions|CO2|Energy|Supply|Heat,Mt CO2/yr
+GCAM,CP_EI,USA,Emissions|CO2|Energy|Supply|Liquids,Mt CO2/yr
+GCAM,CP_EI,World,Emissions|CO2|Energy|Supply|Liquids,Mt CO2/yr
+GCAM,CP_EI,USA,Emissions|CO2|Energy|Supply|Other Sector,Mt CO2/yr
+GCAM,CP_EI,World,Emissions|CO2|Energy|Supply|Other Sector,Mt CO2/yr
+GCAM,CP_EI,USA,Emissions|CO2|Energy|Supply|Solids,Mt CO2/yr
+GCAM,CP_EI,World,Emissions|CO2|Energy|Supply|Solids,Mt CO2/yr
+GCAM,CP_EI,USA,Emissions|CO2|Industrial Processes,Mt CO2/yr
+GCAM,CP_EI,World,Emissions|CO2|Industrial Processes,Mt CO2/yr
+GCAM,CP_EI,USA,Emissions|F-Gases,Mt CO2-equiv/yr
+GCAM,CP_EI,World,Emissions|F-Gases,Mt CO2-equiv/yr
+GCAM,CP_EI,USA,Emissions|HFC,kt HFC134a-equiv/yr
+GCAM,CP_EI,World,Emissions|HFC,kt HFC134a-equiv/yr
+GCAM,CP_EI,USA,Emissions|HFC|HFC125,kt HFC125/yr
+GCAM,CP_EI,World,Emissions|HFC|HFC125,kt HFC125/yr
+GCAM,CP_EI,USA,Emissions|HFC|HFC134a,kt HFC134a/yr
+GCAM,CP_EI,World,Emissions|HFC|HFC134a,kt HFC134a/yr
+GCAM,CP_EI,USA,Emissions|HFC|HFC143a,kt HFC143a/yr
+GCAM,CP_EI,World,Emissions|HFC|HFC143a,kt HFC143a/yr
+GCAM,CP_EI,USA,Emissions|HFC|HFC227ea,kt HFC227ea/yr
+GCAM,CP_EI,World,Emissions|HFC|HFC227ea,kt HFC227ea/yr
+GCAM,CP_EI,USA,Emissions|HFC|HFC23,kt HFC23/yr
+GCAM,CP_EI,World,Emissions|HFC|HFC23,kt HFC23/yr
+GCAM,CP_EI,USA,Emissions|HFC|HFC245fa,kt HFC245fa/yr
+GCAM,CP_EI,World,Emissions|HFC|HFC245fa,kt HFC245fa/yr
+GCAM,CP_EI,USA,Emissions|HFC|HFC32,kt HFC32/yr
+GCAM,CP_EI,World,Emissions|HFC|HFC32,kt HFC32/yr
+GCAM,CP_EI,World,Emissions|HFC|HFC43-10,kt HFC43-10/yr
+GCAM,CP_EI,USA,Emissions|Kyoto Gases,Mt CO2-equiv/yr
+GCAM,CP_EI,World,Emissions|Kyoto Gases,Mt CO2-equiv/yr
+GCAM,CP_EI,USA,Emissions|N2O,kt N2O/yr
+GCAM,CP_EI,World,Emissions|N2O,kt N2O/yr
+GCAM,CP_EI,USA,Emissions|N2O|AFOLU,kt N2O/yr
+GCAM,CP_EI,World,Emissions|N2O|AFOLU,kt N2O/yr
+GCAM,CP_EI,USA,Emissions|N2O|Energy,kt N2O/yr
+GCAM,CP_EI,World,Emissions|N2O|Energy,kt N2O/yr
+GCAM,CP_EI,USA,Emissions|NH3,Mt NH3/yr
+GCAM,CP_EI,World,Emissions|NH3,Mt NH3/yr
+GCAM,CP_EI,USA,Emissions|NOx,Mt NO2/yr
+GCAM,CP_EI,World,Emissions|NOx,Mt NO2/yr
+GCAM,CP_EI,USA,Emissions|OC,Mt OC/yr
+GCAM,CP_EI,World,Emissions|OC,Mt OC/yr
+GCAM,CP_EI,USA,Emissions|PFC,kt CF4-equiv/yr
+GCAM,CP_EI,World,Emissions|PFC,kt CF4-equiv/yr
+GCAM,CP_EI,USA,Emissions|SF6,kt SF6/yr
+GCAM,CP_EI,World,Emissions|SF6,kt SF6/yr
+GCAM,CP_EI,USA,Emissions|Sulfur,Mt SO2/yr
+GCAM,CP_EI,World,Emissions|Sulfur,Mt SO2/yr
+GCAM,CP_EI,USA,Emissions|VOC,Mt VOC/yr
+GCAM,CP_EI,World,Emissions|VOC,Mt VOC/yr
+GCAM,CP_EI,USA,Energy Service|Transportation|Freight,bn tkm/yr
+GCAM,CP_EI,World,Energy Service|Transportation|Freight,bn tkm/yr
+GCAM,CP_EI,USA,Energy Service|Transportation|Passenger,bn pkm/yr
+GCAM,CP_EI,World,Energy Service|Transportation|Passenger,bn pkm/yr
+GCAM,CP_EI,USA,Final Energy,EJ/yr
+GCAM,CP_EI,World,Final Energy,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Electricity,EJ/yr
+GCAM,CP_EI,World,Final Energy|Electricity,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Gases,EJ/yr
+GCAM,CP_EI,World,Final Energy|Gases,EJ/yr
+GCAM,CP_EI,World,Final Energy|Heat,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Hydrogen,EJ/yr
+GCAM,CP_EI,World,Final Energy|Hydrogen,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Industry,EJ/yr
+GCAM,CP_EI,World,Final Energy|Industry,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Industry|Electricity,EJ/yr
+GCAM,CP_EI,World,Final Energy|Industry|Electricity,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Industry|Gases,EJ/yr
+GCAM,CP_EI,World,Final Energy|Industry|Gases,EJ/yr
+GCAM,CP_EI,World,Final Energy|Industry|Heat,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Industry|Hydrogen,EJ/yr
+GCAM,CP_EI,World,Final Energy|Industry|Hydrogen,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Industry|Liquids,EJ/yr
+GCAM,CP_EI,World,Final Energy|Industry|Liquids,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Industry|Solids,EJ/yr
+GCAM,CP_EI,World,Final Energy|Industry|Solids,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Industry|Solids|Biomass,EJ/yr
+GCAM,CP_EI,World,Final Energy|Industry|Solids|Biomass,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Industry|Solids|Coal,EJ/yr
+GCAM,CP_EI,World,Final Energy|Industry|Solids|Coal,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Liquids,EJ/yr
+GCAM,CP_EI,World,Final Energy|Liquids,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Non-Energy Use,EJ/yr
+GCAM,CP_EI,World,Final Energy|Non-Energy Use,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Residential and Commercial,EJ/yr
+GCAM,CP_EI,World,Final Energy|Residential and Commercial,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Residential and Commercial|Electricity,EJ/yr
+GCAM,CP_EI,World,Final Energy|Residential and Commercial|Electricity,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Residential and Commercial|Gases,EJ/yr
+GCAM,CP_EI,World,Final Energy|Residential and Commercial|Gases,EJ/yr
+GCAM,CP_EI,World,Final Energy|Residential and Commercial|Heat,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Residential and Commercial|Liquids,EJ/yr
+GCAM,CP_EI,World,Final Energy|Residential and Commercial|Liquids,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Residential and Commercial|Solids,EJ/yr
+GCAM,CP_EI,World,Final Energy|Residential and Commercial|Solids,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Residential and Commercial|Solids|Biomass,EJ/yr
+GCAM,CP_EI,World,Final Energy|Residential and Commercial|Solids|Biomass,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Residential and Commercial|Solids|Coal,EJ/yr
+GCAM,CP_EI,World,Final Energy|Residential and Commercial|Solids|Coal,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Solids,EJ/yr
+GCAM,CP_EI,World,Final Energy|Solids,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Solids|Biomass,EJ/yr
+GCAM,CP_EI,World,Final Energy|Solids|Biomass,EJ/yr
+GCAM,CP_EI,World,Final Energy|Solids|Biomass|Traditional,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Solids|Coal,EJ/yr
+GCAM,CP_EI,World,Final Energy|Solids|Coal,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Transportation,EJ/yr
+GCAM,CP_EI,World,Final Energy|Transportation,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Transportation|Electricity,EJ/yr
+GCAM,CP_EI,World,Final Energy|Transportation|Electricity,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Transportation|Freight,EJ/yr
+GCAM,CP_EI,World,Final Energy|Transportation|Freight,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Transportation|Gases,EJ/yr
+GCAM,CP_EI,World,Final Energy|Transportation|Gases,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Transportation|Hydrogen,EJ/yr
+GCAM,CP_EI,World,Final Energy|Transportation|Hydrogen,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Transportation|Liquids,EJ/yr
+GCAM,CP_EI,World,Final Energy|Transportation|Liquids,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Transportation|Liquids|Biomass,EJ/yr
+GCAM,CP_EI,World,Final Energy|Transportation|Liquids|Biomass,EJ/yr
+GCAM,CP_EI,USA,Final Energy|Transportation|Passenger,EJ/yr
+GCAM,CP_EI,World,Final Energy|Transportation|Passenger,EJ/yr
+GCAM,CP_EI,World,Forcing,W/m2
+GCAM,CP_EI,USA,GDP|MER,billion US$2010/yr OR local currency
+GCAM,CP_EI,World,GDP|MER,billion US$2010/yr OR local currency
+GCAM,CP_EI,USA,GDP|PPP,billion US$2010/yr OR local currency
+GCAM,CP_EI,World,GDP|PPP,billion US$2010/yr OR local currency
+GCAM,CP_EI,USA,Investment|Energy Supply|Electricity,billion US$2010/yr or local currency/yr
+GCAM,CP_EI,World,Investment|Energy Supply|Electricity,billion US$2010/yr or local currency/yr
+GCAM,CP_EI,USA,Investment|Energy Supply|Electricity|Biomass,billion US$2010/yr OR local currency
+GCAM,CP_EI,World,Investment|Energy Supply|Electricity|Biomass,billion US$2010/yr OR local currency
+GCAM,CP_EI,USA,Investment|Energy Supply|Electricity|Biomass|w/ CCS,billion US$2010/yr OR local currency
+GCAM,CP_EI,World,Investment|Energy Supply|Electricity|Biomass|w/ CCS,billion US$2010/yr OR local currency
+GCAM,CP_EI,USA,Investment|Energy Supply|Electricity|Biomass|w/o CCS,billion US$2010/yr OR local currency
+GCAM,CP_EI,World,Investment|Energy Supply|Electricity|Biomass|w/o CCS,billion US$2010/yr OR local currency
+GCAM,CP_EI,USA,Investment|Energy Supply|Electricity|Coal,billion US$2010/yr OR local currency
+GCAM,CP_EI,World,Investment|Energy Supply|Electricity|Coal,billion US$2010/yr OR local currency
+GCAM,CP_EI,USA,Investment|Energy Supply|Electricity|Coal|w/ CCS,billion US$2010/yr OR local currency
+GCAM,CP_EI,World,Investment|Energy Supply|Electricity|Coal|w/ CCS,billion US$2010/yr OR local currency
+GCAM,CP_EI,USA,Investment|Energy Supply|Electricity|Coal|w/o CCS,billion US$2010/yr OR local currency
+GCAM,CP_EI,World,Investment|Energy Supply|Electricity|Coal|w/o CCS,billion US$2010/yr OR local currency
+GCAM,CP_EI,USA,Investment|Energy Supply|Electricity|Fossil,billion US$2010/yr OR local currency
+GCAM,CP_EI,World,Investment|Energy Supply|Electricity|Fossil,billion US$2010/yr OR local currency
+GCAM,CP_EI,USA,Investment|Energy Supply|Electricity|Gas,billion US$2010/yr OR local currency
+GCAM,CP_EI,World,Investment|Energy Supply|Electricity|Gas,billion US$2010/yr OR local currency
+GCAM,CP_EI,USA,Investment|Energy Supply|Electricity|Gas|w/ CCS,billion US$2010/yr OR local currency
+GCAM,CP_EI,World,Investment|Energy Supply|Electricity|Gas|w/ CCS,billion US$2010/yr OR local currency
+GCAM,CP_EI,USA,Investment|Energy Supply|Electricity|Gas|w/o CCS,billion US$2010/yr OR local currency
+GCAM,CP_EI,World,Investment|Energy Supply|Electricity|Gas|w/o CCS,billion US$2010/yr OR local currency
+GCAM,CP_EI,USA,Investment|Energy Supply|Electricity|Geothermal,billion US$2010/yr OR local currency
+GCAM,CP_EI,World,Investment|Energy Supply|Electricity|Geothermal,billion US$2010/yr OR local currency
+GCAM,CP_EI,USA,Investment|Energy Supply|Electricity|Hydro,billion US$2010/yr OR local currency
+GCAM,CP_EI,World,Investment|Energy Supply|Electricity|Hydro,billion US$2010/yr OR local currency
+GCAM,CP_EI,USA,Investment|Energy Supply|Electricity|Non-Biomass Renewables,billion US$2010/yr OR local currency
+GCAM,CP_EI,World,Investment|Energy Supply|Electricity|Non-Biomass Renewables,billion US$2010/yr OR local currency
+GCAM,CP_EI,USA,Investment|Energy Supply|Electricity|Nuclear,billion US$2010/yr OR local currency
+GCAM,CP_EI,World,Investment|Energy Supply|Electricity|Nuclear,billion US$2010/yr OR local currency
+GCAM,CP_EI,USA,Investment|Energy Supply|Electricity|Oil,billion US$2010/yr OR local currency
+GCAM,CP_EI,World,Investment|Energy Supply|Electricity|Oil,billion US$2010/yr OR local currency
+GCAM,CP_EI,USA,Investment|Energy Supply|Electricity|Oil|w/ CCS,billion US$2010/yr OR local currency
+GCAM,CP_EI,World,Investment|Energy Supply|Electricity|Oil|w/ CCS,billion US$2010/yr OR local currency
+GCAM,CP_EI,USA,Investment|Energy Supply|Electricity|Oil|w/o CCS,billion US$2010/yr OR local currency
+GCAM,CP_EI,World,Investment|Energy Supply|Electricity|Oil|w/o CCS,billion US$2010/yr OR local currency
+GCAM,CP_EI,USA,Investment|Energy Supply|Electricity|Solar,billion US$2010/yr OR local currency
+GCAM,CP_EI,World,Investment|Energy Supply|Electricity|Solar,billion US$2010/yr OR local currency
+GCAM,CP_EI,USA,Investment|Energy Supply|Electricity|Wind,billion US$2010/yr OR local currency
+GCAM,CP_EI,World,Investment|Energy Supply|Electricity|Wind,billion US$2010/yr OR local currency
+GCAM,CP_EI,USA,Land Cover|Built-up Area,million ha
+GCAM,CP_EI,World,Land Cover|Built-up Area,million ha
+GCAM,CP_EI,USA,Land Cover|Cropland,million ha
+GCAM,CP_EI,World,Land Cover|Cropland,million ha
+GCAM,CP_EI,USA,Land Cover|Forest,million ha
+GCAM,CP_EI,World,Land Cover|Forest,million ha
+GCAM,CP_EI,USA,Land Cover|Pasture,million ha
+GCAM,CP_EI,World,Land Cover|Pasture,million ha
+GCAM,CP_EI,USA,Population,million
+GCAM,CP_EI,World,Population,million
+GCAM,CP_EI,USA,Price|Agriculture|Corn|Index,Index (2010 = 1)
+GCAM,CP_EI,World,Price|Agriculture|Corn|Index,Index (2010 = 1)
+GCAM,CP_EI,USA,Price|Agriculture|Rice|Index,Index (2010 = 1)
+GCAM,CP_EI,World,Price|Agriculture|Rice|Index,Index (2010 = 1)
+GCAM,CP_EI,USA,Price|Agriculture|Soybean|Index,Index (2010 = 1)
+GCAM,CP_EI,World,Price|Agriculture|Soybean|Index,Index (2010 = 1)
+GCAM,CP_EI,USA,Price|Agriculture|Wheat|Index,Index (2010 = 1)
+GCAM,CP_EI,World,Price|Agriculture|Wheat|Index,Index (2010 = 1)
+GCAM,CP_EI,USA,Price|Carbon,US$2010/t CO2
+GCAM,CP_EI,USA,Price|Final Energy|Residential and Commercial|Residential|Electricity,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,World,Price|Final Energy|Residential and Commercial|Residential|Electricity,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,USA,Price|Final Energy|Residential and Commercial|Residential|Gases|Natural Gas,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,World,Price|Final Energy|Residential and Commercial|Residential|Gases|Natural Gas,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,USA,Price|Final Energy|Residential and Commercial|Residential|Liquids,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,World,Price|Final Energy|Residential and Commercial|Residential|Liquids,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,USA,Price|Final Energy|Residential and Commercial|Residential|Solids|Biomass,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,World,Price|Final Energy|Residential and Commercial|Residential|Solids|Biomass,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,USA,Price|Final Energy|Residential and Commercial|Residential|Solids|Coal,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,World,Price|Final Energy|Residential and Commercial|Residential|Solids|Coal,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,USA,Price|Final Energy|Transportation|Electricity,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,World,Price|Final Energy|Transportation|Electricity,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,USA,Price|Final Energy|Transportation|Gases,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,World,Price|Final Energy|Transportation|Gases,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,USA,Price|Final Energy|Transportation|Hydrogen,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,World,Price|Final Energy|Transportation|Hydrogen,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,USA,Price|Final Energy|Transportation|Liquids,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,World,Price|Final Energy|Transportation|Liquids,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,USA,Price|Primary Energy|Biomass,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,World,Price|Primary Energy|Biomass,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,USA,Price|Primary Energy|Coal,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,World,Price|Primary Energy|Coal,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,USA,Price|Primary Energy|Gas,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,World,Price|Primary Energy|Gas,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,USA,Price|Primary Energy|Oil,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,World,Price|Primary Energy|Oil,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,USA,Price|Secondary Energy|Electricity,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,World,Price|Secondary Energy|Electricity,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,USA,Price|Secondary Energy|Gases|Natural Gas,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,World,Price|Secondary Energy|Gases|Natural Gas,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,USA,Price|Secondary Energy|Hydrogen,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,World,Price|Secondary Energy|Hydrogen,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,USA,Price|Secondary Energy|Liquids,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,World,Price|Secondary Energy|Liquids,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,USA,Price|Secondary Energy|Liquids|Biomass,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,World,Price|Secondary Energy|Liquids|Biomass,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,USA,Price|Secondary Energy|Liquids|Oil,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,World,Price|Secondary Energy|Liquids|Oil,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,USA,Price|Secondary Energy|Solids|Biomass,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,World,Price|Secondary Energy|Solids|Biomass,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,USA,Price|Secondary Energy|Solids|Coal,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,World,Price|Secondary Energy|Solids|Coal,US$2010/GJ or local currency/GJ
+GCAM,CP_EI,USA,Primary Energy,EJ/yr
+GCAM,CP_EI,World,Primary Energy,EJ/yr
+GCAM,CP_EI,USA,Primary Energy|Biomass,EJ/yr
+GCAM,CP_EI,World,Primary Energy|Biomass,EJ/yr
+GCAM,CP_EI,USA,Primary Energy|Biomass|Modern,EJ/yr
+GCAM,CP_EI,World,Primary Energy|Biomass|Modern,EJ/yr
+GCAM,CP_EI,USA,Primary Energy|Biomass|Modern|w/ CCS,EJ/yr
+GCAM,CP_EI,World,Primary Energy|Biomass|Modern|w/ CCS,EJ/yr
+GCAM,CP_EI,USA,Primary Energy|Biomass|Modern|w/o CCS,EJ/yr
+GCAM,CP_EI,World,Primary Energy|Biomass|Modern|w/o CCS,EJ/yr
+GCAM,CP_EI,World,Primary Energy|Biomass|Traditional,EJ/yr
+GCAM,CP_EI,USA,Primary Energy|Coal,EJ/yr
+GCAM,CP_EI,World,Primary Energy|Coal,EJ/yr
+GCAM,CP_EI,USA,Primary Energy|Coal|w/ CCS,EJ/yr
+GCAM,CP_EI,World,Primary Energy|Coal|w/ CCS,EJ/yr
+GCAM,CP_EI,USA,Primary Energy|Coal|w/o CCS,EJ/yr
+GCAM,CP_EI,World,Primary Energy|Coal|w/o CCS,EJ/yr
+GCAM,CP_EI,USA,Primary Energy|Gas,EJ/yr
+GCAM,CP_EI,World,Primary Energy|Gas,EJ/yr
+GCAM,CP_EI,USA,Primary Energy|Gas|w/ CCS,EJ/yr
+GCAM,CP_EI,World,Primary Energy|Gas|w/ CCS,EJ/yr
+GCAM,CP_EI,USA,Primary Energy|Gas|w/o CCS,EJ/yr
+GCAM,CP_EI,World,Primary Energy|Gas|w/o CCS,EJ/yr
+GCAM,CP_EI,USA,Primary Energy|Geothermal,EJ/yr
+GCAM,CP_EI,World,Primary Energy|Geothermal,EJ/yr
+GCAM,CP_EI,USA,Primary Energy|Hydro,EJ/yr
+GCAM,CP_EI,World,Primary Energy|Hydro,EJ/yr
+GCAM,CP_EI,USA,Primary Energy|Nuclear,EJ/yr
+GCAM,CP_EI,World,Primary Energy|Nuclear,EJ/yr
+GCAM,CP_EI,USA,Primary Energy|Oil,EJ/yr
+GCAM,CP_EI,World,Primary Energy|Oil,EJ/yr
+GCAM,CP_EI,USA,Primary Energy|Oil|w/ CCS,EJ/yr
+GCAM,CP_EI,World,Primary Energy|Oil|w/ CCS,EJ/yr
+GCAM,CP_EI,USA,Primary Energy|Oil|w/o CCS,EJ/yr
+GCAM,CP_EI,World,Primary Energy|Oil|w/o CCS,EJ/yr
+GCAM,CP_EI,USA,Primary Energy|Solar,EJ/yr
+GCAM,CP_EI,World,Primary Energy|Solar,EJ/yr
+GCAM,CP_EI,USA,Primary Energy|Wind,EJ/yr
+GCAM,CP_EI,World,Primary Energy|Wind,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity|Biomass,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity|Biomass,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity|Biomass|w/ CCS,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity|Biomass|w/ CCS,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity|Biomass|w/o CCS,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity|Biomass|w/o CCS,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity|Coal,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity|Coal,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity|Coal|w/ CCS,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity|Coal|w/ CCS,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity|Coal|w/o CCS,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity|Coal|w/o CCS,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity|Gas,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity|Gas,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity|Gas|w/ CCS,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity|Gas|w/ CCS,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity|Gas|w/o CCS,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity|Gas|w/o CCS,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity|Geothermal,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity|Geothermal,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity|Hydro,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity|Hydro,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity|Non-Biomass Renewables,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity|Non-Biomass Renewables,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity|Nuclear,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity|Nuclear,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity|Oil,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity|Oil,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity|Oil|w/ CCS,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity|Oil|w/ CCS,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity|Oil|w/o CCS,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity|Oil|w/o CCS,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity|Solar,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity|Solar,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity|Solar|CSP,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity|Solar|CSP,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity|Solar|PV,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity|Solar|PV,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity|Wind,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity|Wind,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity|Wind|Offshore,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity|Wind|Offshore,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Electricity|Wind|Onshore,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Electricity|Wind|Onshore,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Gases,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Gases,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Gases|Biomass,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Gases|Biomass,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Gases|Coal,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Gases|Coal,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Gases|Natural Gas,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Gases|Natural Gas,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Hydrogen,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Hydrogen,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Hydrogen|Biomass,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Hydrogen|Biomass,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Hydrogen|Biomass|w/ CCS,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Hydrogen|Biomass|w/ CCS,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Hydrogen|Biomass|w/o CCS,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Hydrogen|Biomass|w/o CCS,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Hydrogen|Electricity,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Hydrogen|Electricity,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Hydrogen|Fossil,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Hydrogen|Fossil,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Hydrogen|Fossil|w/ CCS,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Hydrogen|Fossil|w/ CCS,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Hydrogen|Fossil|w/o CCS,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Hydrogen|Fossil|w/o CCS,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Liquids,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Liquids,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Liquids|Biomass,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Liquids|Biomass,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Liquids|Biomass|w/ CCS,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Liquids|Biomass|w/ CCS,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Liquids|Biomass|w/o CCS,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Liquids|Biomass|w/o CCS,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Liquids|Coal,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Liquids|Coal,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Liquids|Coal|w/ CCS,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Liquids|Coal|w/ CCS,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Liquids|Coal|w/o CCS,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Liquids|Coal|w/o CCS,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Liquids|Gas,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Liquids|Gas,EJ/yr
+GCAM,CP_EI,USA,Secondary Energy|Liquids|Oil,EJ/yr
+GCAM,CP_EI,World,Secondary Energy|Liquids|Oil,EJ/yr
+GCAM,CP_EI,World,Temperature|Global Mean,°C
+GCAM,CP_EI,USA,Trade|Primary Energy|Coal|Volume,EJ/yr
+GCAM,CP_EI,World,Trade|Primary Energy|Coal|Volume,EJ/yr
+GCAM,CP_EI,USA,Trade|Primary Energy|Gas|Volume,EJ/yr
+GCAM,CP_EI,World,Trade|Primary Energy|Gas|Volume,EJ/yr
+GCAM,CP_EI,USA,Trade|Primary Energy|Oil|Volume,EJ/yr
+GCAM,CP_EI,World,Trade|Primary Energy|Oil|Volume,EJ/yr
+Gemini-E3,Baseline,USA,Capital Stock,billion US$2010/yr or local currency/yr
+Gemini-E3,Baseline,WORLD,Capital Stock,billion US$2010/yr or local currency/yr
+Gemini-E3,Baseline,USA,Carbon Sequestration|CCS,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Carbon Sequestration|CCS,Mt CO2/yr
+Gemini-E3,Baseline,USA,Carbon Sequestration|CCS|Biomass,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Carbon Sequestration|CCS|Biomass,Mt CO2/yr
+Gemini-E3,Baseline,USA,Carbon Sequestration|CCS|Biomass|Energy,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Carbon Sequestration|CCS|Biomass|Energy,Mt CO2/yr
+Gemini-E3,Baseline,USA,Carbon Sequestration|CCS|Biomass|Energy|Supply,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Carbon Sequestration|CCS|Biomass|Energy|Supply,Mt CO2/yr
+Gemini-E3,Baseline,USA,Carbon Sequestration|CCS|Biomass|Energy|Supply|Electricity,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Carbon Sequestration|CCS|Biomass|Energy|Supply|Electricity,Mt CO2/yr
+Gemini-E3,Baseline,USA,Carbon Sequestration|CCS|Fossil,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Carbon Sequestration|CCS|Fossil,Mt CO2/yr
+Gemini-E3,Baseline,USA,Carbon Sequestration|CCS|Fossil|Energy,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Carbon Sequestration|CCS|Fossil|Energy,Mt CO2/yr
+Gemini-E3,Baseline,USA,Carbon Sequestration|CCS|Fossil|Energy|Supply,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Carbon Sequestration|CCS|Fossil|Energy|Supply,Mt CO2/yr
+Gemini-E3,Baseline,USA,Carbon Sequestration|CCS|Fossil|Energy|Supply|Electricity,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Carbon Sequestration|CCS|Fossil|Energy|Supply|Electricity,Mt CO2/yr
+Gemini-E3,Baseline,USA,Carbon Sequestration|CCS|Industrial Processes,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Carbon Sequestration|CCS|Industrial Processes,Mt CO2/yr
+Gemini-E3,Baseline,USA,Consumption,billion US$2010/yr
+Gemini-E3,Baseline,WORLD,Consumption,billion US$2010/yr
+Gemini-E3,Baseline,USA,Emissions|CH4,Mt CH4/yr
+Gemini-E3,Baseline,WORLD,Emissions|CH4,Mt CH4/yr
+Gemini-E3,Baseline,USA,Emissions|CH4|AFOLU|Agriculture,Mt CH4/yr
+Gemini-E3,Baseline,WORLD,Emissions|CH4|AFOLU|Agriculture,Mt CH4/yr
+Gemini-E3,Baseline,USA,Emissions|CH4|Energy,Mt CH4/yr
+Gemini-E3,Baseline,WORLD,Emissions|CH4|Energy,Mt CH4/yr
+Gemini-E3,Baseline,USA,Emissions|CH4|Industrial Processes,Mt CH4/yr
+Gemini-E3,Baseline,WORLD,Emissions|CH4|Industrial Processes,Mt CH4/yr
+Gemini-E3,Baseline,USA,Emissions|CH4|Waste,Mt CH4/yr
+Gemini-E3,Baseline,WORLD,Emissions|CH4|Waste,Mt CH4/yr
+Gemini-E3,Baseline,USA,Emissions|CO2,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Emissions|CO2,Mt CO2/yr
+Gemini-E3,Baseline,USA,Emissions|CO2|Energy,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Emissions|CO2|Energy,Mt CO2/yr
+Gemini-E3,Baseline,USA,Emissions|CO2|Energy and Industrial Processes,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Emissions|CO2|Energy and Industrial Processes,Mt CO2/yr
+Gemini-E3,Baseline,USA,Emissions|CO2|Energy|Demand,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Emissions|CO2|Energy|Demand,Mt CO2/yr
+Gemini-E3,Baseline,USA,Emissions|CO2|Energy|Demand|AFOFI,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Emissions|CO2|Energy|Demand|AFOFI,Mt CO2/yr
+Gemini-E3,Baseline,USA,Emissions|CO2|Energy|Demand|Industry,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Emissions|CO2|Energy|Demand|Industry,Mt CO2/yr
+Gemini-E3,Baseline,USA,Emissions|CO2|Energy|Demand|Residential and Commercial,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Emissions|CO2|Energy|Demand|Residential and Commercial,Mt CO2/yr
+Gemini-E3,Baseline,USA,Emissions|CO2|Energy|Demand|Transportation,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Emissions|CO2|Energy|Demand|Transportation,Mt CO2/yr
+Gemini-E3,Baseline,USA,Emissions|CO2|Energy|Supply,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Emissions|CO2|Energy|Supply,Mt CO2/yr
+Gemini-E3,Baseline,USA,Emissions|CO2|Energy|Supply|Electricity,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Emissions|CO2|Energy|Supply|Electricity,Mt CO2/yr
+Gemini-E3,Baseline,USA,Emissions|CO2|Energy|Supply|Gases,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Emissions|CO2|Energy|Supply|Gases,Mt CO2/yr
+Gemini-E3,Baseline,USA,Emissions|CO2|Energy|Supply|Liquids,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Emissions|CO2|Energy|Supply|Liquids,Mt CO2/yr
+Gemini-E3,Baseline,USA,Emissions|CO2|Energy|Supply|Other Sector,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Emissions|CO2|Energy|Supply|Other Sector,Mt CO2/yr
+Gemini-E3,Baseline,USA,Emissions|CO2|Energy|Supply|Solids,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Emissions|CO2|Energy|Supply|Solids,Mt CO2/yr
+Gemini-E3,Baseline,USA,Emissions|CO2|Industrial Processes,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Emissions|CO2|Industrial Processes,Mt CO2/yr
+Gemini-E3,Baseline,USA,Emissions|CO2|Waste,Mt CO2/yr
+Gemini-E3,Baseline,WORLD,Emissions|CO2|Waste,Mt CO2/yr
+Gemini-E3,Baseline,USA,Emissions|F-Gases,Mt CO2-equiv/yr
+Gemini-E3,Baseline,WORLD,Emissions|F-Gases,Mt CO2-equiv/yr
+Gemini-E3,Baseline,USA,Emissions|HFC|Industrial Processes,Mt CO2-equiv/yr
+Gemini-E3,Baseline,WORLD,Emissions|HFC|Industrial Processes,Mt CO2-equiv/yr
+Gemini-E3,Baseline,USA,Emissions|N2O,kt N2O/yr
+Gemini-E3,Baseline,WORLD,Emissions|N2O,kt N2O/yr
+Gemini-E3,Baseline,USA,Emissions|N2O|AFOLU|Agriculture,kt N2O/yr
+Gemini-E3,Baseline,WORLD,Emissions|N2O|AFOLU|Agriculture,kt N2O/yr
+Gemini-E3,Baseline,USA,Emissions|N2O|Energy,kt N2O/yr
+Gemini-E3,Baseline,WORLD,Emissions|N2O|Energy,kt N2O/yr
+Gemini-E3,Baseline,USA,Emissions|N2O|Industrial Processes,kt N2O/yr
+Gemini-E3,Baseline,WORLD,Emissions|N2O|Industrial Processes,kt N2O/yr
+Gemini-E3,Baseline,USA,Emissions|N2O|Other,kt N2O/yr
+Gemini-E3,Baseline,WORLD,Emissions|N2O|Other,kt N2O/yr
+Gemini-E3,Baseline,USA,Emissions|N2O|Waste,kt N2O/yr
+Gemini-E3,Baseline,WORLD,Emissions|N2O|Waste,kt N2O/yr
+Gemini-E3,Baseline,USA,Emissions|PFC,kt CF4-equiv/yr
+Gemini-E3,Baseline,WORLD,Emissions|PFC,kt CF4-equiv/yr
+Gemini-E3,Baseline,USA,Emissions|PFC|CF4,kt CF4/yr
+Gemini-E3,Baseline,WORLD,Emissions|PFC|CF4,kt CF4/yr
+Gemini-E3,Baseline,USA,Emissions|SF6,kt SF6/yr
+Gemini-E3,Baseline,WORLD,Emissions|SF6,kt SF6/yr
+Gemini-E3,Baseline,USA,Employment,million
+Gemini-E3,Baseline,WORLD,Employment,million
+Gemini-E3,Baseline,USA,Employment|Agriculture,million
+Gemini-E3,Baseline,WORLD,Employment|Agriculture,million
+Gemini-E3,Baseline,USA,Employment|Industry,million
+Gemini-E3,Baseline,WORLD,Employment|Industry,million
+Gemini-E3,Baseline,USA,Employment|Industry|Energy ,million
+Gemini-E3,Baseline,WORLD,Employment|Industry|Energy ,million
+Gemini-E3,Baseline,USA,Employment|Industry|Energy Intensive,million
+Gemini-E3,Baseline,WORLD,Employment|Industry|Energy Intensive,million
+Gemini-E3,Baseline,USA,Employment|Industry|Manufacturing,million
+Gemini-E3,Baseline,WORLD,Employment|Industry|Manufacturing,million
+Gemini-E3,Baseline,USA,Employment|Service,million
+Gemini-E3,Baseline,WORLD,Employment|Service,million
+Gemini-E3,Baseline,USA,Expenditure|government,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,WORLD,Expenditure|government,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,USA,Expenditure|household,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,WORLD,Expenditure|household,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,USA,Expenditure|household|Energy,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,WORLD,Expenditure|household|Energy,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,USA,Expenditure|household|Industry,billion US$2010/yr
+Gemini-E3,Baseline,WORLD,Expenditure|household|Industry,billion US$2010/yr
+Gemini-E3,Baseline,USA,Expenditure|household|Services,billion US$2010/yr
+Gemini-E3,Baseline,WORLD,Expenditure|household|Services,billion US$2010/yr
+Gemini-E3,Baseline,USA,Export,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,WORLD,Export,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,USA,Export|Agriculture,billion US$2010/yr
+Gemini-E3,Baseline,WORLD,Export|Agriculture,billion US$2010/yr
+Gemini-E3,Baseline,USA,Export|Energy,billion US$2010/yr
+Gemini-E3,Baseline,WORLD,Export|Energy,billion US$2010/yr
+Gemini-E3,Baseline,USA,Export|Industry,billion US$2010/yr
+Gemini-E3,Baseline,WORLD,Export|Industry,billion US$2010/yr
+Gemini-E3,Baseline,USA,Export|Other,billion US$2010/yr
+Gemini-E3,Baseline,WORLD,Export|Other,billion US$2010/yr
+Gemini-E3,Baseline,USA,Final Energy,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Electricity,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Electricity,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Gases,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Gases,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Industry,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Industry,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Industry|Electricity,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Industry|Electricity,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Industry|Gases,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Industry|Gases,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Industry|Liquids,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Industry|Liquids,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Industry|Solids,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Industry|Solids,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Liquids,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Liquids,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Other Sector,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Other Sector,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Other Sector|Electricity,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Other Sector|Electricity,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Other Sector|Gases,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Other Sector|Gases,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Other Sector|Liquids,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Other Sector|Liquids,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Other Sector|Solids,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Other Sector|Solids,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Residential and Commercial,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Residential and Commercial,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Residential and Commercial|Electricity,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Residential and Commercial|Electricity,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Residential and Commercial|Gases,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Residential and Commercial|Gases,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Residential and Commercial|Liquids,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Residential and Commercial|Liquids,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Residential and Commercial|Residential,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Residential and Commercial|Residential,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Residential and Commercial|Residential|Electricity,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Residential and Commercial|Residential|Electricity,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Residential and Commercial|Residential|Gases,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Residential and Commercial|Residential|Gases,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Residential and Commercial|Residential|Liquids,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Residential and Commercial|Residential|Liquids,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Residential and Commercial|Residential|Solids|Coal,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Residential and Commercial|Residential|Solids|Coal,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Residential and Commercial|Solids,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Residential and Commercial|Solids,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Solids,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Solids,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Solids|Coal,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Solids|Coal,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Transportation,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Transportation,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Transportation|Electricity,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Transportation|Electricity,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Transportation|Gases,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Transportation|Gases,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Transportation|Liquids,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Transportation|Liquids,EJ/yr
+Gemini-E3,Baseline,USA,Final Energy|Transportation|Other,EJ/yr
+Gemini-E3,Baseline,WORLD,Final Energy|Transportation|Other,EJ/yr
+Gemini-E3,Baseline,USA,GDP|MER,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,WORLD,GDP|MER,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,USA,GDP|PPP,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,WORLD,GDP|PPP,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,USA,Import,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,WORLD,Import,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,USA,Import|Agriculture,billion US$2010/yr
+Gemini-E3,Baseline,WORLD,Import|Agriculture,billion US$2010/yr
+Gemini-E3,Baseline,USA,Import|Energy,billion US$2010/yr
+Gemini-E3,Baseline,WORLD,Import|Energy,billion US$2010/yr
+Gemini-E3,Baseline,USA,Import|Industry,billion US$2010/yr
+Gemini-E3,Baseline,WORLD,Import|Industry,billion US$2010/yr
+Gemini-E3,Baseline,USA,Import|Other,billion US$2010/yr
+Gemini-E3,Baseline,WORLD,Import|Other,billion US$2010/yr
+Gemini-E3,Baseline,USA,Investment,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,WORLD,Investment,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,USA,Investment|Energy Supply,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,WORLD,Investment|Energy Supply,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,USA,Investment|Energy Supply|Electricity,billion US$2010/yr or local currency/yr
+Gemini-E3,Baseline,WORLD,Investment|Energy Supply|Electricity,billion US$2010/yr or local currency/yr
+Gemini-E3,Baseline,USA,Policy Cost|Consumption Loss,billion US$2010/yr
+Gemini-E3,Baseline,WORLD,Policy Cost|Consumption Loss,billion US$2010/yr
+Gemini-E3,Baseline,USA,Policy Cost|Equivalent Variation,billion US$2010/yr
+Gemini-E3,Baseline,WORLD,Policy Cost|Equivalent Variation,billion US$2010/yr
+Gemini-E3,Baseline,USA,Policy Cost|GDP Loss,billion US$2010/yr
+Gemini-E3,Baseline,WORLD,Policy Cost|GDP Loss,billion US$2010/yr
+Gemini-E3,Baseline,USA,Population,million
+Gemini-E3,Baseline,WORLD,Population,million
+Gemini-E3,Baseline,USA,Price|Carbon,US$2010/t CO2
+Gemini-E3,Baseline,WORLD,Price|Carbon,US$2010/t CO2
+Gemini-E3,Baseline,USA,Price|Primary Energy|Oil,US$2010/GJ or local currency/GJ
+Gemini-E3,Baseline,WORLD,Price|Primary Energy|Oil,US$2010/GJ or local currency/GJ
+Gemini-E3,Baseline,USA,Primary Energy,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Biomass|Electricity,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Biomass|Electricity,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Biomass|Electricity|w/ CCS,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Biomass|Electricity|w/ CCS,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Biomass|Electricity|w/o CCS,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Biomass|Electricity|w/o CCS,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Coal,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Coal,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Coal|Electricity,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Coal|Electricity,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Coal|Electricity|w/ CCS,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Coal|Electricity|w/ CCS,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Coal|Electricity|w/o CCS,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Coal|Electricity|w/o CCS,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Fossil,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Fossil,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Fossil|w/ CCS,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Fossil|w/ CCS,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Fossil|w/o CCS,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Fossil|w/o CCS,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Gas,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Gas,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Gas|Electricity,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Gas|Electricity,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Gas|Electricity|w/ CCS,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Gas|Electricity|w/ CCS,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Gas|Electricity|w/o CCS,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Gas|Electricity|w/o CCS,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Hydro,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Hydro,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Non-Biomass Renewables,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Non-Biomass Renewables,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Nuclear,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Nuclear,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Oil,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Oil,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Oil|Electricity,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Oil|Electricity,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Oil|Electricity|w/ CCS,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Oil|Electricity|w/ CCS,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Oil|Electricity|w/o CCS,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Oil|Electricity|w/o CCS,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Other,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Other,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Solar,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Solar,EJ/yr
+Gemini-E3,Baseline,USA,Primary Energy|Wind,EJ/yr
+Gemini-E3,Baseline,WORLD,Primary Energy|Wind,EJ/yr
+Gemini-E3,Baseline,USA,Secondary Energy,EJ/yr
+Gemini-E3,Baseline,WORLD,Secondary Energy,EJ/yr
+Gemini-E3,Baseline,USA,Secondary Energy|Electricity,EJ/yr
+Gemini-E3,Baseline,WORLD,Secondary Energy|Electricity,EJ/yr
+Gemini-E3,Baseline,USA,Secondary Energy|Electricity|Biomass,EJ/yr
+Gemini-E3,Baseline,WORLD,Secondary Energy|Electricity|Biomass,EJ/yr
+Gemini-E3,Baseline,USA,Secondary Energy|Electricity|Biomass|w/ CCS,EJ/yr
+Gemini-E3,Baseline,WORLD,Secondary Energy|Electricity|Biomass|w/ CCS,EJ/yr
+Gemini-E3,Baseline,USA,Secondary Energy|Electricity|Biomass|w/o CCS,EJ/yr
+Gemini-E3,Baseline,WORLD,Secondary Energy|Electricity|Biomass|w/o CCS,EJ/yr
+Gemini-E3,Baseline,USA,Secondary Energy|Electricity|Coal,EJ/yr
+Gemini-E3,Baseline,WORLD,Secondary Energy|Electricity|Coal,EJ/yr
+Gemini-E3,Baseline,USA,Secondary Energy|Electricity|Coal|w/ CCS,EJ/yr
+Gemini-E3,Baseline,WORLD,Secondary Energy|Electricity|Coal|w/ CCS,EJ/yr
+Gemini-E3,Baseline,USA,Secondary Energy|Electricity|Coal|w/o CCS,EJ/yr
+Gemini-E3,Baseline,WORLD,Secondary Energy|Electricity|Coal|w/o CCS,EJ/yr
+Gemini-E3,Baseline,USA,Secondary Energy|Electricity|Gas,EJ/yr
+Gemini-E3,Baseline,WORLD,Secondary Energy|Electricity|Gas,EJ/yr
+Gemini-E3,Baseline,USA,Secondary Energy|Electricity|Gas|w/ CCS,EJ/yr
+Gemini-E3,Baseline,WORLD,Secondary Energy|Electricity|Gas|w/ CCS,EJ/yr
+Gemini-E3,Baseline,USA,Secondary Energy|Electricity|Gas|w/o CCS,EJ/yr
+Gemini-E3,Baseline,WORLD,Secondary Energy|Electricity|Gas|w/o CCS,EJ/yr
+Gemini-E3,Baseline,USA,Secondary Energy|Electricity|Hydro,EJ/yr
+Gemini-E3,Baseline,WORLD,Secondary Energy|Electricity|Hydro,EJ/yr
+Gemini-E3,Baseline,USA,Secondary Energy|Electricity|Nuclear,EJ/yr
+Gemini-E3,Baseline,WORLD,Secondary Energy|Electricity|Nuclear,EJ/yr
+Gemini-E3,Baseline,USA,Secondary Energy|Electricity|Oil,EJ/yr
+Gemini-E3,Baseline,WORLD,Secondary Energy|Electricity|Oil,EJ/yr
+Gemini-E3,Baseline,USA,Secondary Energy|Electricity|Oil|w/ CCS,EJ/yr
+Gemini-E3,Baseline,WORLD,Secondary Energy|Electricity|Oil|w/ CCS,EJ/yr
+Gemini-E3,Baseline,USA,Secondary Energy|Electricity|Oil|w/o CCS,EJ/yr
+Gemini-E3,Baseline,WORLD,Secondary Energy|Electricity|Oil|w/o CCS,EJ/yr
+Gemini-E3,Baseline,USA,Secondary Energy|Electricity|Other,EJ/yr
+Gemini-E3,Baseline,WORLD,Secondary Energy|Electricity|Other,EJ/yr
+Gemini-E3,Baseline,USA,Secondary Energy|Electricity|Solar,EJ/yr
+Gemini-E3,Baseline,WORLD,Secondary Energy|Electricity|Solar,EJ/yr
+Gemini-E3,Baseline,USA,Secondary Energy|Electricity|Wind,EJ/yr
+Gemini-E3,Baseline,WORLD,Secondary Energy|Electricity|Wind,EJ/yr
+Gemini-E3,Baseline,USA,Trade|Primary Energy|Coal|Volume,EJ/yr
+Gemini-E3,Baseline,WORLD,Trade|Primary Energy|Coal|Volume,EJ/yr
+Gemini-E3,Baseline,USA,Trade|Primary Energy|Gas|Volume,EJ/yr
+Gemini-E3,Baseline,WORLD,Trade|Primary Energy|Gas|Volume,EJ/yr
+Gemini-E3,Baseline,USA,Trade|Primary Energy|Oil|Volume,EJ/yr
+Gemini-E3,Baseline,WORLD,Trade|Primary Energy|Oil|Volume,EJ/yr
+Gemini-E3,Baseline,USA,Trade|Secondary Energy|Electricity|Volume,EJ/yr
+Gemini-E3,Baseline,WORLD,Trade|Secondary Energy|Electricity|Volume,EJ/yr
+Gemini-E3,Baseline,USA,Trade|Secondary Energy|Liquids|Oil|Volume,EJ/yr
+Gemini-E3,Baseline,WORLD,Trade|Secondary Energy|Liquids|Oil|Volume,EJ/yr
+Gemini-E3,Baseline,USA,Value Added|Agriculture,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,WORLD,Value Added|Agriculture,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,USA,Value Added|Industry,billion US$2010/yr
+Gemini-E3,Baseline,WORLD,Value Added|Industry,billion US$2010/yr
+Gemini-E3,Baseline,USA,Value Added|Industry|Energy,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,WORLD,Value Added|Industry|Energy,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,USA,Value Added|Industry|Energy Intensive,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,WORLD,Value Added|Industry|Energy Intensive,billion US$2010/yr OR local currency
+Gemini-E3,Baseline,USA,Value Added|Industry|Manufacturing,billion US$2010/yr
+Gemini-E3,Baseline,WORLD,Value Added|Industry|Manufacturing,billion US$2010/yr
+Gemini-E3,Baseline,USA,Value Added|Residential and Commercial|Commercial,billion US$2010/yr
+Gemini-E3,Baseline,WORLD,Value Added|Residential and Commercial|Commercial,billion US$2010/yr
+Gemini-E3,CP_EI,USA,Capital Stock,billion US$2010/yr or local currency/yr
+Gemini-E3,CP_EI,WORLD,Capital Stock,billion US$2010/yr or local currency/yr
+Gemini-E3,CP_EI,USA,Carbon Sequestration|CCS,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Carbon Sequestration|CCS,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Carbon Sequestration|CCS|Biomass,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Carbon Sequestration|CCS|Biomass,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Carbon Sequestration|CCS|Biomass|Energy,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Carbon Sequestration|CCS|Biomass|Energy,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Carbon Sequestration|CCS|Biomass|Energy|Supply,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Carbon Sequestration|CCS|Biomass|Energy|Supply,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Carbon Sequestration|CCS|Biomass|Energy|Supply|Electricity,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Carbon Sequestration|CCS|Biomass|Energy|Supply|Electricity,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Carbon Sequestration|CCS|Fossil,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Carbon Sequestration|CCS|Fossil,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Carbon Sequestration|CCS|Fossil|Energy,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Carbon Sequestration|CCS|Fossil|Energy,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Carbon Sequestration|CCS|Fossil|Energy|Supply,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Carbon Sequestration|CCS|Fossil|Energy|Supply,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Carbon Sequestration|CCS|Fossil|Energy|Supply|Electricity,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Carbon Sequestration|CCS|Fossil|Energy|Supply|Electricity,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Carbon Sequestration|CCS|Industrial Processes,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Carbon Sequestration|CCS|Industrial Processes,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Consumption,billion US$2010/yr
+Gemini-E3,CP_EI,WORLD,Consumption,billion US$2010/yr
+Gemini-E3,CP_EI,USA,Emissions|CH4,Mt CH4/yr
+Gemini-E3,CP_EI,WORLD,Emissions|CH4,Mt CH4/yr
+Gemini-E3,CP_EI,USA,Emissions|CH4|AFOLU|Agriculture,Mt CH4/yr
+Gemini-E3,CP_EI,WORLD,Emissions|CH4|AFOLU|Agriculture,Mt CH4/yr
+Gemini-E3,CP_EI,USA,Emissions|CH4|Energy,Mt CH4/yr
+Gemini-E3,CP_EI,WORLD,Emissions|CH4|Energy,Mt CH4/yr
+Gemini-E3,CP_EI,USA,Emissions|CH4|Industrial Processes,Mt CH4/yr
+Gemini-E3,CP_EI,WORLD,Emissions|CH4|Industrial Processes,Mt CH4/yr
+Gemini-E3,CP_EI,USA,Emissions|CH4|Waste,Mt CH4/yr
+Gemini-E3,CP_EI,WORLD,Emissions|CH4|Waste,Mt CH4/yr
+Gemini-E3,CP_EI,USA,Emissions|CO2,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Emissions|CO2,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Emissions|CO2|Energy,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Emissions|CO2|Energy,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Emissions|CO2|Energy and Industrial Processes,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Emissions|CO2|Energy and Industrial Processes,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Emissions|CO2|Energy|Demand,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Emissions|CO2|Energy|Demand,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Emissions|CO2|Energy|Demand|AFOFI,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Emissions|CO2|Energy|Demand|AFOFI,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Emissions|CO2|Energy|Demand|Industry,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Emissions|CO2|Energy|Demand|Industry,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Emissions|CO2|Energy|Demand|Residential and Commercial,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Emissions|CO2|Energy|Demand|Residential and Commercial,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Emissions|CO2|Energy|Demand|Transportation,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Emissions|CO2|Energy|Demand|Transportation,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Emissions|CO2|Energy|Supply,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Emissions|CO2|Energy|Supply,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Emissions|CO2|Energy|Supply|Electricity,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Emissions|CO2|Energy|Supply|Electricity,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Emissions|CO2|Energy|Supply|Gases,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Emissions|CO2|Energy|Supply|Gases,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Emissions|CO2|Energy|Supply|Liquids,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Emissions|CO2|Energy|Supply|Liquids,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Emissions|CO2|Energy|Supply|Other Sector,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Emissions|CO2|Energy|Supply|Other Sector,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Emissions|CO2|Energy|Supply|Solids,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Emissions|CO2|Energy|Supply|Solids,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Emissions|CO2|Industrial Processes,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Emissions|CO2|Industrial Processes,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Emissions|CO2|Waste,Mt CO2/yr
+Gemini-E3,CP_EI,WORLD,Emissions|CO2|Waste,Mt CO2/yr
+Gemini-E3,CP_EI,USA,Emissions|F-Gases,Mt CO2-equiv/yr
+Gemini-E3,CP_EI,WORLD,Emissions|F-Gases,Mt CO2-equiv/yr
+Gemini-E3,CP_EI,USA,Emissions|HFC|Industrial Processes,Mt CO2-equiv/yr
+Gemini-E3,CP_EI,WORLD,Emissions|HFC|Industrial Processes,Mt CO2-equiv/yr
+Gemini-E3,CP_EI,USA,Emissions|N2O,kt N2O/yr
+Gemini-E3,CP_EI,WORLD,Emissions|N2O,kt N2O/yr
+Gemini-E3,CP_EI,USA,Emissions|N2O|AFOLU|Agriculture,kt N2O/yr
+Gemini-E3,CP_EI,WORLD,Emissions|N2O|AFOLU|Agriculture,kt N2O/yr
+Gemini-E3,CP_EI,USA,Emissions|N2O|Energy,kt N2O/yr
+Gemini-E3,CP_EI,WORLD,Emissions|N2O|Energy,kt N2O/yr
+Gemini-E3,CP_EI,USA,Emissions|N2O|Industrial Processes,kt N2O/yr
+Gemini-E3,CP_EI,WORLD,Emissions|N2O|Industrial Processes,kt N2O/yr
+Gemini-E3,CP_EI,USA,Emissions|N2O|Other,kt N2O/yr
+Gemini-E3,CP_EI,WORLD,Emissions|N2O|Other,kt N2O/yr
+Gemini-E3,CP_EI,USA,Emissions|N2O|Waste,kt N2O/yr
+Gemini-E3,CP_EI,WORLD,Emissions|N2O|Waste,kt N2O/yr
+Gemini-E3,CP_EI,USA,Emissions|PFC,kt CF4-equiv/yr
+Gemini-E3,CP_EI,WORLD,Emissions|PFC,kt CF4-equiv/yr
+Gemini-E3,CP_EI,USA,Emissions|PFC|CF4,kt CF4/yr
+Gemini-E3,CP_EI,WORLD,Emissions|PFC|CF4,kt CF4/yr
+Gemini-E3,CP_EI,USA,Emissions|SF6,kt SF6/yr
+Gemini-E3,CP_EI,WORLD,Emissions|SF6,kt SF6/yr
+Gemini-E3,CP_EI,USA,Employment,million
+Gemini-E3,CP_EI,WORLD,Employment,million
+Gemini-E3,CP_EI,USA,Employment|Agriculture,million
+Gemini-E3,CP_EI,WORLD,Employment|Agriculture,million
+Gemini-E3,CP_EI,USA,Employment|Industry,million
+Gemini-E3,CP_EI,WORLD,Employment|Industry,million
+Gemini-E3,CP_EI,USA,Employment|Industry|Energy ,million
+Gemini-E3,CP_EI,WORLD,Employment|Industry|Energy ,million
+Gemini-E3,CP_EI,USA,Employment|Industry|Energy Intensive,million
+Gemini-E3,CP_EI,WORLD,Employment|Industry|Energy Intensive,million
+Gemini-E3,CP_EI,USA,Employment|Industry|Manufacturing,million
+Gemini-E3,CP_EI,WORLD,Employment|Industry|Manufacturing,million
+Gemini-E3,CP_EI,USA,Employment|Service,million
+Gemini-E3,CP_EI,WORLD,Employment|Service,million
+Gemini-E3,CP_EI,USA,Expenditure|government,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,WORLD,Expenditure|government,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,USA,Expenditure|household,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,WORLD,Expenditure|household,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,USA,Expenditure|household|Energy,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,WORLD,Expenditure|household|Energy,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,USA,Expenditure|household|Industry,billion US$2010/yr
+Gemini-E3,CP_EI,WORLD,Expenditure|household|Industry,billion US$2010/yr
+Gemini-E3,CP_EI,USA,Expenditure|household|Services,billion US$2010/yr
+Gemini-E3,CP_EI,WORLD,Expenditure|household|Services,billion US$2010/yr
+Gemini-E3,CP_EI,USA,Export,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,WORLD,Export,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,USA,Export|Agriculture,billion US$2010/yr
+Gemini-E3,CP_EI,WORLD,Export|Agriculture,billion US$2010/yr
+Gemini-E3,CP_EI,USA,Export|Energy,billion US$2010/yr
+Gemini-E3,CP_EI,WORLD,Export|Energy,billion US$2010/yr
+Gemini-E3,CP_EI,USA,Export|Industry,billion US$2010/yr
+Gemini-E3,CP_EI,WORLD,Export|Industry,billion US$2010/yr
+Gemini-E3,CP_EI,USA,Export|Other,billion US$2010/yr
+Gemini-E3,CP_EI,WORLD,Export|Other,billion US$2010/yr
+Gemini-E3,CP_EI,USA,Final Energy,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Electricity,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Electricity,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Gases,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Gases,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Industry,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Industry,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Industry|Electricity,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Industry|Electricity,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Industry|Gases,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Industry|Gases,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Industry|Liquids,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Industry|Liquids,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Industry|Solids,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Industry|Solids,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Liquids,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Liquids,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Other Sector,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Other Sector,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Other Sector|Electricity,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Other Sector|Electricity,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Other Sector|Gases,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Other Sector|Gases,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Other Sector|Liquids,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Other Sector|Liquids,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Other Sector|Solids,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Other Sector|Solids,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Residential and Commercial,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Residential and Commercial,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Residential and Commercial|Electricity,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Residential and Commercial|Electricity,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Residential and Commercial|Gases,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Residential and Commercial|Gases,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Residential and Commercial|Liquids,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Residential and Commercial|Liquids,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Residential and Commercial|Residential,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Residential and Commercial|Residential,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Residential and Commercial|Residential|Electricity,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Residential and Commercial|Residential|Electricity,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Residential and Commercial|Residential|Gases,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Residential and Commercial|Residential|Gases,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Residential and Commercial|Residential|Liquids,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Residential and Commercial|Residential|Liquids,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Residential and Commercial|Residential|Solids|Coal,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Residential and Commercial|Residential|Solids|Coal,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Residential and Commercial|Solids,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Residential and Commercial|Solids,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Solids,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Solids,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Solids|Coal,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Solids|Coal,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Transportation,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Transportation,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Transportation|Electricity,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Transportation|Electricity,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Transportation|Gases,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Transportation|Gases,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Transportation|Liquids,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Transportation|Liquids,EJ/yr
+Gemini-E3,CP_EI,USA,Final Energy|Transportation|Other,EJ/yr
+Gemini-E3,CP_EI,WORLD,Final Energy|Transportation|Other,EJ/yr
+Gemini-E3,CP_EI,USA,GDP|MER,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,WORLD,GDP|MER,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,USA,GDP|PPP,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,WORLD,GDP|PPP,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,USA,Import,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,WORLD,Import,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,USA,Import|Agriculture,billion US$2010/yr
+Gemini-E3,CP_EI,WORLD,Import|Agriculture,billion US$2010/yr
+Gemini-E3,CP_EI,USA,Import|Energy,billion US$2010/yr
+Gemini-E3,CP_EI,WORLD,Import|Energy,billion US$2010/yr
+Gemini-E3,CP_EI,USA,Import|Industry,billion US$2010/yr
+Gemini-E3,CP_EI,WORLD,Import|Industry,billion US$2010/yr
+Gemini-E3,CP_EI,USA,Import|Other,billion US$2010/yr
+Gemini-E3,CP_EI,WORLD,Import|Other,billion US$2010/yr
+Gemini-E3,CP_EI,USA,Investment,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,WORLD,Investment,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,USA,Investment|Energy Supply,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,WORLD,Investment|Energy Supply,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,USA,Investment|Energy Supply|Electricity,billion US$2010/yr or local currency/yr
+Gemini-E3,CP_EI,WORLD,Investment|Energy Supply|Electricity,billion US$2010/yr or local currency/yr
+Gemini-E3,CP_EI,USA,Policy Cost|Consumption Loss,billion US$2010/yr
+Gemini-E3,CP_EI,WORLD,Policy Cost|Consumption Loss,billion US$2010/yr
+Gemini-E3,CP_EI,USA,Policy Cost|Equivalent Variation,billion US$2010/yr
+Gemini-E3,CP_EI,WORLD,Policy Cost|Equivalent Variation,billion US$2010/yr
+Gemini-E3,CP_EI,USA,Policy Cost|GDP Loss,billion US$2010/yr
+Gemini-E3,CP_EI,WORLD,Policy Cost|GDP Loss,billion US$2010/yr
+Gemini-E3,CP_EI,USA,Population,million
+Gemini-E3,CP_EI,WORLD,Population,million
+Gemini-E3,CP_EI,USA,Price|Carbon,US$2010/t CO2
+Gemini-E3,CP_EI,WORLD,Price|Carbon,US$2010/t CO2
+Gemini-E3,CP_EI,USA,Price|Primary Energy|Oil,US$2010/GJ or local currency/GJ
+Gemini-E3,CP_EI,WORLD,Price|Primary Energy|Oil,US$2010/GJ or local currency/GJ
+Gemini-E3,CP_EI,USA,Primary Energy,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Biomass|Electricity,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Biomass|Electricity,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Biomass|Electricity|w/ CCS,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Biomass|Electricity|w/ CCS,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Biomass|Electricity|w/o CCS,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Biomass|Electricity|w/o CCS,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Coal,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Coal,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Coal|Electricity,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Coal|Electricity,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Coal|Electricity|w/ CCS,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Coal|Electricity|w/ CCS,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Coal|Electricity|w/o CCS,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Coal|Electricity|w/o CCS,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Fossil,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Fossil,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Fossil|w/ CCS,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Fossil|w/ CCS,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Fossil|w/o CCS,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Fossil|w/o CCS,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Gas,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Gas,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Gas|Electricity,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Gas|Electricity,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Gas|Electricity|w/ CCS,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Gas|Electricity|w/ CCS,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Gas|Electricity|w/o CCS,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Gas|Electricity|w/o CCS,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Hydro,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Hydro,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Non-Biomass Renewables,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Non-Biomass Renewables,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Nuclear,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Nuclear,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Oil,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Oil,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Oil|Electricity,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Oil|Electricity,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Oil|Electricity|w/ CCS,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Oil|Electricity|w/ CCS,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Oil|Electricity|w/o CCS,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Oil|Electricity|w/o CCS,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Other,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Other,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Solar,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Solar,EJ/yr
+Gemini-E3,CP_EI,USA,Primary Energy|Wind,EJ/yr
+Gemini-E3,CP_EI,WORLD,Primary Energy|Wind,EJ/yr
+Gemini-E3,CP_EI,USA,Secondary Energy,EJ/yr
+Gemini-E3,CP_EI,WORLD,Secondary Energy,EJ/yr
+Gemini-E3,CP_EI,USA,Secondary Energy|Electricity,EJ/yr
+Gemini-E3,CP_EI,WORLD,Secondary Energy|Electricity,EJ/yr
+Gemini-E3,CP_EI,USA,Secondary Energy|Electricity|Biomass,EJ/yr
+Gemini-E3,CP_EI,WORLD,Secondary Energy|Electricity|Biomass,EJ/yr
+Gemini-E3,CP_EI,USA,Secondary Energy|Electricity|Biomass|w/ CCS,EJ/yr
+Gemini-E3,CP_EI,WORLD,Secondary Energy|Electricity|Biomass|w/ CCS,EJ/yr
+Gemini-E3,CP_EI,USA,Secondary Energy|Electricity|Biomass|w/o CCS,EJ/yr
+Gemini-E3,CP_EI,WORLD,Secondary Energy|Electricity|Biomass|w/o CCS,EJ/yr
+Gemini-E3,CP_EI,USA,Secondary Energy|Electricity|Coal,EJ/yr
+Gemini-E3,CP_EI,WORLD,Secondary Energy|Electricity|Coal,EJ/yr
+Gemini-E3,CP_EI,USA,Secondary Energy|Electricity|Coal|w/ CCS,EJ/yr
+Gemini-E3,CP_EI,WORLD,Secondary Energy|Electricity|Coal|w/ CCS,EJ/yr
+Gemini-E3,CP_EI,USA,Secondary Energy|Electricity|Coal|w/o CCS,EJ/yr
+Gemini-E3,CP_EI,WORLD,Secondary Energy|Electricity|Coal|w/o CCS,EJ/yr
+Gemini-E3,CP_EI,USA,Secondary Energy|Electricity|Gas,EJ/yr
+Gemini-E3,CP_EI,WORLD,Secondary Energy|Electricity|Gas,EJ/yr
+Gemini-E3,CP_EI,USA,Secondary Energy|Electricity|Gas|w/ CCS,EJ/yr
+Gemini-E3,CP_EI,WORLD,Secondary Energy|Electricity|Gas|w/ CCS,EJ/yr
+Gemini-E3,CP_EI,USA,Secondary Energy|Electricity|Gas|w/o CCS,EJ/yr
+Gemini-E3,CP_EI,WORLD,Secondary Energy|Electricity|Gas|w/o CCS,EJ/yr
+Gemini-E3,CP_EI,USA,Secondary Energy|Electricity|Hydro,EJ/yr
+Gemini-E3,CP_EI,WORLD,Secondary Energy|Electricity|Hydro,EJ/yr
+Gemini-E3,CP_EI,USA,Secondary Energy|Electricity|Nuclear,EJ/yr
+Gemini-E3,CP_EI,WORLD,Secondary Energy|Electricity|Nuclear,EJ/yr
+Gemini-E3,CP_EI,USA,Secondary Energy|Electricity|Oil,EJ/yr
+Gemini-E3,CP_EI,WORLD,Secondary Energy|Electricity|Oil,EJ/yr
+Gemini-E3,CP_EI,USA,Secondary Energy|Electricity|Oil|w/ CCS,EJ/yr
+Gemini-E3,CP_EI,WORLD,Secondary Energy|Electricity|Oil|w/ CCS,EJ/yr
+Gemini-E3,CP_EI,USA,Secondary Energy|Electricity|Oil|w/o CCS,EJ/yr
+Gemini-E3,CP_EI,WORLD,Secondary Energy|Electricity|Oil|w/o CCS,EJ/yr
+Gemini-E3,CP_EI,USA,Secondary Energy|Electricity|Other,EJ/yr
+Gemini-E3,CP_EI,WORLD,Secondary Energy|Electricity|Other,EJ/yr
+Gemini-E3,CP_EI,USA,Secondary Energy|Electricity|Solar,EJ/yr
+Gemini-E3,CP_EI,WORLD,Secondary Energy|Electricity|Solar,EJ/yr
+Gemini-E3,CP_EI,USA,Secondary Energy|Electricity|Wind,EJ/yr
+Gemini-E3,CP_EI,WORLD,Secondary Energy|Electricity|Wind,EJ/yr
+Gemini-E3,CP_EI,USA,Trade|Primary Energy|Coal|Volume,EJ/yr
+Gemini-E3,CP_EI,WORLD,Trade|Primary Energy|Coal|Volume,EJ/yr
+Gemini-E3,CP_EI,USA,Trade|Primary Energy|Gas|Volume,EJ/yr
+Gemini-E3,CP_EI,WORLD,Trade|Primary Energy|Gas|Volume,EJ/yr
+Gemini-E3,CP_EI,USA,Trade|Primary Energy|Oil|Volume,EJ/yr
+Gemini-E3,CP_EI,WORLD,Trade|Primary Energy|Oil|Volume,EJ/yr
+Gemini-E3,CP_EI,USA,Trade|Secondary Energy|Electricity|Volume,EJ/yr
+Gemini-E3,CP_EI,WORLD,Trade|Secondary Energy|Electricity|Volume,EJ/yr
+Gemini-E3,CP_EI,USA,Trade|Secondary Energy|Liquids|Oil|Volume,EJ/yr
+Gemini-E3,CP_EI,WORLD,Trade|Secondary Energy|Liquids|Oil|Volume,EJ/yr
+Gemini-E3,CP_EI,USA,Value Added|Agriculture,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,WORLD,Value Added|Agriculture,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,USA,Value Added|Industry,billion US$2010/yr
+Gemini-E3,CP_EI,WORLD,Value Added|Industry,billion US$2010/yr
+Gemini-E3,CP_EI,USA,Value Added|Industry|Energy,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,WORLD,Value Added|Industry|Energy,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,USA,Value Added|Industry|Energy Intensive,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,WORLD,Value Added|Industry|Energy Intensive,billion US$2010/yr OR local currency
+Gemini-E3,CP_EI,USA,Value Added|Industry|Manufacturing,billion US$2010/yr
+Gemini-E3,CP_EI,WORLD,Value Added|Industry|Manufacturing,billion US$2010/yr
+Gemini-E3,CP_EI,USA,Value Added|Residential and Commercial|Commercial,billion US$2010/yr
+Gemini-E3,CP_EI,WORLD,Value Added|Residential and Commercial|Commercial,billion US$2010/yr
