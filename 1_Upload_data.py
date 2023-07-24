@@ -10,9 +10,6 @@ pd.options.mode.chained_assignment = None  # default='warn'
 
 st.set_page_config(layout="wide")
 
-KNOWN_MODELS_REGIONS_VARS = 'input_data/available_models_regions_variables_units.xlsx'
-VETTING_CHECKS = 'input_data/vetting_checks.pdf'
-
 
 def main():
 
@@ -43,6 +40,7 @@ def main():
 
         st.session_state['current_filename'] = st.session_state['uploaded_file'].name
         st.session_state['current_file_size'] = st.session_state['uploaded_file'].size
+        st.session_state['validated_data'] = pd.DataFrame()
 
         clean_results_dataset(raw_data)
 

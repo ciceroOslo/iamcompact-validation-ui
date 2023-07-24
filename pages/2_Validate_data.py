@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import os
 import re
+import tempfile
 
 from streamlit_extras.switch_page_button import switch_page
 
@@ -36,29 +37,83 @@ def main():
 
     df = st.session_state.get('clean_df', pd.DataFrame())
     cleaning_error = st.session_state.get('cleaning_error')
+    validated_df = st.session_state.get('validated_data', pd.DataFrame())
+
+    placeholder = st.empty()
     if not df.empty and not cleaning_error:
-        st.markdown('Please select the validation check you want to perform:')
-        indices_check = st.checkbox('Consistency of model, variable, and region names', value=True)
-        vetting_check = st.checkbox('Vetting checks', value=True)
-        basic_sums_check = st.checkbox('Consistency between disaggregated and aggregated variables', value=False)
+        if validated_df.empty:
+            with placeholder.container():
+                st.markdown('Please select the validation check(s) you want to perform:')
+                indices_check = st.checkbox('Consistency of model, variable, and region names', value=True)
+                vetting_check = st.checkbox('Vetting checks', value=True)
+                basic_sums_check = st.checkbox('Consistency between disaggregated and aggregated variables', value=False)
 
-        validate_button_disable = False
-        if not (indices_check or vetting_check or basic_sums_check):
-            validate_button_disable = True
-            st.info('Please select at least one check.')
+                validate_button_disable = False
+                if not (indices_check or vetting_check or basic_sums_check):
+                    validate_button_disable = True
+                    st.info('Please select at least one check.')
 
-        validate_button = st.button('Confirm validation', on_click=validate, args=(df, indices_check, vetting_check, basic_sums_check),
-                disabled=validate_button_disable)
-        
-        if validate_button:
-            raw_data.empty()
+                validate_button = st.button('Start validation', on_click=validate, args=(df, indices_check, vetting_check, basic_sums_check),
+                        disabled=validate_button_disable)
+        else:
+            with placeholder.container():
+                with st.spinner('Validating...'):
+                    df_styled = validated_df.style.applymap(lambda x: f'background-color: red' if 'not found' in str(x) or 'Duplicate' in str(x) or 'Vetting error' in str(x) else (f'background-color: yellow' if str(x) == 'nan' or 'Vetting warning' in str(x) or 'sum check error' in str(x) else f'background-color: white'))
+
+                    with tempfile.NamedTemporaryFile() as temp:
+                        temp_filename = os.path.join(os.getcwd(),'temp', f'{temp.name}.xlsx')
+
+                        convert_df(df_styled, temp_filename)
+                        
+                        with open(temp_filename, 'rb') as template_file:
+                            template_byte = template_file.read()
+
+
+                    if st.session_state.get('duplicates_count'):
+                        st.error(f"Found {st.session_state.get('duplicates_count')} duplicate entries.", icon="🚨")
+
+                    if st.session_state.get('vetting_errors'):
+                        st.error(f"Found {st.session_state.get('vetting_errors')} vetting errors.", icon="🚨")
+
+                    if st.session_state.get('model_errors'):
+                        st.warning(f"Found {st.session_state.get('model_errors')} instances of model names that are not in the database.", icon="⚠️")
+
+                    if st.session_state.get('region_errors'):
+                        st.warning(f"Found {st.session_state.get('region_errors')} instances of region names that are not in the database.", icon="⚠️")
+
+                    if st.session_state.get('variable_errors'):
+                        st.warning(f"Found {st.session_state.get('variable_errors')} instances of variable names that are not in the database.", icon="⚠️")
+
+
+                    st.markdown('Scroll the dataframe to the right to see all errors and warnings in detail. You can also download validation results in an Excel file, \
+                        fix potential errors, and re-upload it.')
+                    st.dataframe(df)
+                    st.download_button(label="Download validation results",
+                        data=template_byte,
+                        file_name="validated.xlsx",
+                        mime='application/octet-stream')
+
+                    # st.session_state['validation_ended'] = True
+
+                    # validate_data_btn = st.button('Go back to data upload')
+                    
+                    # if validate_data_btn:
+                    #     switch_page("Upload data") 
+
     else: 
-        st.info('No data for validation. Please upload first a results dataset with correct format.', icon="ℹ️")
+        with placeholder.container():
+            st.info('No data for validation. Please upload first a results dataset with correct format.', icon="ℹ️")
 
-        validate_data_btn = st.button('Upload data')
-        
-        if validate_data_btn:
-            switch_page("Upload data") 
+            validate_data_btn = st.button('Upload data')
+            
+            if validate_data_btn:
+                switch_page("Upload data") 
+
+
+    # if not validated_df.empty:
+    #     # color errors, duplicates and vetting errors with red, missing values and vetting warnings with yellow
+
+
 
 @st.cache_data
 def load_known_names():
@@ -219,40 +274,53 @@ def check_basic_sums(data):
     return data
 
 
-def validate(data, indices_check, vetting_check, basic_sums_check):
-        with st.spinner('Validating...'):
+def validate(df, indices_check, vetting_check, basic_sums_check):
+    with st.spinner('Validating...'):
+        df = check_value_format(df)
 
-            # default checks
-            data = check_value_format(data)
+        df = check_duplicates(df)
 
-            data = check_duplicates(data)
+        if indices_check:
+            df = check_indices(df)
 
-            if indices_check:
-                data = check_indices(data)
+        if vetting_check:
+            df = check_vetting(df)               
 
-            if vetting_check:
-                data = check_vetting(data)               
+        if basic_sums_check:
+            df = check_basic_sums(df)               
 
-            if basic_sums_check:
-                data = check_basic_sums(data)               
+        st.session_state['validated_data'] = df
 
-            # color errors, duplicates and vetting errors with red, missing values and vetting warnings with yellow
-            styler = data.style.applymap(lambda x: f'background-color: red' if 'not found' in str(x) or 'Duplicate' in str(x) or 'Vetting error' in str(x) else (f'background-color: yellow' if str(x) == 'nan' or 'Vetting warning' in str(x) or 'sum check error' in str(x) else f'background-color: white'))
+        st.session_state['duplicates_count'] = count_errors(df, 'duplicates_check')
 
-            # write validated data to excel
-            styler.to_excel('validation.xlsx', index=False)
+        # fix missing values to do a better check
+        st.session_state['missing_values_count'] = df.isna().sum().values.sum()
+
+        st.session_state['model_errors'] = count_errors(df, 'model_check')
+
+        st.session_state['region_errors'] = count_errors(df, 'region_check')
+
+        st.session_state['variable_errors'] = count_errors(df, 'variable_check')
+
+        st.session_state['unit_errors'] = count_errors(df, 'unit_check')
+
+        st.session_state['vetting_errors'] = count_errors(df, 'vetting_check')
+
+        # st.session_state['basic_sum_check_errors'] = df.basic_sum_check.str.count('year').sum()
 
 
-        path = os.getcwd()
+        # path = os.getcwd()
 
-        st.success(f'Validation Done!')
+        # st.success(f'Validation Done!')
 
         # check if file was generated
         
-        if os.path.exists(os.path.join(path,'validation.xlsx')):
-            save_file()
-            with st.spinner('Loading Validated File...'):
-                validated = pd.read_excel('validation.xlsx')
+        # if os.path.exists(os.path.join(path,'validation.xlsx')):
+        #     save_file()
+        #     with st.spinner('Loading Validated File...'):
+            # validated = pd.read_excel('validation.xlsx')
+
+
                 # st.title("Validated")
 
                 # # get data from styler object
@@ -291,12 +359,29 @@ def validate(data, indices_check, vetting_check, basic_sums_check):
                 # else:
                 #     st.header('No errors or duplicates found!')
                 # print(validated['model_check'][:10])
-                st.dataframe(validated)#.style.applymap(lambda x: f'background-color: red' if not pd.isna(x) else f'background-color: white', subset=['model_check', 'region_check', 'variable_check', 'unit_check', 'variable_unit_check', 'duplicates_check']))
+            # st.dataframe(df_styled)
+
+            # file = convert_df(df_styled)
+
+
+            # st.download_button(label="Save validated file",
+            #                     data=file,
+            #                     file_name="validated.csv",
+            #                     mime='text/csv',
+            # )
+
+            # st.download_button(label="Save validated file",
+            #                     data=file,
+            #                     file_name="validated.xlsx",
+            #                     mime='application/octet-stream')
+
+
+            #.style.applymap(lambda x: f'background-color: red' if not pd.isna(x) else f'background-color: white', subset=['model_check', 'region_check', 'variable_check', 'unit_check', 'variable_unit_check', 'duplicates_check']))
             # st.button('Show validated file', on_click=show_file)
-        else:
-            print(30*'#')
-            print('+ Validation file does not exist')
-            print(30*'#'+"\n")
+        # else:
+        #     print(30*'#')
+        #     print('+ Validation file does not exist')
+        #     print(30*'#'+"\n")
 
 
 def count_errors(df, column):
@@ -305,15 +390,11 @@ def count_errors(df, column):
     errors = df[column].value_counts()[index].values.sum()
     return errors
 
-def save_file():
 
-    with open('validation.xlsx', 'rb') as template_file:
-        template_byte = template_file.read()
+@st.cache_data
+def convert_df(_df,filename):
+    return _df.to_excel(filename,index=None)
 
-        st.download_button(label="Save validated file",
-                            data=template_byte,
-                            file_name="validated.xlsx",
-                            mime='application/octet-stream')
     
 
 if __name__ == "__main__":
