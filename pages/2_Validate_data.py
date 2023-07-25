@@ -28,7 +28,7 @@ def main():
         Check whether the values of key variables fall within reasonable ranges based on \
         past measurements or future estimations. Vetting is based on the \
         IPCC AR6 vetting rules found in the IPCC AR6 Working Group III report, Annex III, Table 11\
-        [(link)](https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_Annex-III.pdf).")
+        ([link](https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_Annex-III.pdf)).")
 
     st.sidebar.markdown("*Consistency between disaggregated and aggregated variables*: \
         Check whether the values of aggregated variables correspond to the sum of their respective \
@@ -84,9 +84,14 @@ def main():
                     if st.session_state.get('variable_errors'):
                         st.warning(f"Found {st.session_state.get('variable_errors')} instances of variable names that are not in the database.", icon="⚠️")
 
+                    if st.session_state.get('unit_errors'):
+                        st.warning(f"Found {st.session_state.get('variable_errors')} instances of unit names that are not in the database.", icon="⚠️")
+
+                    if st.session_state.get('basic_sum_check_errors'):
+                        st.warning(f"Found {st.session_state.get('basic_sum_check_errors')} consistency issues between disaggregated and aggregated variables.", icon="⚠️")
 
                     st.markdown('Scroll the dataframe to the right to see all errors and warnings in detail. You can also download validation results in an Excel file, \
-                        fix potential errors, and re-upload it.')
+                        fix potential errors, and re-upload them.')
                     st.dataframe(df)
                     st.download_button(label="Download validation results",
                         data=template_byte,
@@ -102,7 +107,7 @@ def main():
 
     else: 
         with placeholder.container():
-            st.info('No data for validation. Please upload first a results dataset with correct format.', icon="ℹ️")
+            st.info('No data for validation. Please upload a results dataset with a correct format.', icon="ℹ️")
 
             validate_data_btn = st.button('Upload data')
             
@@ -276,119 +281,34 @@ def check_basic_sums(data):
 
 def validate(df, indices_check, vetting_check, basic_sums_check):
     with st.spinner('Validating...'):
+
+        # fix missing values to do a better check
         df = check_value_format(df)
+        st.session_state['missing_values_count'] = df.isna().sum().values.sum()
 
         df = check_duplicates(df)
+        st.session_state['duplicates_count'] = count_errors(df,'duplicates_check')
 
         if indices_check:
             df = check_indices(df)
+            st.session_state['model_errors'] = count_errors(df,'model_check')
+            st.session_state['region_errors'] = count_errors(df,'region_check')
+            st.session_state['variable_errors'] = count_errors(df,'variable_check')
+            st.session_state['unit_errors'] = count_errors(df,'unit_check')
 
         if vetting_check:
-            df = check_vetting(df)               
+            df = check_vetting(df)
+            st.session_state['vetting_errors'] = count_errors(df,'vetting_check')
 
         if basic_sums_check:
             df = check_basic_sums(df)               
+            st.session_state['basic_sum_check_errors'] = df.basic_sum_check.str.count('year').sum()
 
         st.session_state['validated_data'] = df
 
-        st.session_state['duplicates_count'] = count_errors(df, 'duplicates_check')
-
-        # fix missing values to do a better check
-        st.session_state['missing_values_count'] = df.isna().sum().values.sum()
-
-        st.session_state['model_errors'] = count_errors(df, 'model_check')
-
-        st.session_state['region_errors'] = count_errors(df, 'region_check')
-
-        st.session_state['variable_errors'] = count_errors(df, 'variable_check')
-
-        st.session_state['unit_errors'] = count_errors(df, 'unit_check')
-
-        st.session_state['vetting_errors'] = count_errors(df, 'vetting_check')
-
-        # st.session_state['basic_sum_check_errors'] = df.basic_sum_check.str.count('year').sum()
-
-
-        # path = os.getcwd()
-
-        # st.success(f'Validation Done!')
-
-        # check if file was generated
-        
-        # if os.path.exists(os.path.join(path,'validation.xlsx')):
-        #     save_file()
-        #     with st.spinner('Loading Validated File...'):
-            # validated = pd.read_excel('validation.xlsx')
-
-
-                # st.title("Validated")
-
-                # # get data from styler object
-                # data = styler.data
-
-                # # count errors in models
-                # model_errors = count_errors(data, 'model_check')
-
-                # # count errors in regions
-                # region_errors = count_errors(data, 'region_check')
-
-                # # count errors in variables
-                # variable_errors = count_errors(data, 'variable_check')
-
-                # # count errors in units
-                # unit_errors = count_errors(data, 'unit_check')
-
-                # # count errors in variable unit combinations
-                # variable_unit_errors = count_errors(data, 'variable_unit_check')
-
-                # # count duplicates
-                # duplicates_count = count_errors(data, 'duplicates_check')
-
-                # # count missing or invalid values
-                # missing_values_count = data.isna().sum().values.sum()
-
-                # # count vetting errors and warnings
-                # vetting_errors_warnings = count_errors(data, 'vetting_check')
-
-                # # count basic sum errors
-                # basic_sum_check_errors = data.basic_sum_check.str.count('year').sum()
-
-                # if model_errors or region_errors or variable_errors or unit_errors or variable_unit_errors or duplicates_count:
-                #     st.header(f'Errors with {model_errors} models, {region_errors} regions, {variable_errors} variables, {unit_errors} units,\
-                #             {variable_unit_errors} variable units combinations! Found {vetting_errors_warnings} vetting errors and warnings! Found {duplicates_count} duplicates and {missing_values_count} missing or invalid values! Found {basic_sum_check_errors} basic sum errors across variables!')
-                # else:
-                #     st.header('No errors or duplicates found!')
-                # print(validated['model_check'][:10])
-            # st.dataframe(df_styled)
-
-            # file = convert_df(df_styled)
-
-
-            # st.download_button(label="Save validated file",
-            #                     data=file,
-            #                     file_name="validated.csv",
-            #                     mime='text/csv',
-            # )
-
-            # st.download_button(label="Save validated file",
-            #                     data=file,
-            #                     file_name="validated.xlsx",
-            #                     mime='application/octet-stream')
-
-
-            #.style.applymap(lambda x: f'background-color: red' if not pd.isna(x) else f'background-color: white', subset=['model_check', 'region_check', 'variable_check', 'unit_check', 'variable_unit_check', 'duplicates_check']))
-            # st.button('Show validated file', on_click=show_file)
-        # else:
-        #     print(30*'#')
-        #     print('+ Validation file does not exist')
-        #     print(30*'#'+"\n")
-
 
 def count_errors(df, column):
-    index = list(df[column].value_counts().index)
-    index.remove('')
-    errors = df[column].value_counts()[index].values.sum()
-    return errors
+    return (df[column] != '').sum()
 
 
 @st.cache_data
@@ -396,6 +316,5 @@ def convert_df(_df,filename):
     return _df.to_excel(filename,index=None)
 
     
-
 if __name__ == "__main__":
     main()

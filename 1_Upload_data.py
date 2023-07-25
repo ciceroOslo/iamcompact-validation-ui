@@ -28,7 +28,7 @@ def main():
     st.sidebar.markdown("You can find an example of the format [here](https://pyam-iamc.readthedocs.io/en/stable/).")
 
     uploaded_file = st.file_uploader("Upload a spreadsheet file with modelling results in an IAMC timeseries format.", 
-        type=["xlsx", "xls", "csv"],key="uploaded_file")
+        type=["xlsx", "xls"],key="uploaded_file")
 
 
     if uploaded_file is not None:
@@ -40,7 +40,16 @@ def main():
 
         st.session_state['current_filename'] = st.session_state['uploaded_file'].name
         st.session_state['current_file_size'] = st.session_state['uploaded_file'].size
+
+        # Refresh all variables
         st.session_state['validated_data'] = pd.DataFrame()
+        st.session_state['missing_values_count'] = None
+        st.session_state['duplicates_count'] = None
+        st.session_state['model_errors'] = None
+        st.session_state['region_errors'] = None
+        st.session_state['variable_errors'] = None
+        st.session_state['unit_errors'] = None
+        st.session_state['vetting_errors'] = None   
 
         clean_results_dataset(raw_data)
 
@@ -51,7 +60,6 @@ def main():
                 f", {round(st.session_state['current_file_size']/1000,1)} KB")
 
         st.dataframe(df)
-
 
         if st.session_state.get('cleaning_error'):
             st.info('Please fix the errors and upload a new file.', icon="ℹ️")
@@ -76,6 +84,10 @@ def clean_results_dataset(df):
                             .rename(columns=lambda x: re.sub('^[Vv][Aa][Rr][Ii][Aa][Bb][Ll][Ee]$', 'Variable', x)) \
                             .rename(columns=lambda x: re.sub('^[Uu][Nn][Ii][Tt]$', 'Unit', x))
 
+    for column in ['Model', 'Region', 'Scenario', 'Variable', 'Unit']:
+        if column not in df.columns:
+            st.error(f'Column {column} is missing or has a different name!', icon="🚨")
+            error = True
 
     if numeric_cols.sum()==0:
         st.error(f'No year columns!', icon="🚨")
@@ -83,12 +95,10 @@ def clean_results_dataset(df):
 
     numeric_df = df.loc[:,numeric_cols]
 
-    df = pd.concat([string_df, numeric_df], axis=1)
+    numeric_df = numeric_df.apply(pd.to_numeric, axis=1, errors='coerce')
+    string_df = string_df.convert_dtypes()
 
-    for column in ['Model', 'Region', 'Scenario', 'Variable', 'Unit']:
-        if column not in df.columns:
-            st.error(f'Column {column} is missing or has a different name!', icon="🚨")
-            error = True
+    df = pd.concat([string_df, numeric_df], axis=1)
 
     st.session_state['clean_df'] = df
     st.session_state['cleaning_error'] = error
