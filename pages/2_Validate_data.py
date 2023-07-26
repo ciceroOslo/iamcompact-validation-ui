@@ -154,19 +154,20 @@ def check_indices(data):
     models,regions,variables_units,variables,units,variables_units_combination = load_known_names()
 
     # check if model is valid
-    data['model_check'] = data.Model.apply(lambda x: 'Model ' + x + ' not found!' if x not in models else '')
+    data['model_check'] = data.Model.dropna().apply(lambda x: 'Model ' + x + ' not found!' if x not in models else '')
 
     # check if region is valid
-    data['region_check'] = data.Region.apply(lambda x: 'Region ' + x + ' not found!' if x not in regions else '')
+    data['region_check'] = data.Region.dropna().apply(lambda x: 'Region ' + x + ' not found!' if x not in regions else '')
 
     # check if variable is valid
-    data['variable_check'] = data.Variable.apply(lambda x: 'Variable ' + x + ' not found!' if x not in variables else '')
+    data['variable_check'] = data.Variable.dropna().apply(lambda x: 'Variable ' + x + ' not found!' if x not in variables else '')
 
     # check if unit is valid
-    data['unit_check'] = data.Unit.apply(lambda x: 'Unit ' + x + ' not found!' if x not in units else '')
+    data['unit_check'] = data.Unit.dropna().apply(lambda x: 'Unit ' + x + ' not found!' if x not in units else '')
 
     # check if variable unit combination is valid
-    data['variable_unit_check']= data.apply(lambda x: f"Variable {x['Variable']} combined with unit {x['Unit']} not found!" if (x['Variable'] + ' ' + x['Unit']) not in variables_units_combination else '', axis=1)
+    # fix check to avoid dropping rows
+    data['variable_unit_check']= data.dropna().apply(lambda x: f"Variable {x['Variable']} combined with unit {x['Unit']} not found!" if (x['Variable'] + ' ' + x['Unit']) not in variables_units_combination else '', axis=1)
 
     return data
 
@@ -187,11 +188,20 @@ def check_vetting(data):
                     {'variable': 'Secondary Energy|Electricity|Nuclear', 'low': 0, 'high': 20, 'year': 2030, 'error': 'Vetting warning: Electricity from Nuclear in 2030'},
                     {'variable': 'Emissions|CH4', 'low': 100, 'high': 1000, 'year': 2040, 'error': 'Vetting warning: CH4 emissions in 2040'}]
 
+
+    def check_vetting_range(x):
+        if x[vetting['year']] < vetting['low'] or x[vetting['year']] > vetting['high']:
+            return f"{vetting['error']} for year {vetting['year']}. Range must be between {vetting['low']} and {vetting['high']}." 
+        else:
+            return ''
+
     # creating Series objects with index the index of the error or warning and value the vetting error or warning if exists and appending them to the vetting_results
     for vetting in vetting_list:
         # basic vetting checks
-        vettings_results.append(data[(data['Variable'] == vetting['variable']) 
-            & (data['Region'] == 'World')].apply(lambda x: f"{vetting['error']} for year {vetting['year']}. Range must be between {vetting['low']} and {vetting['high']}." if x[vetting['year']] < vetting['low'] or x[vetting['year']] > vetting['high'] else '', axis=1))
+        vcheck = data[(data['Variable'] == vetting['variable']) & (data['Region'] == 'World')]
+
+        if not vcheck.empty:
+            vettings_results.append(vcheck.apply(check_vetting_range, axis=1))
 
     # list of dictionaries with the sum vettings
     vettings_list = [{'variable1': 'Emissions|CO2|AFOLU', 'variable2': 'Emissions|CO2|Energy and Industrial Processes', 'low': 26550.6, 'high': 61951.4, 'year': 2020, 'error': 'Vetting error: CO2 total emissions (EIP + AFOLU)'},
