@@ -28,7 +28,7 @@ def main():
     st.sidebar.markdown("You can find an example of the format [here](https://pyam-iamc.readthedocs.io/en/stable/).")
 
     uploaded_file = st.file_uploader("Upload a spreadsheet file with modelling results in an IAMC timeseries format.", 
-        type=["xlsx", "xls"],key="uploaded_file")
+        type=["xlsx", "xls", "csv"],key="uploaded_file")
 
 
     if uploaded_file is not None:
@@ -96,6 +96,8 @@ def clean_results_dataset(df):
     numeric_df = df.loc[:,numeric_cols]
 
     numeric_df = numeric_df.apply(pd.to_numeric, axis=1, errors='coerce')
+    numeric_df.columns = pd.to_numeric(numeric_df.columns, errors='coerce')
+
     string_df = string_df.convert_dtypes()
 
     df = pd.concat([string_df, numeric_df], axis=1)
