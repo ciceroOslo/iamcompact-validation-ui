@@ -6,7 +6,7 @@ import tempfile
 
 from streamlit_extras.switch_page_button import switch_page
 
-from validation.data_structures import *
+from validation.data_structure import *
 from validation.vetting import *
 
 
