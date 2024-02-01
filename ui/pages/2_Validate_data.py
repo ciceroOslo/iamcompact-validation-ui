@@ -3,6 +3,10 @@ import pandas as pd
 import os
 import re
 import tempfile
+import sys
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+
 
 from streamlit_extras.switch_page_button import switch_page
 
