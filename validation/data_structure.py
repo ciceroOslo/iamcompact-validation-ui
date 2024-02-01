@@ -15,52 +15,52 @@ def load_known_names():
     return models,regions,variables_units,variables,units,variables_units_combination
 
 
-def check_value_format(data):
-    numeric_columns =  data.columns[pd.to_numeric(data.columns, errors='coerce').notna()]
+def check_value_format(df):
+    numeric_columns =  df.columns[pd.to_numeric(df.columns, errors='coerce').notna()]
 
     # find possible mixed columns (strings and floats) and turn them to numeric columns, making the strings NaN
     for column in numeric_columns:
-        # if pd.api.types.infer_dtype(data[column]) == 'mixed-integer' or pd.api.types.infer_dtype(data[column]) == 'mixed-integer-float':
-        data[column] = pd.to_numeric(data[column], errors = 'coerce')
+        # if pd.api.types.infer_dtype(df[column]) == 'mixed-integer' or pd.api.types.infer_dtype(df[column]) == 'mixed-integer-float':
+        df[column] = pd.to_numeric(df[column], errors = 'coerce')
 
-    return data
+    return df
 
 
-def check_duplicates(data):
+def check_duplicates(df):
     # check if there are any duplicates (we consider duplicates those entries that have same Model, Scenario, Region and Variable)
-    data['duplicates_check'] = data.duplicated(['Model', 'Scenario', 'Region', 'Variable']).apply(lambda x: 'Duplicate' if x else '')
+    df['duplicates_check'] = df.duplicated(['Model', 'Scenario', 'Region', 'Variable']).apply(lambda x: 'Duplicate' if x else '')
 
-    return data
+    return df
 
 
-def check_indices(data):
+def check_indices(df):
     models,regions,variables_units,variables,units,variables_units_combination = load_known_names()
 
     # check if model is valid
-    data['model_check'] = data.Model.dropna().apply(lambda x: 'Model ' + x + ' not found!' if x not in models else '')
+    df['model_check'] = df.Model.dropna().apply(lambda x: 'Model ' + x + ' not found!' if x not in models else '')
 
     # check if region is valid
-    data['region_check'] = data.Region.dropna().apply(lambda x: 'Region ' + x + ' not found!' if x not in regions else '')
+    df['region_check'] = df.Region.dropna().apply(lambda x: 'Region ' + x + ' not found!' if x not in regions else '')
 
     # check if variable is valid
-    data['variable_check'] = data.Variable.dropna().apply(lambda x: 'Variable ' + x + ' not found!' if x not in variables else '')
+    df['variable_check'] = df.Variable.dropna().apply(lambda x: 'Variable ' + x + ' not found!' if x not in variables else '')
 
     # check if unit is valid
-    data['unit_check'] = data.Unit.dropna().apply(lambda x: 'Unit ' + x + ' not found!' if x not in units else '')
+    df['unit_check'] = df.Unit.dropna().apply(lambda x: 'Unit ' + x + ' not found!' if x not in units else '')
 
     # check if variable unit combination is valid
     # fix check to avoid dropping rows
-    data['variable_unit_check']= data.dropna().apply(lambda x: f"Variable {x['Variable']} combined with unit {x['Unit']} not found!" if (x['Variable'] + ' ' + x['Unit']) not in variables_units_combination else '', axis=1)
+    df['variable_unit_check']= df.dropna().apply(lambda x: f"Variable {x['Variable']} combined with unit {x['Unit']} not found!" if (x['Variable'] + ' ' + x['Unit']) not in variables_units_combination else '', axis=1)
 
-    return data
+    return df
 
-def check_basic_sums(data):
+def check_basic_sums(df):
 
-    numeric_columns =  data.columns[pd.to_numeric(data.columns, errors='coerce').notna()]
+    numeric_columns =  df.columns[pd.to_numeric(df.columns, errors='coerce').notna()]
 
     # create a list with the aggregated variables
     aggr_vars = []
-    unique_vars = data.Variable.unique()
+    unique_vars = df.Variable.unique()
     for var in unique_vars:
         var_levels = var.count('|')
 
@@ -91,20 +91,20 @@ def check_basic_sums(data):
                             var_tree[test_aggr_var].append(var)
 
     # check basic sums
-    data['basic_sum_check'] = ''
+    df['basic_sum_check'] = ''
     for variable in var_tree.keys():
-        # get data that have the aggregated variable
-        agg_results = data[data['Variable'].isin(var_tree[f'{variable}'])].groupby(['Model', 'Scenario', 'Region']).sum()[numeric_columns]
+        # get df that have the aggregated variable
+        agg_results = df[df['Variable'].isin(var_tree[f'{variable}'])].groupby(['Model', 'Scenario', 'Region']).sum()[numeric_columns]
 
         for row in agg_results.index:
             for year in numeric_columns:
-                values = data[(data['Model'] == row[0]) & (data['Scenario'] == row[1]) & (data['Region'] == row[2])  & (data['Variable'] == variable)][year].values
+                values = df[(df['Model'] == row[0]) & (df['Scenario'] == row[1]) & (df['Region'] == row[2])  & (df['Variable'] == variable)][year].values
                 if len(values) != 0:
                     # find percentage difference using the formula |x1 - x2|/((x1+x2)/2)
                     diff = (abs(values[0] - agg_results[year][row[0]][row[1]][row[2]]))/((values[0] + agg_results[year][row[0]][row[1]][row[2]])/2)
                     
                     # set difference margin at 2%
                     if diff > 0.02:
-                        data.loc[(data['Model'] == row[0]) & (data['Scenario'] == row[1]) & (data['Region'] == row[2])  & (data['Variable'] == variable), 'basic_sum_check'] += f'Basic sum check error on year {year}.     \n'
+                        df.loc[(df['Model'] == row[0]) & (df['Scenario'] == row[1]) & (df['Region'] == row[2])  & (df['Variable'] == variable), 'basic_sum_check'] += f'Basic sum check error on year {year}.     \n'
 
-    return data
+    return df

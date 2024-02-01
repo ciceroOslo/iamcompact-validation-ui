@@ -1,8 +1,8 @@
 import pandas as pd
 
-def check_vetting(data):
+def check_vetting(df):
     # create empty vetting check column
-    data['vetting_check'] = ''
+    df['vetting_check'] = ''
 
     # create empty vettings list where the vetting results are stored as Series with index the original index of the entry and value the result of the vetting check
     vettings_results = []
@@ -26,7 +26,7 @@ def check_vetting(data):
     # creating Series objects with index the index of the error or warning and value the vetting error or warning if exists and appending them to the vetting_results
     for vetting in vetting_list:
         # basic vetting checks
-        vcheck = data[(data['Variable'] == vetting['variable']) & (data['Region'] == 'World')]
+        vcheck = df[(df['Variable'] == vetting['variable']) & (df['Region'] == 'World')]
 
         if not vcheck.empty:
             vettings_results.append(vcheck.apply(check_vetting_range, axis=1))
@@ -39,23 +39,23 @@ def check_vetting(data):
 
     for vetting in vettings_list:
         # vetting sums checks
-        vetting_group = data[((data['Variable'] == vetting['variable1']) | (data['Variable'] == vetting['variable2']))
-                        & (data['Region'] == 'World')].groupby(['Model', 'Scenario']).sum()[vetting['year']]
+        vetting_group = df[((df['Variable'] == vetting['variable1']) | (df['Variable'] == vetting['variable2']))
+                        & (df['Region'] == 'World')].groupby(['Model', 'Scenario']).sum()[vetting['year']]
         
         # get indexes with sum out of bounds
         indexes = vetting_group[(vetting_group < vetting['low']) | (vetting_group > vetting['high'])].index
         for index in indexes:
             # append Series object with index the index of the error or warning and value the vetting error or warning
-            vettings_results.append(pd.Series({data[(data['Model'] == index[0]) & (data['Scenario'] == index[1]) & (data['Variable'] == vetting['variable1']) & (data['Region'] == 'World')].index[0]: f"{vetting['error']} for year {vetting['year']}. Sum range must be between {vetting['low']} and {vetting['high']}."}))
-            vettings_results.append(pd.Series({data[(data['Model'] == index[0]) & (data['Scenario'] == index[1]) & (data['Variable'] == vetting['variable2']) & (data['Region'] == 'World')].index[0]: f"{vetting['error']} for year {vetting['year']}. Sum range must be between {vetting['low']} and {vetting['high']}."}))
+            vettings_results.append(pd.Series({df[(df['Model'] == index[0]) & (df['Scenario'] == index[1]) & (df['Variable'] == vetting['variable1']) & (df['Region'] == 'World')].index[0]: f"{vetting['error']} for year {vetting['year']}. Sum range must be between {vetting['low']} and {vetting['high']}."}))
+            vettings_results.append(pd.Series({df[(df['Model'] == index[0]) & (df['Scenario'] == index[1]) & (df['Variable'] == vetting['variable2']) & (df['Region'] == 'World')].index[0]: f"{vetting['error']} for year {vetting['year']}. Sum range must be between {vetting['low']} and {vetting['high']}."}))
 
     # percent change between 2010-2020 vetting check 
-    vettings_results.append(data[(data['Variable'] == 'Emissions|CO2|Energy and Industrial Processes') 
-            & (data['Region'] == 'World')].apply(lambda x: 'Vetting error: CO2 emissions EIP 2010-2020 - % change' if abs((x[2020]-x[2010])/x[2010]) > 0.5 else '', axis=1))
+    vettings_results.append(df[(df['Variable'] == 'Emissions|CO2|Energy and Industrial Processes') 
+            & (df['Region'] == 'World')].apply(lambda x: 'Vetting error: CO2 emissions EIP 2010-2020 - % change' if abs((x[2020]-x[2010])/x[2010]) > 0.5 else '', axis=1))
 
-    # write vetting results to the original dataframe's vetting_check column
+    # write vetting results to the original dfframe's vetting_check column
     for vetting in vettings_results:
         for key, value in vetting.to_dict().items():
-            data['vetting_check'][key] = value
+            df['vetting_check'][key] = value
 
-    return data
+    return df
