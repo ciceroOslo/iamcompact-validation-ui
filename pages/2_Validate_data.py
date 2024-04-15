@@ -221,9 +221,10 @@ def check_vetting(data):
             vettings_results.append(pd.Series({data[(data['Model'] == index[0]) & (data['Scenario'] == index[1]) & (data['Variable'] == vetting['variable1']) & (data['Region'] == 'World')].index[0]: f"{vetting['error']} for year {vetting['year']}. Sum range must be between {vetting['low']} and {vetting['high']}."}))
             vettings_results.append(pd.Series({data[(data['Model'] == index[0]) & (data['Scenario'] == index[1]) & (data['Variable'] == vetting['variable2']) & (data['Region'] == 'World')].index[0]: f"{vetting['error']} for year {vetting['year']}. Sum range must be between {vetting['low']} and {vetting['high']}."}))
 
-    # percent change between 2010-2020 vetting check 
-    vettings_results.append(data[(data['Variable'] == 'Emissions|CO2|Energy and Industrial Processes') 
-            & (data['Region'] == 'World')].apply(lambda x: 'Vetting error: CO2 emissions EIP 2010-2020 - % change' if abs((x[2020]-x[2010])/x[2010]) > 0.5 else '', axis=1))
+
+    # percent change between 2010-2020 vetting check - to fix
+    # vettings_results.append(data[(data['Variable'] == 'Emissions|CO2|Energy and Industrial Processes') 
+    #         & (data['Region'] == 'World')].apply(lambda x: 'Vetting error: CO2 emissions EIP 2010-2020 - % change' if abs((x[2020]-x[2010])/x[2010]) > 0.5 else '', axis=1))
 
     # write vetting results to the original dataframe's vetting_check column
     for vetting in vettings_results:
