@@ -73,6 +73,10 @@ def main():
         st.session_state['current_file_size'] = st.session_state['uploaded_file'].size
 
         # Refresh all variables
+        # ###
+        # The state initialization below is partially old code from
+        # i2am_paris_validation, needs to be cleaned up.
+        # ###
         st.session_state['validated_data'] = pd.DataFrame()
         st.session_state['missing_values_count'] = None
         st.session_state['duplicates_count'] = None
@@ -103,41 +107,44 @@ def main():
             if validate_data_btn:
                 switch_page("Validate_data") 
 
-def clean_results_dataset(df):
-    error = False
-
-    str_cols = pd.to_numeric(df.columns, errors='coerce').isna()
-    numeric_cols = pd.to_numeric(df.columns, errors='coerce').notna()
-
-    string_df = df.loc[:,str_cols].rename(columns=lambda x: re.sub('^[Mm][Oo][Dd][Ee][Ll]$', 'Model', x)) \
-                            .rename(columns=lambda x: re.sub('^[Ss][Cc][Ee][Nn][Aa][Rr][Ii][Oo]$', 'Scenario', x)) \
-                            .rename(columns=lambda x: re.sub('^[Rr][Ee][Gg][Ii][Oo][Nn]$', 'Region', x)) \
-                            .rename(columns=lambda x: re.sub('^[Vv][Aa][Rr][Ii][Aa][Bb][Ll][Ee]$', 'Variable', x)) \
-                            .rename(columns=lambda x: re.sub('^[Uu][Nn][Ii][Tt]$', 'Unit', x))
-
-    for column in ['Model', 'Region', 'Scenario', 'Variable', 'Unit']:
-        if column not in df.columns:
-            st.error(f'Column {column} is missing or has a different name!', icon="🚨")
-            error = True
-
-    if numeric_cols.sum()==0:
-        st.error(f'No year columns!', icon="🚨")
-        error = True
-
-    numeric_df = df.loc[:,numeric_cols]
-
-    numeric_df = numeric_df.apply(pd.to_numeric, axis=1, errors='coerce')
-    numeric_df.columns = pd.to_numeric(numeric_df.columns, errors='coerce')
-
-    string_df = string_df.convert_dtypes()
-
-    df = pd.concat([string_df, numeric_df], axis=1)
-
-    st.session_state['clean_df'] = df
-    st.session_state['cleaning_error'] = error
-
-    return df, error
-
-
-if __name__ == "__main__":
-    main()
+# ###
+# Commenting out the function below. Old function from i2am_paris_validation.
+# ###
+# def clean_results_dataset(df):
+#     error = False
+# 
+#     str_cols = pd.to_numeric(df.columns, errors='coerce').isna()
+#     numeric_cols = pd.to_numeric(df.columns, errors='coerce').notna()
+# 
+#     string_df = df.loc[:,str_cols].rename(columns=lambda x: re.sub('^[Mm][Oo][Dd][Ee][Ll]$', 'Model', x)) \
+#                             .rename(columns=lambda x: re.sub('^[Ss][Cc][Ee][Nn][Aa][Rr][Ii][Oo]$', 'Scenario', x)) \
+#                             .rename(columns=lambda x: re.sub('^[Rr][Ee][Gg][Ii][Oo][Nn]$', 'Region', x)) \
+#                             .rename(columns=lambda x: re.sub('^[Vv][Aa][Rr][Ii][Aa][Bb][Ll][Ee]$', 'Variable', x)) \
+#                             .rename(columns=lambda x: re.sub('^[Uu][Nn][Ii][Tt]$', 'Unit', x))
+# 
+#     for column in ['Model', 'Region', 'Scenario', 'Variable', 'Unit']:
+#         if column not in df.columns:
+#             st.error(f'Column {column} is missing or has a different name!', icon="🚨")
+#             error = True
+# 
+#     if numeric_cols.sum()==0:
+#         st.error(f'No year columns!', icon="🚨")
+#         error = True
+# 
+#     numeric_df = df.loc[:,numeric_cols]
+# 
+#     numeric_df = numeric_df.apply(pd.to_numeric, axis=1, errors='coerce')
+#     numeric_df.columns = pd.to_numeric(numeric_df.columns, errors='coerce')
+# 
+#     string_df = string_df.convert_dtypes()
+# 
+#     df = pd.concat([string_df, numeric_df], axis=1)
+# 
+#     st.session_state['clean_df'] = df
+#     st.session_state['cleaning_error'] = error
+# 
+#     return df, error
+# 
+# 
+# if __name__ == "__main__":
+#     main()
