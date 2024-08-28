@@ -177,7 +177,7 @@ psycopg==3.2.1
     # via ixmp4
 psycopg-binary==3.2.1
     # via psycopg
-pyam-iamc==2.2.4
+pyam-iamc @ git+https://github.com/IAMconsortium/pyam@e27e90e7babf31124cfde5cd3ae26a9f1ea4cf52
 pyarrow==17.0.0
     # via streamlit
 pydantic==2.8.2

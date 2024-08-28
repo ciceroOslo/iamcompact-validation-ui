@@ -12,7 +12,7 @@ dependencies = [
     "watchdog>=4.0.2",
     "pandas>=2.2.2",
     "python-calamine>=0.2.3",
-    "pyam-iamc>=2.2.4",
+    "pyam-iamc @ git+https://github.com/IAMconsortium/pyam@main",  # Can change to >=2.2.5 once released
 ]
 readme = "README.md"
 requires-python = ">= 3.12"

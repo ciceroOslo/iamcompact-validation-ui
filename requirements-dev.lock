@@ -198,7 +198,7 @@ ptyprocess==0.7.0
     # via pexpect
 pure-eval==0.2.3
     # via stack-data
-pyam-iamc==2.2.4
+pyam-iamc @ git+https://github.com/IAMconsortium/pyam@e27e90e7babf31124cfde5cd3ae26a9f1ea4cf52
 pyarrow==17.0.0
     # via streamlit
 pydantic==2.8.2
