@@ -110,14 +110,14 @@ def main():
         # The state initialization below is partially old code from
         # i2am_paris_validation, needs to be cleaned up.
         # ###
-        st.session_state['validated_data'] = pd.DataFrame()
-        st.session_state['missing_values_count'] = None
-        st.session_state['duplicates_count'] = None
-        st.session_state['model_errors'] = None
-        st.session_state['region_errors'] = None
-        st.session_state['variable_errors'] = None
-        st.session_state['unit_errors'] = None
-        st.session_state['vetting_errors'] = None   
+        # st.session_state['validated_data'] = pd.DataFrame()
+        # st.session_state['missing_values_count'] = None
+        # st.session_state['duplicates_count'] = None
+        # st.session_state['model_errors'] = None
+        # st.session_state['region_errors'] = None
+        # st.session_state['variable_errors'] = None
+        # st.session_state['unit_errors'] = None
+        # st.session_state['vetting_errors'] = None   
 
         # clean_results_dataset(raw_data)
         st.session_state['uploaded_iam_df'] = raw_data
