@@ -86,7 +86,8 @@ def main():
         st.session_state['unit_errors'] = None
         st.session_state['vetting_errors'] = None   
 
-        clean_results_dataset(raw_data)
+        # clean_results_dataset(raw_data)
+        st.session_state['clean_df'] = raw_data
 
     df = st.session_state.get('clean_df', pd.DataFrame())
     if not df.empty: 
@@ -144,7 +145,7 @@ def main():
 #     st.session_state['cleaning_error'] = error
 # 
 #     return df, error
-# 
-# 
-# if __name__ == "__main__":
-#     main()
+
+
+if __name__ == "__main__":
+    main()
