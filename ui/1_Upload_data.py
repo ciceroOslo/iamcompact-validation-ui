@@ -1,11 +1,15 @@
+import tempfile
+
 import streamlit as st
 import pandas as pd
-import os
-import re
+import pyam
 
 from streamlit_extras.switch_page_button import switch_page
 
-from utils import clean_triple_textblock as mdblock
+from utils import (
+    clean_triple_textblock as mdblock,
+    get_empty_iam_df,
+)
 
 
 pd.options.mode.chained_assignment = None  # default='warn'
@@ -65,9 +69,26 @@ def main():
     if uploaded_file is not None:
         # load data
         if uploaded_file.type == 'text/csv':
-            raw_data = pd.read_csv(uploaded_file)
+            with tempfile.NamedTemporaryFile(
+                    mode='w',
+                    encoding='utf-8',
+                    suffix='.csv',
+                    delete=True,
+                    delete_on_close=False,
+            ) as _file:
+                _file.write(uploaded_file.getvalue().decode('utf-8'))
+                raw_data: pyam.IamDataFrame = pyam.IamDataFrame(_file.name,
+                                                                engine='c')
         else:
-            raw_data = pd.read_excel(uploaded_file)
+            with tempfile.NamedTemporaryFile(
+                    mode='wb',
+                    suffix='.xlsx',
+                    delete=True,
+                    delete_on_close=False,
+            ) as _file:
+                _file.write(uploaded_file.getvalue())
+                raw_data: pyam.IamDataFrame = pyam.IamDataFrame(_file.name,
+                                                                engine='calamine')
 
         st.session_state['current_filename'] = st.session_state['uploaded_file'].name
         st.session_state['current_file_size'] = st.session_state['uploaded_file'].size
@@ -87,9 +108,10 @@ def main():
         st.session_state['vetting_errors'] = None   
 
         # clean_results_dataset(raw_data)
-        st.session_state['clean_df'] = raw_data
+        st.session_state['uploaded_iam_df'] = raw_data
 
-    df = st.session_state.get('clean_df', pd.DataFrame())
+    df: pyam.IamDataFrame = st.session_state.get('uploaded_iam_df',
+                                                 get_empty_iam_df())
     if not df.empty: 
         if uploaded_file is None:
             st.write(st.session_state['current_filename'],
