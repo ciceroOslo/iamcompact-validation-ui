@@ -1,6 +1,8 @@
 """Utility functions for the app."""
 import inspect
 
+import pyam
+import pandas as pd
 
 
 def clean_triple_textblock(textblock: str) -> str:
@@ -8,3 +10,14 @@ def clean_triple_textblock(textblock: str) -> str:
     does for docstrings.
     """
     return inspect.cleandoc(textblock)
+
+
+def get_empty_iam_df() -> pyam.IamDataFrame:
+    """Get an empty IAM DataFrame.
+    
+    Returns an IamDataFrame with index columns and a single year column
+    (year `0`), but no rows.
+    """
+    return pyam.IamDataFrame(
+        pd.DataFrame(columns=pyam.IAMC_IDX+[0])
+    )
