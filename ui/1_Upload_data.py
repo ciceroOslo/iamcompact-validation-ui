@@ -62,11 +62,23 @@ def main():
         """
     ))
 
-    uploaded_file = st.file_uploader("Upload a spreadsheet file with modelling results in IAMC timeseries format.", 
-        type=["xlsx", "csv"],key="uploaded_file")
+    def _clear_uploaded_iam_df():
+        st.session_state['uploaded_iam_df'] = None
+        st.session_state['inspect_data'] = False
+    uploaded_file = st.file_uploader(
+        'Upload a spreadsheet file with modelling results in IAMC timeseries '
+        'format.', 
+        type=["xlsx", "csv"],
+        key="uploaded_file",
+        on_change=_clear_uploaded_iam_df
+    )
 
+    if uploaded_file is None:
+        _clear_uploaded_iam_df()
 
-    if uploaded_file is not None:
+    if uploaded_file is not None and st.session_state['uploaded_iam_df'] is None:
+        parsing_status_text = st.empty()
+        parsing_status_text.info('Parsing uploaded file...', icon='⏳')
         # load data
         if uploaded_file.type == 'text/csv':
             with tempfile.NamedTemporaryFile(
@@ -109,26 +121,34 @@ def main():
 
         # clean_results_dataset(raw_data)
         st.session_state['uploaded_iam_df'] = raw_data
+        parsing_status_text.empty()
 
-    df: pyam.IamDataFrame = st.session_state.get('uploaded_iam_df',
-                                                 get_empty_iam_df())
-    if not df.empty: 
+    df: pyam.IamDataFrame|None = st.session_state.get('uploaded_iam_df')
+    if df is not None:
         if uploaded_file is None:
             st.write(st.session_state['current_filename'],
                 f", {round(st.session_state['current_file_size']/1000,1)} KB")
 
-        st.dataframe(df)
 
-        if st.session_state.get('cleaning_error'):
-            st.info('Please fix the errors and upload a new file.', icon="ℹ️")
+        if not st.session_state.get('inspect_data', False):
+            st.info(
+                'File uploaded. Click "Inspect data" to view the uploaded data in '
+                'a table. Click "Continue" to continue to vetting checks.',
+                icon="ℹ️"
+            )
+            inspect_data_btn = st.button('Inspect data')
+            if inspect_data_btn:
+                st.session_state['inspect_data'] = True
+                st.rerun()
         else:
-            st.info('The file has the correct column format! \
-                Click the button below for validation.', icon="ℹ️")
-
-            validate_data_btn = st.button('Validate data')
-            
-            if validate_data_btn:
-                switch_page("Validate_data") 
+            st.info(
+                'Click "Continue" to continue to vetting checks.', icon="ℹ️"
+            )
+            st.dataframe(df.timeseries())
+        validate_data_btn = st.button('Continue')
+        
+        if validate_data_btn:
+            switch_page("Validate_data") 
 
 # ###
 # Commenting out the function below. Old function from i2am_paris_validation.
