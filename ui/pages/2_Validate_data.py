@@ -37,7 +37,7 @@ def main():
 
     st.sidebar.markdown("*Consistency between disaggregated and aggregated variables*: \
         Check whether the values of aggregated variables correspond to the sum of their respective \
-            disaggregated variables (an error margin of 2\% is accepted).")
+            disaggregated variables (an error margin of 2% is accepted).")
 
 
     df = st.session_state.get('clean_df', pd.DataFrame())
