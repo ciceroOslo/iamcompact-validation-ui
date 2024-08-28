@@ -112,12 +112,14 @@ def main():
 
     else: 
         with placeholder.container():
-            st.info('No data for validation. Please upload a results dataset with a correct format.', icon="ℹ️")
+            st.info(
+                'No data for uploaded. Please upload a results file with the '
+                'correct format.', icon="ℹ️")
 
             validate_data_btn = st.button('Upload data')
             
             if validate_data_btn:
-                switch_page("Upload data") 
+                switch_page('Upload data') 
 
 
 def validate(df, indices_check, vetting_check, basic_sums_check):

@@ -5,6 +5,8 @@ import re
 
 from streamlit_extras.switch_page_button import switch_page
 
+from utils import clean_triple_textblock as mdblock
+
 
 pd.options.mode.chained_assignment = None  # default='warn'
 
@@ -13,22 +15,51 @@ st.set_page_config(layout="wide")
 
 def main():
 
-    st.header("Upload modelling results for validation")
+    st.header("Upload modelling results for vetting")
 
     st.sidebar.header("Instructions")
 
-    st.sidebar.markdown("The file should include five columns named Model, Scenario, Region, Variable, and Unit and \
-        a number of columns with years for column names (e.g., 2010, 2015, 2020, etc.).")
+    st.sidebar.markdown(mdblock(
+        """Upload a file with modelling results using the page to the right,
+        then go to subsequent pages to perform different vetting checks and view
+        or download the results.
+        
+        The file to upload should be an Excel (.xlsx) or CSV file in IAMC \
+        format. Please observe the following formatting rules:
 
-    st.sidebar.markdown("Timeseries data in the file should be given in a float or integer format \
-        underneath the year columns. An empty cell will be interpreted as unavailable data, \
-        a 0-character will be interpreted as a value of zero, while alphabetic characters \
-        will throw an error.")
+        ### Column names
+        * The data sheet(s) must have the columns "Model", "Scenario", "Region",
+          "Variable", and "Unit" to the left.
+        * Subsequent columns should have years as headers (e.g., 2015, 2020,
+          etc.)
+        * If you require additional columns (like "Subannual"), please contact
+          the developers. Non-standard columns are likely to cause problems for
+          the current version of the vetting checks.
+        
+        ### Excel file worksheets
+        If uploading an Excel file:
+        * All data (other than metadata) must be in one or more worksheets with
+          names that start with "data" or "Data".
+        * Metadata must be in a worksheet named "meta" (case-sensitive), though
+          the metadata is not used in the current vetting checks and therefore
+          is ignored for now.
+        * All other worksheets will be ignored.
 
-    st.sidebar.markdown("You can find an example of the format [here](https://pyam-iamc.readthedocs.io/en/stable/).")
+        ### Values
+        * All rows *must* have values for the index columns ("Model",
+          "Scenario", "Region", and "Variable"). "Unit" can be left blank for
+          dimensionless units with no scale factor (but is otherwise mandatory).
+        * No duplicate rows are allowed, i.e., all rows *must* have unique
+          for the index columns, even for rows in different Excel worksheets.
+        * Cells with missing data *must* be left blank. Do not use "NA", "-"
+          or other non-numeric values. A value of "0" will be interpreted as a
+          literal zero, and must not be used for missing values. Please check
+          that Excel has not filled in zeros in blank cells.
+        """
+    ))
 
-    uploaded_file = st.file_uploader("Upload a spreadsheet file with modelling results in an IAMC timeseries format.", 
-        type=["xlsx", "xls", "csv"],key="uploaded_file")
+    uploaded_file = st.file_uploader("Upload a spreadsheet file with modelling results in IAMC timeseries format.", 
+        type=["xlsx", "csv"],key="uploaded_file")
 
 
     if uploaded_file is not None:
