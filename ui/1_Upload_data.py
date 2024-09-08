@@ -1,8 +1,8 @@
 import tempfile
 
-import streamlit as st
 import pandas as pd
 import pyam
+import streamlit as st
 
 from streamlit_extras.switch_page_button import switch_page
 
@@ -12,7 +12,10 @@ from utils import (
 )
 
 
-pd.options.mode.chained_assignment = None  # default='warn'
+# The option below should probably be removed, but just commenting out for now.
+# I don't think we want to do anything that triggers chained assignment
+# warnings.
+# pd.options.mode.chained_assignment = None  # default='warn'
 
 st.set_page_config(layout="wide")
 
@@ -129,23 +132,33 @@ def main():
             st.write(st.session_state['current_filename'],
                 f", {round(st.session_state['current_file_size']/1000,1)} KB")
 
+        inspect_data_button_text: str = 'Inspect data'
+        continue_button_text: str = 'Continue'
+        next_page_name: str = 'AR6 vetting checks'
+
+        inspect_info_text: str = 'File uploaded. Click ' \
+            f'"{inspect_data_button_text}" to view the data in a table.'
+        proceed_info_text: str = f'Click "{continue_button_text}" to ' \
+            f'continue to the first vetting check ({next_page_name}), or ' \
+            'click a page name in the left sidebar to jump directly to ' \
+            'any check.'
 
         if not st.session_state.get('inspect_data', False):
             st.info(
-                'File uploaded. Click "Inspect data" to view the uploaded data in '
-                'a table. Click "Continue" to continue to vetting checks.',
+                '\n\n'.join([inspect_info_text, proceed_info_text]),
                 icon="ℹ️"
             )
-            inspect_data_btn = st.button('Inspect data')
+            inspect_data_btn = st.button(inspect_data_button_text)
             if inspect_data_btn:
                 st.session_state['inspect_data'] = True
                 st.rerun()
         else:
             st.info(
-                'Click "Continue" to continue to vetting checks.', icon="ℹ️"
+                proceed_info_text,
+                icon="ℹ️"
             )
             st.dataframe(df.timeseries())
-        validate_data_btn = st.button('Continue')
+        validate_data_btn = st.button(continue_button_text)
         
         if validate_data_btn:
             switch_page("Validate_data") 
