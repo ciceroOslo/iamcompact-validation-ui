@@ -22,6 +22,7 @@ appdirs==1.4.4
     # via pint
 attrs==24.2.0
     # via jsonschema
+    # via pandas-indexing
     # via referencing
 beautifulsoup4==4.12.3
     # via favicon
@@ -42,6 +43,8 @@ contourpy==1.2.1
     # via matplotlib
 cycler==0.12.1
     # via matplotlib
+deprecated==1.2.14
+    # via pandas-indexing
 entrypoints==0.4
     # via streamlit-extras
 et-xmlfile==1.1.0
@@ -82,6 +85,7 @@ hyperframe==6.0.1
     # via h2
 iam-units==2023.9.12
     # via pyam-iamc
+iamcompact-vetting @ git+https://github.com/ciceroOslo/iamcompact-vetting.git@12893000df39da974745cdbc0e8490b61878ee63
 idna==3.8
     # via anyio
     # via httpx
@@ -144,6 +148,7 @@ numpy==2.1.0
     # via streamlit
     # via wquantiles
 openpyxl==3.1.5
+    # via iamcompact-vetting
     # via ixmp4
     # via pyam-iamc
 packaging==24.1
@@ -154,12 +159,17 @@ packaging==24.1
     # via streamlit
 pandas==2.2.2
     # via ixmp4
+    # via pandas-indexing
     # via pandera
     # via pyam-iamc
     # via seaborn
     # via streamlit
+pandas-indexing==0.5.2
+    # via iamcompact-vetting
 pandera==0.20.3
     # via ixmp4
+pathways-ensemble-analysis @ git+https://gitlab.com/climateanalytics/pathways-ensemble-analysis.git@22e1165cb1b1f3e2e9a14b783f91165700502adf
+    # via iamcompact-vetting
 pillow==10.4.0
     # via matplotlib
     # via streamlit
@@ -178,6 +188,7 @@ psycopg==3.2.1
 psycopg-binary==3.2.1
     # via psycopg
 pyam-iamc @ git+https://github.com/IAMconsortium/pyam@e27e90e7babf31124cfde5cd3ae26a9f1ea4cf52
+    # via iamcompact-vetting
 pyarrow==17.0.0
     # via streamlit
 pydantic==2.8.2
@@ -325,6 +336,8 @@ watchdog==4.0.2
 wquantiles==0.6
     # via pyam-iamc
 wrapt==1.16.0
+    # via deprecated
     # via pandera
 xlsxwriter==3.2.0
+    # via iamcompact-vetting
     # via pyam-iamc
