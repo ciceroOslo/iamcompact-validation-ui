@@ -76,8 +76,8 @@ def main():
         on_change=_clear_uploaded_iam_df
     )
 
-    if uploaded_file is None:
-        _clear_uploaded_iam_df()
+    # if uploaded_file is None:
+    #     _clear_uploaded_iam_df()
 
     if uploaded_file is not None and st.session_state['uploaded_iam_df'] is None:
         parsing_status_text = st.empty()
@@ -161,7 +161,7 @@ def main():
         validate_data_btn = st.button(continue_button_text)
         
         if validate_data_btn:
-            switch_page("Validate_data") 
+            switch_page('IPCC_AR6_vetting') 
 
 # ###
 # Commenting out the function below. Old function from i2am_paris_validation.
