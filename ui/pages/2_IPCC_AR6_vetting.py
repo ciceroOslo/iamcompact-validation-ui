@@ -2,7 +2,10 @@ import pandas as pd
 import pyam
 import streamlit as st
 
-from common_keys import SSKey
+from common_keys import (
+    PAGE_RUN_NAME,
+    SSKey,
+)
 from page_defs import (
     PageKey,
     pages,
@@ -24,4 +27,5 @@ def main():
 
 ###END def main
 
-main()
+if __name__ == PAGE_RUN_NAME:
+    main()

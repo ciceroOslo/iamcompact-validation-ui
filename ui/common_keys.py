@@ -1,6 +1,7 @@
 """Common strings and keys used throughout the app."""
 
 from enum import StrEnum
+import typing as tp
 
 
 
@@ -23,3 +24,7 @@ class SSKey(StrEnum):
     """Whether to display a table with the uploaded data, on the upload page."""
 
 ###END class SSKey
+
+
+PAGE_RUN_NAME: tp.Final[str] = '__page__'
+"""Value of the `__name__` attribute of a page being run."""

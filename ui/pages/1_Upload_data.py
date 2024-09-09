@@ -6,7 +6,10 @@ import streamlit as st
 from streamlit.elements.arrow import DataframeState
 from streamlit_extras.switch_page_button import switch_page
 
-from common_keys import SSKey
+from common_keys import (
+    PAGE_RUN_NAME,
+    SSKey,
+)
 from utils import (
     clean_triple_textblock as mdblock,
     get_empty_iam_df,
@@ -236,4 +239,5 @@ def make_timeseries_table(idf: pyam.IamDataFrame) -> DataframeState:
 # 
 #     return df, error
 
-main()
+if __name__ == PAGE_RUN_NAME:
+    main()
