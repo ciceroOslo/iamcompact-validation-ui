@@ -6,6 +6,7 @@ from pathlib import Path
 import typing as tp
 
 import streamlit as st
+from streamlit.navigation.page import StreamlitPage
 
 
 
@@ -27,7 +28,7 @@ the same as the page names.
 
 page_folder: tp.Final[Path] = Path(__file__).parent / 'pages'
 
-pages: tp.Final[dict[PageKey, tp.Any]] = {
+pages: tp.Final[dict[PageKey, StreamlitPage]] = {
     PageKey.UPLOAD: st.Page(
         page_folder / '1_Upload_data.py',
         title=PageName.UPLOAD,
