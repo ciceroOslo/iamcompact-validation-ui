@@ -16,6 +16,8 @@ class SSKey(StrEnum):
 
     IAM_DF_UPLOADED = 'uploaded_iam_df'
     """The IamDataFrame with data from the uploaded file."""
+    IAM_DF_TIMESERIES = 'uploaded_iam_df_timeseries'
+    """A generated timeseries table of the uploaded IamDataFrame."""
 
     DO_INSPECT_DATA = 'inspect_data'
     """Whether to display a table with the uploaded data, on the upload page."""

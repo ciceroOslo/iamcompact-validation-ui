@@ -168,11 +168,28 @@ def main():
             # `st.dataframe`, does take some time and may be computationally
             # expensive. We should probably put them both inside a function
             # that can be st.cached.
-            st.dataframe(df.timeseries())
+            df_state = make_timeseries_table(df)
         validate_data_btn = st.button(continue_button_text)
-        
         if validate_data_btn:
             switch_page('IPCC_AR6_vetting') 
+
+###END def main
+
+
+def make_timeseries_table(idf: pyam.IamDataFrame) -> DataframeState:
+    """Get the timeseries table of an IamDataFrame.
+
+    Check the session state to see if `idf` is the same as the current uploaded
+    IamDataFrame, and whether a timeseries table has already been generated.
+    If so, use that.
+    """
+    timeseries: pd.DataFrame|None = None
+    if idf is st.session_state.get(SSKey.IAM_DF_UPLOADED):
+        timeseries = st.session_state.get(SSKey.IAM_DF_TIMESERIES, None)
+    if timeseries is None:
+        timeseries = idf.timeseries()
+    return st.dataframe(timeseries)
+###END def get_timeseries_table
 
 # ###
 # Commenting out the function below. Old function from i2am_paris_validation.
