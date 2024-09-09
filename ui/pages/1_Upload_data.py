@@ -11,6 +11,10 @@ from utils import (
     clean_triple_textblock as mdblock,
     get_empty_iam_df,
 )
+from page_defs import (
+    PageKey,
+    pages,
+)
 
 
 # The option below should probably be removed, but just commenting out for now.
@@ -24,6 +28,8 @@ st.set_page_config(layout="wide")
 def main():
 
     st.header("Upload modelling results for vetting")
+
+    st.write(__name__)
 
     st.sidebar.header("Instructions")
 
@@ -142,6 +148,7 @@ def main():
         inspect_data_button_text: str = 'Inspect data'
         continue_button_text: str = 'Continue'
         next_page_name: str = 'AR6 vetting checks'
+        next_page_key: PageKey = PageKey.AR6_VETTING
 
         inspect_info_text: str = 'File uploaded. Click ' \
             f'"{inspect_data_button_text}" to view the data in a table.'
@@ -171,7 +178,7 @@ def main():
             df_state = make_timeseries_table(df)
         validate_data_btn = st.button(continue_button_text)
         if validate_data_btn:
-            switch_page('IPCC_AR6_vetting') 
+            st.switch_page(pages[next_page_key])
 
 ###END def main
 
@@ -229,6 +236,4 @@ def make_timeseries_table(idf: pyam.IamDataFrame) -> DataframeState:
 # 
 #     return df, error
 
-
-if __name__ == "__main__":
-    main()
+main()
