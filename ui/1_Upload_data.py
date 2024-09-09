@@ -157,6 +157,10 @@ def main():
                 proceed_info_text,
                 icon="ℹ️"
             )
+            # The call to `IamDataFrame.timeseries` here, as well as maybe
+            # `st.dataframe`, does take some time and may be computationally
+            # expensive. We should probably put them both inside a function
+            # that can be st.cached.
             st.dataframe(df.timeseries())
         validate_data_btn = st.button(continue_button_text)
         
