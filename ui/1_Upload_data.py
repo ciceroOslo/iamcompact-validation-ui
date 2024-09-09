@@ -6,6 +6,7 @@ import streamlit as st
 
 from streamlit_extras.switch_page_button import switch_page
 
+from common_keys import SSKey
 from utils import (
     clean_triple_textblock as mdblock,
     get_empty_iam_df,
@@ -30,7 +31,7 @@ def main():
         """Upload a file with modelling results using the page to the right,
         then go to subsequent pages to perform different vetting checks and view
         or download the results.
-        
+
         The file to upload should be an Excel (.xlsx) or CSV file in IAMC \
         format. Please observe the following formatting rules:
 
@@ -42,7 +43,7 @@ def main():
         * If you require additional columns (like "Subannual"), please contact
           the developers. Non-standard columns are likely to cause problems for
           the current version of the vetting checks.
-        
+
         ### Excel file worksheets
         If uploading an Excel file:
         * All data (other than metadata) must be in one or more worksheets with
@@ -66,20 +67,21 @@ def main():
     ))
 
     def _clear_uploaded_iam_df():
-        st.session_state['uploaded_iam_df'] = None
-        st.session_state['inspect_data'] = False
+        st.session_state[SSKey.IAM_DF_UPLOADED] = None
+        st.session_state[SSKey.DO_INSPECT_DATA] = False
     uploaded_file = st.file_uploader(
         'Upload a spreadsheet file with modelling results in IAMC timeseries '
         'format.', 
         type=["xlsx", "csv"],
-        key="uploaded_file",
+        key=SSKey.FILE_CURRENT_UPLOADED,
         on_change=_clear_uploaded_iam_df
     )
 
     # if uploaded_file is None:
     #     _clear_uploaded_iam_df()
 
-    if uploaded_file is not None and st.session_state['uploaded_iam_df'] is None:
+    if uploaded_file is not None \
+              and st.session_state[SSKey.IAM_DF_UPLOADED] is None:
         parsing_status_text = st.empty()
         parsing_status_text.info('Parsing uploaded file...', icon='⏳')
         # load data
@@ -105,8 +107,10 @@ def main():
                 raw_data: pyam.IamDataFrame = pyam.IamDataFrame(_file.name,
                                                                 engine='calamine')
 
-        st.session_state['current_filename'] = st.session_state['uploaded_file'].name
-        st.session_state['current_file_size'] = st.session_state['uploaded_file'].size
+        st.session_state[SSKey.FILE_CURRENT_NAME] \
+            = st.session_state[SSKey.FILE_CURRENT_UPLOADED].name
+        st.session_state[SSKey.FILE_CURRENT_SIZE] = \
+            st.session_state[SSKey.FILE_CURRENT_UPLOADED].size
 
         # Refresh all variables
         # ###
@@ -123,14 +127,17 @@ def main():
         # st.session_state['vetting_errors'] = None   
 
         # clean_results_dataset(raw_data)
-        st.session_state['uploaded_iam_df'] = raw_data
+        st.session_state[SSKey.IAM_DF_UPLOADED] = raw_data
         parsing_status_text.empty()
 
-    df: pyam.IamDataFrame|None = st.session_state.get('uploaded_iam_df')
+    df: pyam.IamDataFrame|None = st.session_state.get(SSKey.IAM_DF_UPLOADED)
     if df is not None:
         if uploaded_file is None:
-            st.write(st.session_state['current_filename'],
-                f", {round(st.session_state['current_file_size']/1000,1)} KB")
+            st.write(
+                st.session_state[SSKey.FILE_CURRENT_NAME],
+                f", {round(st.session_state[SSKey.FILE_CURRENT_SIZE]/1000,1)} "
+                    "kB"
+            )
 
         inspect_data_button_text: str = 'Inspect data'
         continue_button_text: str = 'Continue'
@@ -143,14 +150,14 @@ def main():
             'click a page name in the left sidebar to jump directly to ' \
             'any check.'
 
-        if not st.session_state.get('inspect_data', False):
+        if not st.session_state.get(SSKey.DO_INSPECT_DATA, False):
             st.info(
                 '\n\n'.join([inspect_info_text, proceed_info_text]),
                 icon="ℹ️"
             )
             inspect_data_btn = st.button(inspect_data_button_text)
             if inspect_data_btn:
-                st.session_state['inspect_data'] = True
+                st.session_state[SSKey.DO_INSPECT_DATA] = True
                 st.rerun()
         else:
             st.info(
