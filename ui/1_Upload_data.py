@@ -3,7 +3,7 @@ import tempfile
 import pandas as pd
 import pyam
 import streamlit as st
-
+from streamlit.elements.arrow import DataframeState
 from streamlit_extras.switch_page_button import switch_page
 
 from common_keys import SSKey
