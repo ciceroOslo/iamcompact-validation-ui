@@ -30,12 +30,12 @@ page_folder: tp.Final[Path] = Path(__file__).parent / 'pages'
 
 pages: tp.Final[dict[PageKey, StreamlitPage]] = {
     PageKey.UPLOAD: st.Page(
-        page_folder / '1_Upload_data.py',
+        page_folder / 'Upload_data.py',
         title=PageName.UPLOAD,
         default=True,
     ),
     PageKey.AR6_VETTING: st.Page(
-        page_folder / '2_IPCC_AR6_vetting.py',
+        page_folder / 'IPCC_AR6_vetting.py',
         title=PageName.AR6_VETTING,
     ),
 }
