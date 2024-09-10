@@ -32,8 +32,6 @@ def main():
 
     st.header("Upload modelling results for vetting")
 
-    st.write(__name__)
-
     st.sidebar.header("Instructions")
 
     st.sidebar.markdown(mdblock(
