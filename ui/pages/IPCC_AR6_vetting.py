@@ -2,13 +2,13 @@ import pandas as pd
 import pyam
 import streamlit as st
 
+from common_elements import (
+    check_data_is_uploaded,
+    common_instructions,
+)
 from common_keys import (
     PAGE_RUN_NAME,
     SSKey,
-)
-from page_defs import (
-    PageKey,
-    pages,
 )
 
 
@@ -16,14 +16,9 @@ def main():
     
     st.header('Vetting checks for IPCC AR6')
 
-    df: pyam.IamDataFrame|None = \
-        st.session_state.get(SSKey.IAM_DF_UPLOADED, None)
-    if df is None:
-        st.info('No data uploaded yet. Please go to the upload page and upload '
-                'data first.', icon="ℹ️")
-        st.stop()
+    check_data_is_uploaded(stop=True, display_message=True)
+    df: pyam.IamDataFrame = st.session_state[SSKey.IAM_DF_UPLOADED]
 
-    st.write('We found a file')
 
 ###END def main
 
