@@ -23,6 +23,8 @@ class SSKey(StrEnum):
     DO_INSPECT_DATA = 'inspect_data'
     """Whether to display a table with the uploaded data, on the upload page."""
 
+    DISMISSED_WARNING = 'dismissed_warning'
+
 ###END class SSKey
 
 

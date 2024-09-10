@@ -50,6 +50,7 @@ def check_data_is_uploaded(
 ###END def check_data_is_uploaded
 
 
+
 def common_instructions() -> None:
     """Display common instructions for all pages.
     
@@ -59,8 +60,17 @@ def common_instructions() -> None:
     code where any calls to `st.write`, `st.info` or similar methods are
     appropriate.
     """
-    st.info(
-        '**NB!** Do not use browser back/forward buttons, or reload the page '
-            'unless you wish to reset the data and start over.',
-        icon="⚠️",
-    )
+    @st.dialog(title='NB!', width='large')
+    def _dismissable_warnings():
+        st.info(
+            'Do not use browser back/forward buttons, or reload the page '
+                'unless you wish to reset the data and start over.',
+            icon="⚠️",
+        )
+        st.session_state[SSKey.DISMISSED_WARNING] = st.checkbox(
+            'Do not show again until next run',
+            value=True,
+        )
+    if not st.session_state.get(SSKey.DISMISSED_WARNING, False):
+        _dismissable_warnings()
+###END def common_instructions
