@@ -10,5 +10,5 @@ from page_defs import (
 
 
 
-page: StreamlitPage = st.navigation(list(pages.values()))
+page: StreamlitPage = st.navigation({'Pages': list(pages.values())})
 page.run()
