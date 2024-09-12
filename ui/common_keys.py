@@ -32,6 +32,19 @@ class SSKey(StrEnum):
     AR6_CRITERIA_ALL_INCLUDED = 'ar6_criteria_all_included'
     """Whether all models/scenarios were assessed for all AR6 vetting checks."""
 
+    GDP_POP_OUTPUT_DFS = 'gdp_pop_output_harmonization_dfs'
+    """Output DataFrame from `.prepare_output` method of the GDP and population
+    harmonization criteria.
+    """
+    GDP_POP_ALL_PASSED = 'gdp_pop_all_passed'
+    """Whether all assessed GDP and population harmonization checks passed for
+    all assessed models/scenarios.
+    """
+    GDP_POP_ALL_INCLUDED = 'gdp_pop_all_included'
+    """Whether all models/scenarios were assessed for all GDP and population
+    harmonization checks.
+    """
+
     DISMISSED_WARNING = 'dismissed_warning'
     """Whether the warning about not using browser navigation buttons has been
     dismissed.
