@@ -26,11 +26,16 @@ class SSKey(StrEnum):
     AR6_CRITERIA_OUTPUT_DFS = 'ar6_criteria_output_dfs'
     """Output DataFrame from `.prepare_output` method of the AR6 criteria."""
     AR6_CRITERIA_ALL_PASSED = 'ar6_criteria_all_passed'
-    """Whether all assessed checks passed for all assessed models/scenarios."""
+    """Whether all assessed AR6 vetting checks passed for all assessed
+    models/scenarios.
+    """
     AR6_CRITERIA_ALL_INCLUDED = 'ar6_criteria_all_included'
-    """Whether all models/scenarios were assessed for all checks."""
+    """Whether all models/scenarios were assessed for all AR6 vetting checks."""
 
     DISMISSED_WARNING = 'dismissed_warning'
+    """Whether the warning about not using browser navigation buttons has been
+    dismissed.
+    """
 
 ###END class SSKey
 
