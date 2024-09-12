@@ -23,9 +23,31 @@ class SSKey(StrEnum):
     DO_INSPECT_DATA = 'inspect_data'
     """Whether to display a table with the uploaded data, on the upload page."""
 
+    AR6_CRITERIA_OUTPUT_DFS = 'ar6_criteria_output_dfs'
+    """Output DataFrame from `.prepare_output` method of the AR6 criteria."""
+    AR6_CRITERIA_ALL_PASSED = 'ar6_criteria_all_passed'
+    """Whether all assessed checks passed for all assessed models/scenarios."""
+    AR6_CRITERIA_ALL_INCLUDED = 'ar6_criteria_all_included'
+    """Whether all models/scenarios were assessed for all checks."""
+
     DISMISSED_WARNING = 'dismissed_warning'
 
 ###END class SSKey
+
+
+class CriterionOutputKey(StrEnum):
+    """Keys used in output from criterion `.prepare_output` methods."""
+
+    IN_RANGE = 'in_range'
+    """Key for DataFrame with in-range/not-in-range status, i.e., pass/fail."""
+
+    VALUES = 'values'
+    """Key for DataFrame with values returned by each criterion."""
+
+    DISTANCES = 'distances'
+    """Key for DataFrame with distance measure values."""
+
+###END class CriterionOutputKey
 
 
 PAGE_RUN_NAME: tp.Final[str] = '__page__'
