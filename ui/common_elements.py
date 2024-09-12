@@ -74,3 +74,29 @@ def common_instructions() -> None:
     if not st.session_state.get(SSKey.DISMISSED_WARNING, False):
         _dismissable_warnings()
 ###END def common_instructions
+
+
+def make_passed_status_message(all_passed: bool, all_included: bool) -> str:
+    """Make an HTML message to display whether all checks have passed.
+
+    Also makes a message to display whether all models/scenarios have been
+    assessed for all checks.
+    """
+    all_passed_message: str
+    all_included_message: str
+    if all_passed:
+        all_passed_message = '<p style="font-weight: bold">Status: ' \
+            '<span style="color: green">All AR6 checks passed</span></p>'
+    else:
+        all_passed_message = '<p style="font-weight: bold">Status: ' \
+            '<span style="color: red">Some AR6 checks failed</span></p>'
+    if all_included:
+        all_included_message = '<p style="font-weight: bold">Coverage: ' \
+            '<span style="color: green">All models/scenarios assessed for ' \
+            'all checks</span></p>'
+    else:
+        all_included_message = '<p style="font-weight: bold">Coverage: ' \
+            '<span style="color: red">Some models/scenarios not assessed ' \
+            'for some or all checks</span></p>'
+    return '\n'.join([all_passed_message, all_included_message])
+###END def make_status_message

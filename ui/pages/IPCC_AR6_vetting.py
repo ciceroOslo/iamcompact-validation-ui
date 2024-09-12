@@ -10,6 +10,7 @@ from iamcompact_vetting.iamcompact_outputs import \
 from common_elements import (
     check_data_is_uploaded,
     common_instructions,
+    make_passed_status_message,
 )
 from common_keys import (
     PAGE_RUN_NAME,
@@ -44,7 +45,7 @@ def main():
 
     status_area.markdown(
         '\n\n'.join([
-            make_status_message(
+            make_passed_status_message(
                 all_passed=st.session_state[SSKey.AR6_CRITERIA_ALL_PASSED],
                 all_included=st.session_state[SSKey.AR6_CRITERIA_ALL_INCLUDED],
             ),
@@ -73,26 +74,6 @@ def main():
         st.info('Still to be added...', icon='🚧')
 
 ###END def main
-
-def make_status_message(all_passed: bool, all_included: bool) -> str:
-    all_passed_message: str
-    all_included_message: str
-    if all_passed:
-        all_passed_message = '<p style="font-weight: bold">Status: ' \
-            '<span style="color: green">All AR6 checks passed</span></p>'
-    else:
-        all_passed_message = '<p style="font-weight: bold">Status: ' \
-            '<span style="color: red">Some AR6 checks failed</span></p>'
-    if all_included:
-        all_included_message = '<p style="font-weight: bold">Coverage: ' \
-            '<span style="color: green">All models/scenarios assessed for ' \
-            'all checks</span></p>'
-    else:
-        all_included_message = '<p style="font-weight: bold">Coverage: ' \
-            '<span style="color: red">Some models/scenarios not assessed ' \
-            'for some or all checks</span></p>'
-    return '\n'.join([all_passed_message, all_included_message])
-###END def make_status_message
 
 
 def compute_ar6_vetting_checks(
