@@ -61,8 +61,11 @@ def main():
     )
     with in_range_tab:
         st.markdown(
-            'Pass status per model and scenario. `True` for passed, `False` '
-            'for not passed:'
+            'Pass status per model and scenario. '
+                '<span style="color: green"><b>True</b></span> for passed, '
+                '<span style="color: red"><b>False</b></span> for not passed, '
+                'or blank for not assessed (required data not present):',
+            unsafe_allow_html=True,
         )
         st.dataframe(ar6_vetting_output_dfs[CriterionOutputKey.INRANGE])
     with values_tab:
