@@ -33,9 +33,9 @@ def main():
         _dfs: Mapping[str, pd.DataFrame] = \
             compute_ar6_vetting_checks(uploaded_iamdf)
         st.session_state[SSKey.AR6_CRITERIA_ALL_PASSED] = \
-            _dfs[CriterionOutputKey.IN_RANGE].all(axis=None, skipna=True)
+            _dfs[CriterionOutputKey.INRANGE].all(axis=None, skipna=True)
         st.session_state[SSKey.AR6_CRITERIA_ALL_INCLUDED] = \
-            _dfs[CriterionOutputKey.IN_RANGE].all(axis=None, skipna=False)
+            _dfs[CriterionOutputKey.INRANGE].notna().all(axis=None)
         st.session_state[SSKey.AR6_CRITERIA_OUTPUT_DFS] = _dfs
         status_area.empty()
         del _dfs
@@ -64,11 +64,11 @@ def main():
             'Pass status per model and scenario. `True` for passed, `False` '
             'for not passed:'
         )
-        st.dataframe(ar6_vetting_output_dfs[CriterionOutputKey.IN_RANGE])
+        st.dataframe(ar6_vetting_output_dfs[CriterionOutputKey.INRANGE])
     with values_tab:
         st.markdown('Values calculated for the vetting criteria per model and '
                     'scenario:')
-        st.dataframe(ar6_vetting_output_dfs[CriterionOutputKey.VALUES])
+        st.dataframe(ar6_vetting_output_dfs[CriterionOutputKey.VALUE])
     with descriptions_tab:
         st.markdown('Descriptions of each vetting criterion: ')
         st.info('Still to be added...', icon='🚧')
@@ -80,7 +80,10 @@ def compute_ar6_vetting_checks(
     iamdf: pyam.IamDataFrame
 ) -> Mapping[str, pd.DataFrame]:
     """Compute vetting checks on the IAM DataFrame."""
-    return ar6_vetting_target_range_output.prepare_output(iamdf)
+    return ar6_vetting_target_range_output.prepare_output(
+        iamdf,
+        add_summary_output=True,
+        )
 ###END def compute_ar6_vetting_checks
 
 

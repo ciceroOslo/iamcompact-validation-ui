@@ -3,6 +3,11 @@
 from enum import StrEnum
 import typing as tp
 
+from iamcompact_vetting.output.iamcompact_outputs import (
+    CTCol,
+    IamCompactMultiTargetRangeOutput,
+)
+
 
 
 class SSKey(StrEnum):
@@ -53,17 +58,27 @@ class SSKey(StrEnum):
 ###END class SSKey
 
 
+class CriterionColumn(StrEnum):
+    """Column names used in output from criterion `.prepare_output` methods."""
+
+    INRANGE = CTCol.INRANGE
+    """Column name for in-range/not-in-range status, i.e., pass/fail."""
+
+    VALUE = CTCol.VALUE
+    """Column name for values returned by each criterion."""
+
+###END class CriterionColumn
+
 class CriterionOutputKey(StrEnum):
     """Keys used in output from criterion `.prepare_output` methods."""
 
-    IN_RANGE = 'in_range'
+    INRANGE = \
+        IamCompactMultiTargetRangeOutput._default_summary_keys[CTCol.INRANGE]
     """Key for DataFrame with in-range/not-in-range status, i.e., pass/fail."""
 
-    VALUES = 'values'
+    VALUE = \
+        IamCompactMultiTargetRangeOutput._default_summary_keys[CTCol.VALUE]
     """Key for DataFrame with values returned by each criterion."""
-
-    DISTANCES = 'distances'
-    """Key for DataFrame with distance measure values."""
 
 ###END class CriterionOutputKey
 
