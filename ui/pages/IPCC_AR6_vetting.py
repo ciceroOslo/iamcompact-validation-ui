@@ -4,7 +4,7 @@ import pandas as pd
 import pyam
 import streamlit as st
 
-from iamcompact_vetting.iamcompact_outputs import \
+from iamcompact_vetting.output.iamcompact_outputs import \
     ar6_vetting_target_range_output
 
 from common_elements import (
@@ -41,7 +41,7 @@ def main():
         del _dfs
 
     ar6_vetting_output_dfs: Mapping[str, pd.DataFrame] = \
-        st.session_state[SSKey.AR6_CRITERIA_OUTPUT]
+        st.session_state[SSKey.AR6_CRITERIA_OUTPUT_DFS]
 
     status_area.markdown(
         '\n\n'.join([
