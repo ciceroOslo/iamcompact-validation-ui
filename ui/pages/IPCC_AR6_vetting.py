@@ -67,7 +67,9 @@ def main():
                 'or blank for not assessed (required data not present):',
             unsafe_allow_html=True,
         )
-        st.dataframe(ar6_vetting_output_dfs[CriterionOutputKey.INRANGE])
+        st.dataframe(
+            ar6_vetting_output_dfs[CriterionOutputKey.INRANGE]
+        )
     with values_tab:
         st.markdown('Values calculated for the vetting criteria per model and '
                     'scenario:')
