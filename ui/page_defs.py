@@ -26,7 +26,7 @@ PageKey = PageName
 the same as the page names.
 """
 
-page_folder: tp.Final[Path] = Path(__file__).parent / 'pages'
+page_folder: tp.Final[Path] = Path(__file__).parent / 'p'
 
 pages: tp.Final[dict[PageKey, StreamlitPage]] = {
     PageKey.UPLOAD: st.Page(

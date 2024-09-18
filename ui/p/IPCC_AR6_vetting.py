@@ -1,6 +1,7 @@
 from collections.abc import Mapping
 
 import pandas as pd
+from pandas.io.formats.style import Styler as PandasStyler
 import pyam
 import streamlit as st
 
@@ -83,9 +84,9 @@ def main():
 
 def compute_ar6_vetting_checks(
     iamdf: pyam.IamDataFrame
-) -> Mapping[str, pd.DataFrame]:
+) -> Mapping[str, pd.DataFrame|PandasStyler]:
     """Compute vetting checks on the IAM DataFrame."""
-    return ar6_vetting_target_range_output.prepare_output(
+    return ar6_vetting_target_range_output.prepare_styled_output(
         iamdf,
         add_summary_output=True,
         )
