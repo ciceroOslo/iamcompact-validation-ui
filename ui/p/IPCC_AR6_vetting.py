@@ -31,17 +31,20 @@ def main():
 
     if st.session_state.get(SSKey.AR6_CRITERIA_OUTPUT_DFS, None) is None:
         status_area.info('Computing IPCC AR6 vetting checks...', icon='⏳')
-        _dfs: Mapping[str, pd.DataFrame] = \
+        _styled_dfs: Mapping[str, PandasStyler] = \
             compute_ar6_vetting_checks(uploaded_iamdf)
+        _dfs: Mapping[str, pd.DataFrame] = {
+            _key: _styled_df.data for _key, _styled_df in _styled_dfs.items()
+        }
         st.session_state[SSKey.AR6_CRITERIA_ALL_PASSED] = \
             _dfs[CriterionOutputKey.INRANGE].all(axis=None, skipna=True)
         st.session_state[SSKey.AR6_CRITERIA_ALL_INCLUDED] = \
             _dfs[CriterionOutputKey.INRANGE].notna().all(axis=None)
-        st.session_state[SSKey.AR6_CRITERIA_OUTPUT_DFS] = _dfs
+        st.session_state[SSKey.AR6_CRITERIA_OUTPUT_DFS] = _styled_dfs
         status_area.empty()
         del _dfs
 
-    ar6_vetting_output_dfs: Mapping[str, pd.DataFrame] = \
+    ar6_vetting_output_dfs: Mapping[str, PandasStyler] = \
         st.session_state[SSKey.AR6_CRITERIA_OUTPUT_DFS]
 
     status_area.markdown(
@@ -60,6 +63,7 @@ def main():
     in_range_tab, values_tab, descriptions_tab = st.tabs(
         ['Statuses', 'Values', 'Descriptions']
     )
+    _tab_data: PandasStyler
     with in_range_tab:
         st.markdown(
             'Pass status per model and scenario. '
@@ -68,13 +72,22 @@ def main():
                 'or blank for not assessed (required data not present):',
             unsafe_allow_html=True,
         )
+        _tab_data = ar6_vetting_output_dfs[CriterionOutputKey.INRANGE]
         st.dataframe(
-            ar6_vetting_output_dfs[CriterionOutputKey.INRANGE]
+            _tab_data,
+            column_config={_col: st.column_config.TextColumn()
+                           for _col in _tab_data.data.columns}
         )
     with values_tab:
         st.markdown('Values calculated for the vetting criteria per model and '
                     'scenario:')
-        st.dataframe(ar6_vetting_output_dfs[CriterionOutputKey.VALUE])
+        _tab_data = ar6_vetting_output_dfs[CriterionOutputKey.VALUE]
+        st.dataframe(
+            _tab_data,
+            column_config={
+                _col: st.column_config.TextColumn()
+                for _col in _tab_data.data.columns}
+        )
     with descriptions_tab:
         st.markdown('Descriptions of each vetting criterion: ')
         st.info('Still to be added...', icon='🚧')
@@ -84,12 +97,13 @@ def main():
 
 def compute_ar6_vetting_checks(
     iamdf: pyam.IamDataFrame
-) -> Mapping[str, pd.DataFrame|PandasStyler]:
+) -> Mapping[str, PandasStyler]:
     """Compute vetting checks on the IAM DataFrame."""
     return ar6_vetting_target_range_output.prepare_styled_output(
         iamdf,
-        add_summary_output=True,
-        )
+        prepare_output_kwargs=dict(add_summary_output=True),
+        style_output_kwargs=dict(include_summary=True),
+    )
 ###END def compute_ar6_vetting_checks
 
 
