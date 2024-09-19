@@ -101,6 +101,17 @@ def main():
         st.markdown('Descriptions of each vetting criterion: ')
         st.info('Still to be added...', icon='🚧')
 
+    # Just use a dummy buttong for now, add actual downloading functionality
+    # later
+    download_button = st.button('Download', type='secondary')
+    st.markdown(
+        'Download full results as an Excel file.\n'
+        'The file includes the "Statuses" and "Values" tabs shown here, as '
+        'well as a separate tab with both status and values for each '
+        'criterion. The file contains boolean (TRUE/FALSE) values rather '
+        'checkboxes.'
+    )
+
 ###END def main
 
 
