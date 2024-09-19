@@ -67,26 +67,35 @@ def main():
     with in_range_tab:
         st.markdown(
             'Pass status per model and scenario. '
-                '<span style="color: green"><b>True</b></span> for passed, '
-                '<span style="color: red"><b>False</b></span> for not passed, '
-                'or blank for not assessed (required data not present):',
+                '<span style="color: green"><b>✅</b></span> for passed, '
+                '<span style="color: red"><b>❌</b></span> for not passed, '
+                'blank or `None` with <span style="background-color: lightgrey">grey background</span> for not assessed (required data not present):',
             unsafe_allow_html=True,
         )
         _tab_data = ar6_vetting_output_dfs[CriterionOutputKey.INRANGE]
+        # _tab_data = ar6_vetting_output_dfs[CriterionOutputKey.INRANGE].format(lambda x: 'missing' if pd.isna(x) else '✅' if x==True else '❌' if x==False else '')
+        # st.write(_tab_data.to_html(), unsafe_allow_html=True)
         st.dataframe(
-            _tab_data,
+            # _tab_data.data.map(lambda x: 'missing' if pd.isna(x) else '✅' if x==True else '❌' if x==False else 'unknown'),
+            _tab_data.format(lambda x: 'missing' if pd.isna(x) else '✅' if x==True else '❌' if x==False else '', na_rep='missing'),
             column_config={_col: st.column_config.TextColumn()
                            for _col in _tab_data.data.columns}
         )
     with values_tab:
-        st.markdown('Values calculated for the vetting criteria per model and '
-                    'scenario:')
+        st.markdown(
+            'Values calculated for the vetting criteria per model and '
+            'scenario. <span style="color: violet"><b>Violet</b></span> for '
+            'numbers below range, <span style="color: red"><b>red</b></span> '
+            'for numbers above range, blank or `None` with '
+            '<span style="background-color: lightgrey">grey background</span> for not assessed (required data not present):',
+            unsafe_allow_html=True,
+        )
         _tab_data = ar6_vetting_output_dfs[CriterionOutputKey.VALUE]
         st.dataframe(
-            _tab_data,
-            column_config={
-                _col: st.column_config.TextColumn()
-                for _col in _tab_data.data.columns}
+            _tab_data.format(thousands=' '),
+            # column_config={
+            #     _col: st.column_config.TextColumn()
+            #     for _col in _tab_data.data.columns}
         )
     with descriptions_tab:
         st.markdown('Descriptions of each vetting criterion: ')
