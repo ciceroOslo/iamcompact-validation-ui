@@ -5,6 +5,7 @@ from pandas.io.formats.style import Styler as PandasStyler
 import pyam
 import streamlit as st
 
+from iamcompact_vetting.output.base import MultiCriterionTargetRangeOutput
 from iamcompact_vetting.output.iamcompact_outputs import \
     ar6_vetting_target_range_output
 
@@ -108,18 +109,25 @@ def main():
         'Download full results as an Excel file.\n'
         'The file includes the "Statuses" and "Values" tabs shown here, as '
         'well as a separate tab with both status and values for each '
-        'criterion. The file contains boolean (TRUE/FALSE) values rather '
+        'criterion. The file uses boolean TRUE/FALSE values rather than '
         'checkboxes.'
     )
 
 ###END def main
 
 
+# The functions below depend on a common iamcompact_vetting
+# MultiCriterionTargetRangeOutput object to compute vetting checks and to
+# produce output. It is set in the line below as a global variable (within this
+# file). Change it here if needed, rather than inside the functions.
+outputter: MultiCriterionTargetRangeOutput = ar6_vetting_target_range_output
+
+
 def compute_ar6_vetting_checks(
     iamdf: pyam.IamDataFrame
 ) -> Mapping[str, PandasStyler]:
     """Compute vetting checks on the IAM DataFrame."""
-    return ar6_vetting_target_range_output.prepare_styled_output(
+    return outputter.prepare_styled_output(
         iamdf,
         prepare_output_kwargs=dict(add_summary_output=True),
         style_output_kwargs=dict(include_summary=True),
