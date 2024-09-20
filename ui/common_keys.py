@@ -36,6 +36,10 @@ class SSKey(StrEnum):
     """
     AR6_CRITERIA_ALL_INCLUDED = 'ar6_criteria_all_included'
     """Whether all models/scenarios were assessed for all AR6 vetting checks."""
+    AR6_EXCEL_DOWNLOAD_PATH = 'ar6_excel_download_path'
+    """Path to the Excel file to be downloaded with AR6 vetting results. None
+    if no download file has been prepared yet.
+    """
 
     GDP_POP_OUTPUT_DFS = 'gdp_pop_output_harmonization_dfs'
     """Output DataFrame from `.prepare_output` method of the GDP and population

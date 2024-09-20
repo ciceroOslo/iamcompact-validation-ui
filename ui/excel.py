@@ -111,16 +111,15 @@ def get_excel_writer(
     """
     if excel_writer_class is None:
         excel_writer_class = MultiDataFrameExcelWriter
+    elif excel_writer_kwargs is None:
         if excel_writer_kwargs is None:
             excel_writer_kwargs = {'force_valid_sheet_name': True}
-    elif excel_writer_kwargs is None:
-        excel_writer_kwargs = {}
     if file is None:
         _tmpfile = tempfile.NamedTemporaryFile(
-            mode='w+b',
+            mode='wb',
             suffix='.xlsx',
-            delete=True,
-            delete_on_close=True,
+            delete=False,
+            delete_on_close=False,
         )
         tmp_file_path: Path = Path(_tmpfile.name)
     if isinstance(file, pd.ExcelWriter):
@@ -192,6 +191,7 @@ def write_excel_output(
         excel_writer_class: tp.Optional[
             tp.Type[DataFrameExcelWriter] | tp.Type[MultiDataFrameExcelWriter]
         ] = None,
+        close_after_write: tp.Optional[bool] = None,
 ) -> ExcelFileSpecTypeVar|Path|tp.Any:
     """Writes an output object to Excel file.
     
@@ -225,6 +225,13 @@ def write_excel_output(
         `MultiCriterionTargetRangeOutput` or a subclass, and
         `DataFrameExcelWriter` if `outputter` is an instance of
         `CriterionTargetRangeOutput` or a subclass.
+    close_after_write : bool, optional
+        Whether to close the Excel writer object after writing. Note that if
+        this is not done, the file may not actually get written to disk by the
+        time you want to read it again. Optional. If not specified, it will be
+        set to True if `file` is unspecified or None or a str or Path object,
+        and False if it is a `pandas.ExcelWriter` or BytesIO object (in which
+        case it is assumed that the caller may want to keep using the object).
 
     Returns
     -------
@@ -235,6 +242,8 @@ def write_excel_output(
       * If `file` is None: A `pathlib.Path` object pointing to the temporary
         file that was created.
     """
+    if close_after_write is None:
+        close_after_write = file is None or isinstance(file, (str, Path))
     if isinstance(outputter, CriterionTargetRangeOutput):
         if not isinstance(output_data, (pd.DataFrame, PandasStyler)):
             raise TypeError(
@@ -275,5 +284,7 @@ def write_excel_output(
             return_file=False,
         )
     outputter.with_writer(writer).write_output(output_data)
+    if close_after_write:
+        writer.close()
     return file
 ###END def write_excel_output
