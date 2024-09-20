@@ -197,8 +197,17 @@ def write_excel_output(
     
     Parameters
     ----------
+    output_data : pandas DataFrame, pandas Styler, or dict
+        The data to write. Should have been prepared with 
+        `outputter.prepare_output` or `outputter.prepare_styled_output`. If
+        `outputter` is a `CriterionTargetRangeOutput`, `output_data` must be a
+        single DataFrame or pandas Styler. If `outputter` is a
+        `MultiCriterionTargetRangeOutput`, `output_data` must be a dictionary
+        mapping criterion names to DataFrames or pandas Stylers.
     outputter : CriterionTargetRangeOutput or MultiCriterionTargetRangeOutput
-        The output object to write.
+        The output object to use for writing. Should be the same object that was
+        used to produce `output_data`, or one with compatible attributes and
+        state.
     file, optional
         A file, stream or `pandas.ExcelWriter` to write to. Any argument that
         is accepted by `iamcompact_vetting.output.excel.ExcelWriterBase`.
@@ -267,3 +276,4 @@ def write_excel_output(
         )
     outputter.with_writer(writer).write_output(output_data)
     return file
+###END def write_excel_output
