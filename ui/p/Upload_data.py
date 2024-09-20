@@ -77,6 +77,8 @@ def main():
     def _clear_uploaded_iam_df():
         st.session_state[SSKey.IAM_DF_UPLOADED] = None
         st.session_state[SSKey.DO_INSPECT_DATA] = False
+        st.session_state[SSKey.AR6_CRITERIA_OUTPUT_DFS] = None
+        st.session_state[SSKey.GDP_POP_OUTPUT_DFS] = None
     uploaded_file = st.file_uploader(
         'Upload a spreadsheet file with modelling results in IAMC timeseries '
         'format.', 

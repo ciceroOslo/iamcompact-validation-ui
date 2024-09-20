@@ -1,4 +1,5 @@
 from collections.abc import Mapping
+from pathlib import Path
 
 import pandas as pd
 from pandas.io.formats.style import Styler as PandasStyler
@@ -12,6 +13,7 @@ from iamcompact_vetting.output.iamcompact_outputs import \
 from common_elements import (
     check_data_is_uploaded,
     common_instructions,
+    download_excel_output_button,
     make_passed_status_message,
 )
 from common_keys import (
@@ -19,6 +21,13 @@ from common_keys import (
     SSKey,
     CriterionOutputKey,
 )
+
+
+# The functions below depend on a common iamcompact_vetting
+# MultiCriterionTargetRangeOutput object to compute vetting checks and to
+# produce output. It is set in the line below as a global variable (within this
+# file). Change it here if needed, rather than inside the functions.
+outputter: MultiCriterionTargetRangeOutput = ar6_vetting_target_range_output
 
 
 def main():
@@ -102,9 +111,18 @@ def main():
         st.markdown('Descriptions of each vetting criterion: ')
         st.info('Still to be added...', icon='🚧')
 
-    # Just use a dummy buttong for now, add actual downloading functionality
-    # later
-    download_button = st.button('Download', type='secondary')
+    download_excel_file_name: str = '_'.join(
+        [
+            str(Path(st.session_state[SSKey.FILE_CURRENT_NAME]).stem),
+            'AR6_vetting.xlsx',
+        ]
+    )
+    download_excel_output_button(
+        output_data=st.session_state[SSKey.AR6_CRITERIA_OUTPUT_DFS],
+        outputter=outputter,
+        download_path_key=SSKey.AR6_EXCEL_DOWNLOAD_PATH,
+        download_file_name=download_excel_file_name,
+    )
     st.markdown(
         'Download full results as an Excel file.\n'
         'The file includes the "Statuses" and "Values" tabs shown here, as '
@@ -115,12 +133,6 @@ def main():
 
 ###END def main
 
-
-# The functions below depend on a common iamcompact_vetting
-# MultiCriterionTargetRangeOutput object to compute vetting checks and to
-# produce output. It is set in the line below as a global variable (within this
-# file). Change it here if needed, rather than inside the functions.
-outputter: MultiCriterionTargetRangeOutput = ar6_vetting_target_range_output
 
 
 def compute_ar6_vetting_checks(
