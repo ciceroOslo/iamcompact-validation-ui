@@ -10,6 +10,7 @@ from common_elements import common_instructions
 from common_keys import (
     PAGE_RUN_NAME,
     SSKey,
+    data_file_upload_clear_keys,
 )
 from utils import (
     clean_triple_textblock as mdblock,
@@ -75,10 +76,11 @@ def main():
     ))
 
     def _clear_uploaded_iam_df():
-        st.session_state[SSKey.IAM_DF_UPLOADED] = None
-        st.session_state[SSKey.DO_INSPECT_DATA] = False
-        st.session_state[SSKey.AR6_CRITERIA_OUTPUT_DFS] = None
-        st.session_state[SSKey.GDP_POP_OUTPUT_DFS] = None
+        for _key in set(data_file_upload_clear_keys) \
+                .intersection(set(st.session_state.keys())):
+            del st.session_state[_key]
+    ###END def _clear_uploaded_iam_df
+
     uploaded_file = st.file_uploader(
         'Upload a spreadsheet file with modelling results in IAMC timeseries '
         'format.', 
@@ -91,7 +93,7 @@ def main():
     #     _clear_uploaded_iam_df()
 
     if uploaded_file is not None \
-              and st.session_state[SSKey.IAM_DF_UPLOADED] is None:
+              and st.session_state.get(SSKey.IAM_DF_UPLOADED, None) is None:
         parsing_status_text = st.empty()
         parsing_status_text.info('Parsing uploaded file...', icon='⏳')
         # load data

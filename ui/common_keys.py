@@ -61,6 +61,17 @@ class SSKey(StrEnum):
 
 ###END class SSKey
 
+data_file_upload_clear_keys: tp.Final[tp.List[SSKey]] = [
+    SSKey.IAM_DF_UPLOADED,
+    SSKey.DO_INSPECT_DATA,
+    SSKey.IAM_DF_TIMESERIES,
+    SSKey.AR6_CRITERIA_OUTPUT_DFS,
+    SSKey.AR6_CRITERIA_ALL_PASSED,
+    SSKey.AR6_CRITERIA_ALL_INCLUDED,
+    SSKey.AR6_EXCEL_DOWNLOAD_PATH,
+    SSKey.GDP_POP_OUTPUT_DFS,
+]
+
 
 class CriterionColumn(StrEnum):
     """Column names used in output from criterion `.prepare_output` methods."""
