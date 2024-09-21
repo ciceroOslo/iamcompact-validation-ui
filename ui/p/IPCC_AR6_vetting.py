@@ -19,7 +19,7 @@ from common_elements import (
 from common_keys import (
     PAGE_RUN_NAME,
     SSKey,
-    CriterionOutputKey,
+    Ar6CriterionOutputKey,
 )
 
 
@@ -47,9 +47,9 @@ def main():
             _key: _styled_df.data for _key, _styled_df in _styled_dfs.items()
         }
         st.session_state[SSKey.AR6_CRITERIA_ALL_PASSED] = \
-            _dfs[CriterionOutputKey.INRANGE].all(axis=None, skipna=True)
+            _dfs[Ar6CriterionOutputKey.INRANGE].all(axis=None, skipna=True)
         st.session_state[SSKey.AR6_CRITERIA_ALL_INCLUDED] = \
-            _dfs[CriterionOutputKey.INRANGE].notna().all(axis=None)
+            _dfs[Ar6CriterionOutputKey.INRANGE].notna().all(axis=None)
         st.session_state[SSKey.AR6_CRITERIA_OUTPUT_DFS] = _styled_dfs
         status_area.empty()
         del _dfs
@@ -82,7 +82,7 @@ def main():
                 'blank or `None` with <span style="background-color: lightgrey">grey background</span> for not assessed (required data not present):',
             unsafe_allow_html=True,
         )
-        _tab_data = ar6_vetting_output_dfs[CriterionOutputKey.INRANGE]
+        _tab_data = ar6_vetting_output_dfs[Ar6CriterionOutputKey.INRANGE]
         # _tab_data = ar6_vetting_output_dfs[CriterionOutputKey.INRANGE].format(lambda x: 'missing' if pd.isna(x) else '✅' if x==True else '❌' if x==False else '')
         # st.write(_tab_data.to_html(), unsafe_allow_html=True)
         st.dataframe(
@@ -100,7 +100,7 @@ def main():
             '<span style="background-color: lightgrey">grey background</span> for not assessed (required data not present):',
             unsafe_allow_html=True,
         )
-        _tab_data = ar6_vetting_output_dfs[CriterionOutputKey.VALUE]
+        _tab_data = ar6_vetting_output_dfs[Ar6CriterionOutputKey.VALUE]
         st.dataframe(
             _tab_data.format(thousands=' '),
             # column_config={

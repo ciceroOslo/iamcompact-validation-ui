@@ -15,7 +15,7 @@ from common_elements import (
 from common_keys import (
     PAGE_RUN_NAME,
     SSKey,
-    CriterionOutputKey,
+    Ar6CriterionOutputKey,
 )
 
 
@@ -34,9 +34,9 @@ def main():
         _dfs: Mapping[str, pd.DataFrame] = \
             compute_gdp_pop_harmonization_check(uploaded_iamdf)
         st.session_state[SSKey.GDP_POP_ALL_PASSED] = \
-            _dfs[CriterionOutputKey.IN_RANGE].all(axis=None, skipna=True)
+            _dfs[Ar6CriterionOutputKey.IN_RANGE].all(axis=None, skipna=True)
         st.session_state[SSKey.GDP_POP_ALL_INCLUDED] = \
-            _dfs[CriterionOutputKey.IN_RANGE].all(axis=None, skipna=False)
+            _dfs[Ar6CriterionOutputKey.IN_RANGE].all(axis=None, skipna=False)
         st.session_state[SSKey.GDP_POP_OUTPUT_DFS] = _dfs
         status_area.empty()
         del _dfs
@@ -61,7 +61,7 @@ def main():
             'model, scenario and region:'
         )
         st.dataframe(
-            gdp_pop_harmonization_output_dfs[CriterionOutputKey.IN_RANGE]
+            gdp_pop_harmonization_output_dfs[Ar6CriterionOutputKey.IN_RANGE]
         )
     with deviation_tab:
         st.markdown(
@@ -70,7 +70,7 @@ def main():
             '50% higher, and -0.5 means 50% lower):'
         )
         st.dataframe(
-            gdp_pop_harmonization_output_dfs[CriterionOutputKey.VALUES] - 1.0
+            gdp_pop_harmonization_output_dfs[Ar6CriterionOutputKey.VALUES] - 1.0
         )
     with descriptions_tab:
         st.info('Still to be added...', icon='🚧')

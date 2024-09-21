@@ -84,8 +84,8 @@ class CriterionColumn(StrEnum):
 
 ###END class CriterionColumn
 
-class CriterionOutputKey(StrEnum):
-    """Keys used in output from criterion `.prepare_output` methods."""
+class Ar6CriterionOutputKey(StrEnum):
+    """Keys used in output from AR6 criterion `.prepare_output` methods."""
 
     INRANGE = \
         IamCompactMultiTargetRangeOutput._default_summary_keys[CTCol.INRANGE]
