@@ -10,5 +10,16 @@ from page_defs import (
 
 
 
-page: StreamlitPage = st.navigation({'Pages': list(pages.values())})
+page: StreamlitPage = st.navigation(
+    {
+        'Start': [
+            pages[PageKey.UPLOAD],
+        ],
+        'Validation': [],
+        'Vetting': [
+            pages[PageKey.AR6_VETTING],
+            pages[PageKey.GDP_POP_HARMONIZATION],
+        ],
+    }
+)
 page.run()
