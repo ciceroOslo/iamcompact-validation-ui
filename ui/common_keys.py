@@ -53,6 +53,10 @@ class SSKey(StrEnum):
     """Whether all models/scenarios were assessed for all GDP and population
     harmonization checks.
     """
+    GDP_POP_EXCEL_DOWNLOAD_PATH = 'gdp_pop_excel_download_path'
+    """Path to the Excel file to be downloaded with GDP and population
+    harmonization results. None if no download file has been prepared yet.
+    """
 
     DISMISSED_WARNING = 'dismissed_warning'
     """Whether the warning about not using browser navigation buttons has been

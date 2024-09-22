@@ -144,13 +144,13 @@ def main():
     download_excel_file_name: str = '_'.join(
         [
             str(Path(st.session_state[SSKey.FILE_CURRENT_NAME]).stem),
-            'AR6_vetting.xlsx',
+            'GDP_pop_harmonization_check.xlsx',
         ]
     )
     download_excel_output_button(
-        output_data=st.session_state[SSKey.AR6_CRITERIA_OUTPUT_DFS],
+        output_data=st.session_state[SSKey.GDP_POP_OUTPUT_DFS],
         outputter=outputter,
-        download_path_key=SSKey.AR6_EXCEL_DOWNLOAD_PATH,
+        download_path_key=SSKey.GDP_POP_EXCEL_DOWNLOAD_PATH,
         download_file_name=download_excel_file_name,
     )
     st.markdown(
