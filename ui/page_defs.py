@@ -19,6 +19,8 @@ class PageName(StrEnum):
     AR6_VETTING = 'IPCC AR6 vetting'
     """Page for running IPCC AR6 vetting checks"""
 
+    GDP_POP_HARMONIZATION = 'GDP and population harmonization'
+
 ###END class PageName
 
 PageKey = PageName
@@ -37,5 +39,9 @@ pages: tp.Final[dict[PageKey, StreamlitPage]] = {
     PageKey.AR6_VETTING: st.Page(
         page_folder / 'IPCC_AR6_vetting.py',
         title=PageName.AR6_VETTING,
+    ),
+    PageKey.GDP_POP_HARMONIZATION: st.Page(
+        page_folder / 'Pop_GDP_harmonization.py',
+        title=PageName.GDP_POP_HARMONIZATION,
     ),
 }

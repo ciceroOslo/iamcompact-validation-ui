@@ -16,6 +16,8 @@ from iamcompact_vetting.output.excel import (
     ExcelFileSpec,
     MultiDataFrameExcelWriter,
 )
+from iamcompact_vetting.output.timeseries import \
+    TimeseriesRefComparisonAndTargetOutput
 
 
 
@@ -184,7 +186,9 @@ def write_excel_output(
 def write_excel_output(
         output_data: pd.DataFrame|PandasStyler \
             | dict[str, pd.DataFrame|PandasStyler],
-        outputter: CriterionTargetRangeOutput|MultiCriterionTargetRangeOutput,
+        outputter: CriterionTargetRangeOutput \
+            | MultiCriterionTargetRangeOutput \
+            | TimeseriesRefComparisonAndTargetOutput,
         file: tp.Optional[ExcelFileSpecTypeVar] = None,
         *,
         use_existing_writer: bool = False,
@@ -253,7 +257,11 @@ def write_excel_output(
         output_data = tp.cast(pd.DataFrame|PandasStyler, output_data)
         if excel_writer_class is None:
             excel_writer_class = DataFrameExcelWriter
-    elif isinstance(outputter, MultiCriterionTargetRangeOutput):
+    elif isinstance(
+            outputter,
+            (MultiCriterionTargetRangeOutput,
+             TimeseriesRefComparisonAndTargetOutput)
+    ):
         if not isinstance(output_data, dict):
             raise TypeError(
                 'When outputter is a MultiCriterionTargetRangeOutput, '
@@ -263,7 +271,7 @@ def write_excel_output(
             excel_writer_class = MultiDataFrameExcelWriter
         output_data = tp.cast(dict[str, pd.DataFrame|PandasStyler], output_data)
     else:
-        print(outputtter)
+        print(outputter)
         raise TypeError(
             'outputter must be a CriterionTargetRangeOutput or '
             'MultiCriterionTargetRangeOutput.'

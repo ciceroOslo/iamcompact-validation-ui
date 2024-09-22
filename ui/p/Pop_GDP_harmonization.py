@@ -6,7 +6,10 @@ from pandas.io.formats.style import Styler as PandasStyler
 import pyam
 import streamlit as st
 
-from iamcompact_vetting.output.base import MultiCriterionTargetRangeOutput
+from iamcompact_vetting.output.timeseries import (
+    CTCol,
+    TimeseriesRefComparisonAndTargetOutput,
+)
 from iamcompact_vetting.output.iamcompact_outputs import \
     gdp_pop_harmonization_output
 
@@ -27,69 +30,96 @@ from common_keys import (
 # MultiCriterionTargetRangeOutput object to compute vetting checks and to
 # produce output. It is set in the line below as a global variable (within this
 # file). Change it here if needed, rather than inside the functions.
-outputter: MultiCriterionTargetRangeOutput = ar6_vetting_target_range_output
+outputter: TimeseriesRefComparisonAndTargetOutput = gdp_pop_harmonization_output
 
 
 def main():
     
-    st.header('Vetting checks for IPCC AR6')
+    st.header('GDP and population harmonization assessment')
 
     check_data_is_uploaded(stop=True, display_message=True)
     uploaded_iamdf: pyam.IamDataFrame = st.session_state[SSKey.IAM_DF_UPLOADED]
 
+    summary_df_key: str = get_summary_df_key()
+    values_df_key: str = get_values_df_key()
+
     status_area = st.empty()
 
-    if st.session_state.get(SSKey.AR6_CRITERIA_OUTPUT_DFS, None) is None:
-        status_area.info('Computing IPCC AR6 vetting checks...', icon='⏳')
+    if st.session_state.get(SSKey.GDP_POP_OUTPUT_DFS, None) is None:
+        status_area.info('Computing GDP and population harmonization checks...',
+                         icon='⏳')
         _styled_dfs: Mapping[str, PandasStyler] = \
-            compute_ar6_vetting_checks(uploaded_iamdf)
+            compute_gdp_pop_harmonization_check(uploaded_iamdf)
         _dfs: Mapping[str, pd.DataFrame] = {
             _key: _styled_df.data for _key, _styled_df in _styled_dfs.items()
         }
-        st.session_state[SSKey.AR6_CRITERIA_ALL_PASSED] = \
-            _dfs[Ar6CriterionOutputKey.INRANGE].all(axis=None, skipna=True)
-        st.session_state[SSKey.AR6_CRITERIA_ALL_INCLUDED] = \
-            _dfs[Ar6CriterionOutputKey.INRANGE].notna().all(axis=None)
-        st.session_state[SSKey.AR6_CRITERIA_OUTPUT_DFS] = _styled_dfs
+        st.session_state[SSKey.GDP_POP_ALL_PASSED] = \
+            _dfs[summary_df_key].all(axis=None, skipna=True)
+        st.session_state[SSKey.GDP_POP_ALL_INCLUDED] = \
+            _dfs[summary_df_key].notna().all(axis=None)
+        st.session_state[SSKey.GDP_POP_OUTPUT_DFS] = _styled_dfs
         status_area.empty()
         del _dfs
 
-    ar6_vetting_output_dfs: Mapping[str, PandasStyler] = \
-        st.session_state[SSKey.AR6_CRITERIA_OUTPUT_DFS]
+    vetting_output_dfs: Mapping[str, PandasStyler] = \
+        st.session_state[SSKey.GDP_POP_OUTPUT_DFS]
+    vetting_tolerance_range: tuple[float, float] = get_tolerance_range()
+    summary_df: PandasStyler = vetting_output_dfs[summary_df_key]
+    values_df: PandasStyler = vetting_output_dfs[values_df_key]
+    summary_df_in_range_col: str = get_summary_df_in_range_col()
+    summary_df_values_col: str = get_summary_df_values_col()
 
     status_area.markdown(
         '\n\n'.join([
             make_passed_status_message(
-                all_passed=st.session_state[SSKey.AR6_CRITERIA_ALL_PASSED],
-                all_included=st.session_state[SSKey.AR6_CRITERIA_ALL_INCLUDED],
+                all_passed=st.session_state[SSKey.GDP_POP_ALL_PASSED],
+                all_included=st.session_state[SSKey.GDP_POP_ALL_INCLUDED],
             ),
-            'Note: In AR6, only the checks on historical values were grounds '
-            'for exclusion. The checks on future values (post-2020) were only '
-            'a flag for possible issues.',
         ]),
         unsafe_allow_html=True,
     )
 
-    in_range_tab, values_tab, descriptions_tab = st.tabs(
-        ['Statuses', 'Values', 'Descriptions']
+    st.markdown(
+        'Values are considered to be within range if they are between '
+        f'{-(vetting_tolerance_range[0]*100.0-100.0):.1f}% below and '
+        f'{vetting_tolerance_range[1]*100.0-100.0:.1f}% above the '
+        'harmonization values.'
+    )
+
+    summary_tab, values_tab, descriptions_tab = st.tabs(
+        ['Summary', 'Deviations', 'Descriptions']
     )
     _tab_data: PandasStyler
-    with in_range_tab:
+    with summary_tab:
         st.markdown(
-            'Pass status per model and scenario. '
-                '<span style="color: green"><b>✅</b></span> for passed, '
-                '<span style="color: red"><b>❌</b></span> for not passed, '
-                'blank or `None` with <span style="background-color: lightgrey">grey background</span> for not assessed (required data not present):',
+            'Status per model, scenario and region.\n\n'
+                '<span style="color: green"><b>✅</b></span> for all values in '
+                'range, <span style="color: red"><b>❌</b></span> for some '
+                'values out of range, blank or `None` with '
+                '<span style="background-color: lightgrey">grey background'
+                '</span> for missing data:',
             unsafe_allow_html=True,
         )
-        _tab_data = ar6_vetting_output_dfs[Ar6CriterionOutputKey.INRANGE]
-        # _tab_data = ar6_vetting_output_dfs[CriterionOutputKey.INRANGE].format(lambda x: 'missing' if pd.isna(x) else '✅' if x==True else '❌' if x==False else '')
-        # st.write(_tab_data.to_html(), unsafe_allow_html=True)
+        _tab_data = summary_df
+        _column_title_dict = {
+            summary_df_in_range_col: summary_df_in_range_col,
+            summary_df_values_col: 'Max deviation',
+        }
         st.dataframe(
-            # _tab_data.data.map(lambda x: 'missing' if pd.isna(x) else '✅' if x==True else '❌' if x==False else 'unknown'),
-            _tab_data.format(lambda x: 'missing' if pd.isna(x) else '✅' if x==True else '❌' if x==False else '', na_rep='missing'),
-            column_config={_col: st.column_config.TextColumn()
-                           for _col in _tab_data.data.columns}
+            _tab_data.format(
+                {
+                    summary_df_in_range_col: lambda x: 'missing' if pd.isna(x) \
+                        else '✅' if x==True \
+                        else '❌' if x==False else '',
+                    summary_df_values_col: \
+                        lambda x: f'{(float(x)-1.0)*100.0:+.2f}%'
+                },
+                na_rep='missing'
+            ),
+            column_config={
+                _col: st.column_config.TextColumn(_column_title_dict[_col])
+                for _col in _tab_data.data.columns
+            },
         )
     with values_tab:
         st.markdown(
@@ -100,7 +130,7 @@ def main():
             '<span style="background-color: lightgrey">grey background</span> for not assessed (required data not present):',
             unsafe_allow_html=True,
         )
-        _tab_data = ar6_vetting_output_dfs[Ar6CriterionOutputKey.VALUE]
+        _tab_data = values_df
         st.dataframe(
             _tab_data.format(thousands=' '),
             # column_config={
@@ -135,16 +165,47 @@ def main():
 
 
 
-def compute_ar6_vetting_checks(
+def compute_gdp_pop_harmonization_check(
     iamdf: pyam.IamDataFrame
 ) -> Mapping[str, PandasStyler]:
-    """Compute vetting checks on the IAM DataFrame."""
-    return outputter.prepare_styled_output(
-        iamdf,
-        prepare_output_kwargs=dict(add_summary_output=True),
-        style_output_kwargs=dict(include_summary=True),
-    )
-###END def compute_ar6_vetting_checks
+    return gdp_pop_harmonization_output.prepare_styled_output(iamdf)
+###END def compute_gdp_pop_harmonization_check
+
+def get_tolerance_range() -> tuple[float, float]:
+    """Gets the relative 1.0-based tolerance range for the vetting check.
+
+    Returns
+    -------
+    tuple[float, float]
+        The relative 1.0-based tolerance range for the vetting check. The first
+        element is the lower range and the second element is the upper range.
+    """
+    target_range: tuple[float, float] | None \
+        = gdp_pop_harmonization_output.target_range.range
+    if target_range is None:
+        raise RuntimeError(
+            'The target range for '
+            f'{gdp_pop_harmonization_output.target_range.name} is not set. '
+            'This should not happen.'
+        )
+    return target_range
+###END def get_tolerance_range
+
+def get_summary_df_key() -> str:
+    return gdp_pop_harmonization_output.summary_key
+###END def get_summary_df_key
+
+def get_values_df_key() -> str:
+    return gdp_pop_harmonization_output.full_comparison_key
+###END def get_values_df_key
+
+def get_summary_df_in_range_col() -> str:
+    return gdp_pop_harmonization_output.summary_column_titles[CTCol.INRANGE]
+###END def get_summary_df_in_range_key
+
+def get_summary_df_values_col() -> str:
+    return gdp_pop_harmonization_output.summary_column_titles[CTCol.VALUE]
+###END def get_summary_df_value_col
 
 
 if __name__ == PAGE_RUN_NAME:

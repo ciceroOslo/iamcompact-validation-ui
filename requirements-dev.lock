@@ -91,7 +91,7 @@ hyperframe==6.0.1
     # via h2
 iam-units==2023.9.12
     # via pyam-iamc
-iamcompact-vetting @ git+https://github.com/ciceroOslo/iamcompact-vetting.git@813d9208f34231c46d42ef9ab032814a0988d39b
+iamcompact-vetting @ git+https://github.com/ciceroOslo/iamcompact-vetting.git@476ec62704cc1aad73625ad477b39c0b8c1806fc
 idna==3.9
     # via anyio
     # via httpx

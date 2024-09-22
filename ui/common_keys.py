@@ -70,6 +70,8 @@ data_file_upload_clear_keys: tp.Final[tp.List[SSKey]] = [
     SSKey.AR6_CRITERIA_ALL_INCLUDED,
     SSKey.AR6_EXCEL_DOWNLOAD_PATH,
     SSKey.GDP_POP_OUTPUT_DFS,
+    SSKey.GDP_POP_ALL_PASSED,
+    SSKey.GDP_POP_ALL_INCLUDED,
 ]
 
 

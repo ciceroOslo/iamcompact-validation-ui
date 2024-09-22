@@ -6,6 +6,8 @@ from iamcompact_vetting.output.base import (
     CriterionTargetRangeOutput,
     MultiCriterionTargetRangeOutput,
 )
+from iamcompact_vetting.output.timeseries import \
+    TimeseriesRefComparisonAndTargetOutput
 import pandas as pd
 from pandas.io.formats.style import Styler as PandasStyler
 import streamlit as st
@@ -113,7 +115,8 @@ def make_passed_status_message(all_passed: bool, all_included: bool) -> str:
 def download_excel_output_button(
     output_data: pd.DataFrame|PandasStyler \
         | dict[str, pd.DataFrame|PandasStyler],
-    outputter: CriterionTargetRangeOutput|MultiCriterionTargetRangeOutput,
+    outputter: CriterionTargetRangeOutput | MultiCriterionTargetRangeOutput \
+        | TimeseriesRefComparisonAndTargetOutput,
     download_path_key: SSKey,
     download_file_name: str = 'download.xlsx',
     use_prepare_button: bool = True,
