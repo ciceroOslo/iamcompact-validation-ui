@@ -1,6 +1,6 @@
-streamlit>=1.37.1
+streamlit>=1.38
 streamlit_extras>=0.4.7
 watchdog>=4.0.2
-pandas>=2.2
+pandas>=2.2.2
 python_calamine>=0.2.3
 pyam-iamc @ git+https://github.com/IAMconsortium/pyam@main
