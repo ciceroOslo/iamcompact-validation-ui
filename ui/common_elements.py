@@ -59,6 +59,10 @@ def check_data_is_uploaded(
 ###END def check_data_is_uploaded
 
 
+def common_setup() -> None:
+    """Common setup for all pages."""
+    pass
+###END def common_setup
 
 def common_instructions() -> None:
     """Display common instructions for all pages.

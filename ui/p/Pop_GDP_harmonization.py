@@ -16,6 +16,7 @@ from iamcompact_vetting.output.iamcompact_outputs import \
 from common_elements import (
     check_data_is_uploaded,
     common_instructions,
+    common_setup,
     download_excel_output_button,
     make_passed_status_message,
 )
@@ -34,7 +35,9 @@ outputter: TimeseriesRefComparisonAndTargetOutput = gdp_pop_harmonization_output
 
 
 def main():
-    
+
+    common_setup()
+
     st.header('GDP and population harmonization assessment')
 
     check_data_is_uploaded(stop=True, display_message=True)

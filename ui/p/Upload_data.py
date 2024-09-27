@@ -6,7 +6,10 @@ import streamlit as st
 from streamlit.elements.arrow import DataframeState
 from streamlit_extras.switch_page_button import switch_page
 
-from common_elements import common_instructions
+from common_elements import (
+    common_instructions,
+    common_setup,
+)
 from common_keys import (
     PAGE_RUN_NAME,
     SSKey,
@@ -31,6 +34,8 @@ st.set_page_config(layout="wide")
 
 
 def main():
+
+    common_setup()
 
     st.header("Upload modelling results for vetting")
 
