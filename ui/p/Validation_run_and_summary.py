@@ -53,7 +53,8 @@ def main():
             'has not already gone through region mapping, you will probably '
             'see unrecognized names or errors in the region name check. Please '
             f'return to the page "{PageName.REGION_MAPPING}" if you need to '
-            'remedy this.'
+            'remedy this.',
+            icon='❗️',
         )
         iam_df = st.session_state[SSKey.IAM_DF_UPLOADED]
 
