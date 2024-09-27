@@ -99,39 +99,37 @@ def main():
 
     if uploaded_file is not None \
               and st.session_state.get(SSKey.IAM_DF_UPLOADED, None) is None:
-        parsing_status_text = st.empty()
-        parsing_status_text.info('Parsing uploaded file...', icon='⏳')
+        with st.spinner('Parsing uploaded file...'):
         # load data
-        if uploaded_file.type == 'text/csv':
-            with tempfile.NamedTemporaryFile(
-                    mode='w',
-                    encoding='utf-8',
-                    suffix='.csv',
-                    delete=True,
-                    delete_on_close=False,
-            ) as _file:
-                _file.write(uploaded_file.getvalue().decode('utf-8'))
-                raw_data: pyam.IamDataFrame = pyam.IamDataFrame(_file.name,
-                                                                engine='c')
-        else:
-            with tempfile.NamedTemporaryFile(
-                    mode='wb',
-                    suffix='.xlsx',
-                    delete=True,
-                    delete_on_close=False,
-            ) as _file:
-                _file.write(uploaded_file.getvalue())
-                raw_data: pyam.IamDataFrame = pyam.IamDataFrame(_file.name,
-                                                                engine='calamine')
+            if uploaded_file.type == 'text/csv':
+                with tempfile.NamedTemporaryFile(
+                        mode='w',
+                        encoding='utf-8',
+                        suffix='.csv',
+                        delete=True,
+                        delete_on_close=False,
+                ) as _file:
+                    _file.write(uploaded_file.getvalue().decode('utf-8'))
+                    raw_data: pyam.IamDataFrame = pyam.IamDataFrame(_file.name,
+                                                                    engine='c')
+            else:
+                with tempfile.NamedTemporaryFile(
+                        mode='wb',
+                        suffix='.xlsx',
+                        delete=True,
+                        delete_on_close=False,
+                ) as _file:
+                    _file.write(uploaded_file.getvalue())
+                    raw_data: pyam.IamDataFrame = pyam.IamDataFrame(_file.name,
+                                                                    engine='calamine')
 
-        st.session_state[SSKey.FILE_CURRENT_NAME] \
-            = st.session_state[SSKey.FILE_CURRENT_UPLOADED].name
-        st.session_state[SSKey.FILE_CURRENT_SIZE] = \
-            st.session_state[SSKey.FILE_CURRENT_UPLOADED].size
+            st.session_state[SSKey.FILE_CURRENT_NAME] \
+                = st.session_state[SSKey.FILE_CURRENT_UPLOADED].name
+            st.session_state[SSKey.FILE_CURRENT_SIZE] = \
+                st.session_state[SSKey.FILE_CURRENT_UPLOADED].size
 
-        # clean_results_dataset(raw_data)
-        st.session_state[SSKey.IAM_DF_UPLOADED] = raw_data
-        parsing_status_text.empty()
+            # clean_results_dataset(raw_data)
+            st.session_state[SSKey.IAM_DF_UPLOADED] = raw_data
 
     df: pyam.IamDataFrame|None = st.session_state.get(SSKey.IAM_DF_UPLOADED)
     if df is not None:

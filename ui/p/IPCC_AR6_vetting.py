@@ -40,27 +40,24 @@ def main():
     check_data_is_uploaded(stop=True, display_message=True)
     uploaded_iamdf: pyam.IamDataFrame = st.session_state[SSKey.IAM_DF_UPLOADED]
 
-    status_area = st.empty()
-
     if st.session_state.get(SSKey.AR6_CRITERIA_OUTPUT_DFS, None) is None:
-        status_area.info('Computing IPCC AR6 vetting checks...', icon='⏳')
-        _styled_dfs: Mapping[str, PandasStyler] = \
-            compute_ar6_vetting_checks(uploaded_iamdf)
-        _dfs: Mapping[str, pd.DataFrame] = {
-            _key: _styled_df.data for _key, _styled_df in _styled_dfs.items()
-        }
-        st.session_state[SSKey.AR6_CRITERIA_ALL_PASSED] = \
-            _dfs[Ar6CriterionOutputKey.INRANGE].all(axis=None, skipna=True)
-        st.session_state[SSKey.AR6_CRITERIA_ALL_INCLUDED] = \
-            _dfs[Ar6CriterionOutputKey.INRANGE].notna().all(axis=None)
-        st.session_state[SSKey.AR6_CRITERIA_OUTPUT_DFS] = _styled_dfs
-        status_area.empty()
-        del _dfs
+        with st.spinner('Computing IPCC AR6 vetting checks...'):
+            _styled_dfs: Mapping[str, PandasStyler] = \
+                compute_ar6_vetting_checks(uploaded_iamdf)
+            _dfs: Mapping[str, pd.DataFrame] = {
+                _key: _styled_df.data for _key, _styled_df in _styled_dfs.items()
+            }
+            st.session_state[SSKey.AR6_CRITERIA_ALL_PASSED] = \
+                _dfs[Ar6CriterionOutputKey.INRANGE].all(axis=None, skipna=True)
+            st.session_state[SSKey.AR6_CRITERIA_ALL_INCLUDED] = \
+                _dfs[Ar6CriterionOutputKey.INRANGE].notna().all(axis=None)
+            st.session_state[SSKey.AR6_CRITERIA_OUTPUT_DFS] = _styled_dfs
+            del _dfs
 
     ar6_vetting_output_dfs: Mapping[str, PandasStyler] = \
         st.session_state[SSKey.AR6_CRITERIA_OUTPUT_DFS]
 
-    status_area.markdown(
+    st.markdown(
         '\n\n'.join([
             make_passed_status_message(
                 all_passed=st.session_state[SSKey.AR6_CRITERIA_ALL_PASSED],

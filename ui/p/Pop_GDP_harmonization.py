@@ -46,23 +46,20 @@ def main():
     summary_df_key: str = get_summary_df_key()
     values_df_key: str = get_values_df_key()
 
-    status_area = st.empty()
-
     if st.session_state.get(SSKey.GDP_POP_OUTPUT_DFS, None) is None:
-        status_area.info('Computing GDP and population harmonization checks...',
-                         icon='⏳')
-        _styled_dfs: Mapping[str, PandasStyler] = \
-            compute_gdp_pop_harmonization_check(uploaded_iamdf)
-        _dfs: Mapping[str, pd.DataFrame] = {
-            _key: _styled_df.data for _key, _styled_df in _styled_dfs.items()
-        }
-        st.session_state[SSKey.GDP_POP_ALL_PASSED] = \
-            _dfs[summary_df_key].all(axis=None, skipna=True)
-        st.session_state[SSKey.GDP_POP_ALL_INCLUDED] = \
-            _dfs[summary_df_key].notna().all(axis=None)
-        st.session_state[SSKey.GDP_POP_OUTPUT_DFS] = _styled_dfs
-        status_area.empty()
-        del _dfs
+        with st.spinner('Computing GDP and population harmonization checks...'):
+            _styled_dfs: Mapping[str, PandasStyler] = \
+                compute_gdp_pop_harmonization_check(uploaded_iamdf)
+            _dfs: Mapping[str, pd.DataFrame] = {
+                _key: _styled_df.data
+                for _key, _styled_df in _styled_dfs.items()
+            }
+            st.session_state[SSKey.GDP_POP_ALL_PASSED] = \
+                _dfs[summary_df_key].all(axis=None, skipna=True)
+            st.session_state[SSKey.GDP_POP_ALL_INCLUDED] = \
+                _dfs[summary_df_key].notna().all(axis=None)
+            st.session_state[SSKey.GDP_POP_OUTPUT_DFS] = _styled_dfs
+            del _dfs
 
     vetting_output_dfs: Mapping[str, PandasStyler] = \
         st.session_state[SSKey.GDP_POP_OUTPUT_DFS]
@@ -72,7 +69,7 @@ def main():
     summary_df_in_range_col: str = get_summary_df_in_range_col()
     summary_df_values_col: str = get_summary_df_values_col()
 
-    status_area.markdown(
+    st.markdown(
         '\n\n'.join([
             make_passed_status_message(
                 all_passed=st.session_state[SSKey.GDP_POP_ALL_PASSED],
