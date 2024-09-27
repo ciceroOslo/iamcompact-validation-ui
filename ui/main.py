@@ -23,7 +23,7 @@ page: StreamlitPage = st.navigation(
         ] + [
             pages[name_validation_dim_pagekeys[_pagekey]]
             for _pagekey in name_validation_dims
-        ],
+        ] + [pages[PageKey.NAME_VALIDATION_VARIABLE_UNIT_COMBO]],
         '4. Vetting': [
             pages[PageKey.AR6_VETTING],
             pages[PageKey.GDP_POP_HARMONIZATION],

@@ -37,6 +37,7 @@ def make_name_validation_dim_page(
         dsd: tp.Optional[DataStructureDefinition] = None,
         invalid_names_tab_name: str = 'Unrecognized names',
         all_valid_names_tab_name: str = 'All valid names',
+        display_all_valid_names_tab: bool = True,
         invalid_names_display_func: tp.Optional[
             Callable[[list[str]|pd.DataFrame, str], None]
         ] = None,
@@ -126,15 +127,23 @@ def make_name_validation_dim_page(
     if extra_message is not None:
         st.write(extra_message)
 
-    invalid_names: list[str]|pd.DataFrame \
-        = st.session_state[invalid_names_dict_key][dim_name]
+    invalid_names_obj: dict[str, str]|pd.DataFrame \
+        = st.session_state[invalid_names_dict_key]
+    invalid_names: list[str]|pd.DataFrame
+    if not isinstance(invalid_names_obj, pd.DataFrame):
+        invalid_names = st.session_state[invalid_names_dict_key][dim_name]
+    else:
+        invalid_names = invalid_names_obj
 
-    invalid_names_tab, all_valid_names_tab = st.tabs(
-        [
-            invalid_names_tab_name,
-            all_valid_names_tab_name,
-        ]
-    )
+    if display_all_valid_names_tab:
+        invalid_names_tab, all_valid_names_tab = st.tabs(
+            [
+                invalid_names_tab_name,
+                all_valid_names_tab_name,
+            ]
+        )
+    else:
+        invalid_names_tab, = st.tabs([invalid_names_tab_name])
 
     with invalid_names_tab:
         if invalid_names_display_func is not None:
@@ -153,26 +162,75 @@ def make_name_validation_dim_page(
                 )
                 st.table(pd.Series(invalid_names, name='Name'))
 
-    with all_valid_names_tab:
-        if all_valid_names_display_func is not None:
-            all_valid_names_display_func(getattr(dsd, dim_name), dim_name)
-        else:
-            st.write(
-                'The following is a list of all <span style="color: green">'
-                f'recognized</span> {dim_name} names:',
-                unsafe_allow_html=True,
-            )
-            st.table(
-                make_attribute_df(
-                    getattr(dsd, dim_name),
-                    attr_names=show_valid_code_attrs,
-                    column_names=show_valid_code_colnames,
-                    use_filler='',
+    if display_all_valid_names_tab:
+        with all_valid_names_tab:
+            if all_valid_names_display_func is not None:
+                all_valid_names_display_func(getattr(dsd, dim_name), dim_name)
+            else:
+                st.write(
+                    'The following is a list of all <span style="color: green">'
+                    f'recognized</span> {dim_name} names:',
+                    unsafe_allow_html=True,
                 )
-            )
-    
+                st.table(
+                    make_attribute_df(
+                        getattr(dsd, dim_name),
+                        attr_names=show_valid_code_attrs,
+                        column_names=show_valid_code_colnames,
+                        use_filler='',
+                    )
+                )
 
 ###END def make_name_validation_page
+
+
+def make_variable_unit_combo_validation_page() -> None:
+
+    def _invalid_names_display_func(
+            invalid_combos: list[str]|pd.DataFrame,
+            dim_name: str,
+    ) -> None:
+        if not isinstance(invalid_combos, pd.DataFrame):
+            raise ValueError(
+                'Invalid variable/unit combos must be given as a DataFrame.'
+            )
+        if len(invalid_combos) == 0:
+            st.info(
+                f'No invalid variable/unit combinations found.',
+                icon='✅',
+            )
+        else:
+            st.write(
+                'Variables for which unrecognized units were found, and '
+                'recognized units for each variable (does not include '
+                'unrecognized *variables*):'
+            )
+            st.table(
+                invalid_combos.reset_index().astype(str).rename(
+                    {
+                        'variable': 'Variable',
+                        'invalid': 'Unrecognized unit',
+                        'expected': 'Valid unit(s)',
+                    },
+                    axis=1,
+                )
+            )
+
+    return make_name_validation_dim_page(
+        dim_name='variable/unit combination',
+        header='Validation of variable/unit combinations',
+        intro_message='The table below shows recognized variables for which ' \
+            'unrecognized units were found (unrecognized *variables* are not ' \
+            'included).',
+        second_message='The last column contains the variable or list of ' \
+            'units that *is* recognized for the given variable.',
+        invalid_names_dict_key=SSKey.VALIDATION_INVALID_UNIT_COMBOS_DF,
+        invalid_names_tab_name='Unrecognized variable/unit combinations',
+        display_all_valid_names_tab=False,
+        invalid_names_display_func=_invalid_names_display_func,
+    )
+
+###END def make_variable_unit_combo_validation_page
 
 
 @tp.overload

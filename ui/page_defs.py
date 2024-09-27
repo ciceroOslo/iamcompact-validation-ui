@@ -11,6 +11,7 @@ from iamcompact_nomenclature import dimensions as name_validation_dims
 
 from p.name_validation_pages import (
     make_name_validation_dim_page,
+    make_variable_unit_combo_validation_page,
 )
 from page_ids import (
     PageKey,
@@ -71,6 +72,10 @@ pages: tp.Final[dict[PageKey, StreamlitPage]] = {
         )
         for _dim in name_validation_dims
     },
+    PageKey.NAME_VALIDATION_VARIABLE_UNIT_COMBO: st.Page(
+        make_variable_unit_combo_validation_page,
+        title=PageName.NAME_VALIDATION_VARIABLE_UNIT_COMBO,
+    ),
     PageKey.AR6_VETTING: st.Page(
         page_folder / 'IPCC_AR6_vetting.py',
         title=PageName.AR6_VETTING,
