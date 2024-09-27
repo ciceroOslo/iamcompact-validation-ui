@@ -25,7 +25,7 @@ from common_keys import (
     SSKey,
 )
 from p.name_validation_pages import get_validation_dsd
-from page_defs import PageName
+from page_ids import PageName
 
 
 def main():
@@ -87,3 +87,7 @@ def main():
     st.write('Did checks.')
 
 ###END def main
+
+
+if __name__ == PAGE_RUN_NAME:
+    main()

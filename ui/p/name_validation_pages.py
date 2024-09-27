@@ -13,12 +13,13 @@ from common_elements import (
     common_setup,
 )
 from common_keys import SSKey
+from page_ids import PageName
 
 
 
 def make_name_validation_dim_page(
         dim_name: str,
-        run_validation_page_name: str,
+        run_validation_page_name: tp.Optional[str] = None,
         header: tp.Optional[str] = None,
         intro_message: tp.Optional[str] = None,
         second_message: tp.Optional[str] = None,
@@ -31,6 +32,9 @@ def make_name_validation_dim_page(
 
     if invalid_names_dict_key is None:
         invalid_names_dict_key = SSKey.VALIDATION_INVALID_NAMES_DICT
+
+    if run_validation_page_name is None:
+        run_validation_page_name = PageName.NAME_VALIDATION_SUMMARY
 
     if header is not None:
         st.header(header)

@@ -1,5 +1,4 @@
-"""Common functions to be used for navigation between pages."""
-from enum import StrEnum
+"""Common functions to be used for defining pages."""
 import functools
 from pathlib import Path
 import typing as tp
@@ -12,47 +11,12 @@ from iamcompact_nomenclature import dimensions as name_validation_dims
 from p.name_validation_pages import (
     make_name_validation_dim_page,
 )
+from page_ids import (
+    PageKey,
+    PageName,
+)
 
 
-
-class PageName(StrEnum):
-    """Page names."""
-
-    UPLOAD = 'Upload data'
-    """The front page, for uploading data"""
-
-    REGION_MAPPING = 'Run region mapping'
-    """Page for running region aggregation and mapping of model-native names"""
-
-    NAME_VALIDATION_SUMMARY = 'Run / summary'
-    """Page for running name validation and displaying summary results"""
-
-    NAME_VALIDATION_VARIABLE = 'Variable names'
-    """Page for displaying name validation results for variable names"""
-    
-    NAME_VALIDATION_MODEL = 'Model names'
-    """Page for displaying name validation results for model names"""
-    
-    SCENARIO_VALIDATION_SCENARIO = 'Scenario names'
-    """Page for displaying name validation results for scenario names"""
-
-    NAME_VALIDATION_REGION = 'Region names'
-    """Page for displaying name validation results for region names"""
-
-    NAME_VALIDATION_VARIABLE_UNIT_COMBO = 'Variable/unit combinations'
-    """Page for displaying validation results for variable/unit combinations"""
-    
-    AR6_VETTING = 'IPCC AR6 vetting'
-    """Page for running IPCC AR6 vetting checks"""
-
-    GDP_POP_HARMONIZATION = 'GDP and population harmonization'
-
-###END class PageName
-
-PageKey = PageName
-"""Enum for keys used for pages in the `pages` dict. For now the keys are 
-the same as the page names.
-"""
 
 name_validation_dim_pagekeys: tp.Final[dict[str, PageKey]] = {
     'variable': PageKey.NAME_VALIDATION_VARIABLE,
@@ -88,7 +52,6 @@ pages: tp.Final[dict[PageKey, StreamlitPage]] = {
             functools.partial(
                 make_name_validation_dim_page,
                 dim_name=_dim,
-                run_validation_page_name=name_validation_dim_pagenames[_dim],
             ),
             title=name_validation_dim_pagenames[_dim],
         )
