@@ -24,6 +24,7 @@ from common_keys import (
     PAGE_RUN_NAME,
     SSKey,
 )
+from p.name_validation_pages import get_validation_dsd
 from page_defs import PageName
 
 
@@ -86,62 +87,3 @@ def main():
     st.write('Did checks.')
 
 ###END def main
-
-
-@tp.overload
-def get_validation_dsd(
-    allow_load: tp.Literal[False],
-    force_load: bool = False,
-    show_spinner: bool = True,
-) -> DataStructureDefinition|None:
-    ...
-@tp.overload
-def get_validation_dsd(
-    allow_load: bool = True,
-    force_load: bool = False,
-    show_spinner: bool = True,
-) -> DataStructureDefinition:
-    ...
-def get_validation_dsd(
-    allow_load: bool = True,
-    force_load: bool = False,
-    show_spinner: bool = True,
-) -> DataStructureDefinition|None:
-    """Get the DataStructureDefinition object for the validation checks.
-    
-    Parameters
-    ----------
-    allow_load : bool, optional
-        Whether to allow loading the DataStructureDefinition object from the
-        source (the `iamcompact_nomenclature.get_dsd` method) if it has not
-        already been loaded. If False and the DataStructureDefinition object
-        has not already been loaded, the function will return None.
-    force_load : bool, optional
-        Whether to force loading of the DataStructureDefinition object, i.e.,
-        don't obtain it from the session state even if it is available.
-        Optional, by default False.
-    show_spinner : bool, optional
-        Whether to show a spinner while loading. Optional, by default True.
-
-    Returns
-    -------
-    DataStructureDefinition or None
-        The DataStructureDefinition object for the validation checks if already
-        loaded into session state or if `allow_load` is True. None if it has
-        not been loaded and `allow_load` is False.
-    """
-    dsd: DataStructureDefinition|None = st.session_state.get(
-        SSKey.VALIDATION_DSD, None)
-    if (dsd is None and allow_load) or force_load:
-        if show_spinner:
-            with st.spinner('Loading datastructure definition...'):
-                dsd = get_dsd(force_reload=force_load)
-        else:
-            dsd = get_dsd(force_reload=force_load)
-        st.session_state[SSKey.VALIDATION_DSD] = dsd
-    return dsd
-###END def get_validation_dsd
-
-
-if __name__ == PAGE_RUN_NAME:
-    main()
