@@ -30,11 +30,20 @@ class SSKey(StrEnum):
     DO_INSPECT_DATA = 'inspect_data'
     """Whether to display a table with the uploaded data, on the upload page."""
 
+    VALIDATION_DSD = 'validation_dsd'
+    """Datastructure definition object to use for name validation."""
     VALIDATION_INVALID_NAMES_DICT = 'validation_invalid_names_dict'
     """Dictionary with invalid names per dimension.
 
     Contains the output from the name check if performed, or is unset or None
     if the name validation has not been run yet.
+    """
+    VALIDATION_INVALID_UNIT_COMBOS_DF = 'validation_invalid_unit_combos_df'
+    """DataFrame with invalid unit combinations
+
+    Contains a DataFrame with invalid variable/unit combinations and valid units
+    for the same variables if the unit combo check has been run, or is unset or
+    None otherwise.
     """
 
     AR6_CRITERIA_OUTPUT_DFS = 'ar6_criteria_output_dfs'
@@ -80,6 +89,7 @@ data_file_upload_clear_keys: tp.Final[tp.List[SSKey]] = [
     SSKey.IAM_DF_TIMESERIES,
     SSKey.IAM_DF_REGIONMAPPED,
     SSKey.VALIDATION_INVALID_NAMES_DICT,
+    SSKey.VALIDATION_INVALID_UNIT_COMBOS_DF,
     SSKey.AR6_CRITERIA_OUTPUT_DFS,
     SSKey.AR6_CRITERIA_ALL_PASSED,
     SSKey.AR6_CRITERIA_ALL_INCLUDED,
