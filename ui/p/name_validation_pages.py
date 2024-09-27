@@ -35,12 +35,16 @@ def make_name_validation_dim_page(
         extra_message: tp.Optional[str] = None,
         invalid_names_dict_key: tp.Optional[SSKey] = None,
         dsd: tp.Optional[DataStructureDefinition] = None,
+        invalid_names_tab_name: str = 'Unrecognized names',
+        all_valid_names_tab_name: str = 'All valid names',
         invalid_names_display_func: tp.Optional[
             Callable[[list[str]|pd.DataFrame, str], None]
         ] = None,
         all_valid_names_display_func: tp.Optional[
             Callable[[CodeList, str], None]
         ] = None,
+        show_valid_code_attrs: tp.Optional[Iterable[str]] = None,
+        show_valid_code_colnames: tp.Optional[Mapping[str, str]] = None,
 ) -> None:
 
     common_setup()
@@ -53,6 +57,38 @@ def make_name_validation_dim_page(
 
     if run_validation_page_name is None:
         run_validation_page_name = PageName.NAME_VALIDATION_SUMMARY
+
+    if show_valid_code_attrs is None:
+        if dim_name == 'region':
+            show_valid_code_attrs = ['name', 'description', 'alpha_3',
+                                     'countries', 'note']
+        elif dim_name == 'variable':
+            show_valid_code_attrs = ['name', 'description', 'unit', 'note']
+        else:
+            show_valid_code_attrs = ['name', 'description', 'note']
+
+    if show_valid_code_colnames is None:
+        if dim_name == 'region':
+            show_valid_code_colnames = {
+                'name': 'Name',
+                'description': 'Description',
+                'alpha_3': 'ISO3',
+                'countries': 'Contains',
+                'note': 'Note'
+            }
+        elif dim_name == 'variable':
+            show_valid_code_colnames = {
+                'name': 'Name',
+                'description': 'Description',
+                'unit': 'Valid units',
+                'note': 'Note'
+            }
+        else:
+            show_valid_code_colnames = {
+                'name': 'Name',
+                'description': 'Description',
+                'note': 'Note'
+            }
 
     if header is not None:
         st.header(header)
@@ -95,8 +131,8 @@ def make_name_validation_dim_page(
 
     invalid_names_tab, all_valid_names_tab = st.tabs(
         [
-            'Unrecognized names',
-            'All valid names',
+            invalid_names_tab_name,
+            all_valid_names_tab_name,
         ]
     )
 
@@ -115,7 +151,7 @@ def make_name_validation_dim_page(
                     f'</b></span> {dim_name} names were found:',
                     unsafe_allow_html=True,
                 )
-                st.table(invalid_names)
+                st.table(pd.Series(invalid_names, name='Name'))
 
     with all_valid_names_tab:
         if all_valid_names_display_func is not None:
@@ -129,19 +165,8 @@ def make_name_validation_dim_page(
             st.table(
                 make_attribute_df(
                     getattr(dsd, dim_name),
-                    attr_names=['name', 'description', 'alpha_3', 'countries', 'note'] \
-                        if dim_name == 'region' else ['name', 'description', 'note'],
-                    column_names={
-                        'name': 'Name',
-                        'description': 'Description',
-                        'alpha_3': 'ISO-3',
-                        'countries': 'Contains',
-                        'note': 'Note'
-                    } if dim_name == 'region' else {
-                        'name': 'Name',
-                        'description': 'Description',
-                        'note': 'Note'
-                    },
+                    attr_names=show_valid_code_attrs,
+                    column_names=show_valid_code_colnames,
                     use_filler='',
                 )
             )
@@ -240,7 +265,7 @@ def make_attribute_df(
         attr_names = ['name', 'description']
     if column_names is None:
         column_names = dict(zip(attr_names, attr_names))
-    return pd.DataFrame(
+    return_df: pd.DataFrame = pd.DataFrame(
         data=[
             [getattr(_code, _attr_name) for _attr_name in attr_names]
             if use_filler==False else
@@ -248,5 +273,9 @@ def make_attribute_df(
             for _code in codelist.values()
         ],
         columns=list(column_names.values()),
+        dtype=str,
     )
+    if use_filler is not False:
+        return_df = return_df.fillna(use_filler)
+    return return_df
 ###END def make_attribute_df
