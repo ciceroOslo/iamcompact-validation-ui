@@ -4,3 +4,5 @@ watchdog>=4.0.2
 pandas>=2.2.2
 python_calamine>=0.2.3
 pyam-iamc @ git+https://github.com/IAMconsortium/pyam@main
+iamcompact-nomenclature @ git+https://github.com/ciceroOslo/iamcompact-nomenclature.git
+iamcompact-vetting @ git+https://github.com/ciceroOslo/iamcompact-vetting.git

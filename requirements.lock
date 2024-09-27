@@ -37,6 +37,7 @@ certifi==2024.8.30
 charset-normalizer==3.3.2
     # via requests
 click==8.1.7
+    # via nomenclature-iamc
     # via streamlit
     # via typer
 contourpy==1.3.0
@@ -64,6 +65,7 @@ fonttools==4.53.1
 gitdb==4.0.11
     # via gitpython
 gitpython==3.1.43
+    # via nomenclature-iamc
     # via streamlit
 greenlet==3.1.0
     # via sqlalchemy
@@ -85,6 +87,7 @@ hyperframe==6.0.1
     # via h2
 iam-units==2023.9.12
     # via pyam-iamc
+iamcompact-nomenclature @ git+https://github.com/ciceroOslo/iamcompact-nomenclature.git@9621aa400b64337b7ad9af26f3dc596ce9864d2e
 iamcompact-vetting @ git+https://github.com/ciceroOslo/iamcompact-vetting.git@476ec62704cc1aad73625ad477b39c0b8c1806fc
 idna==3.9
     # via anyio
@@ -135,9 +138,12 @@ mypy-extensions==1.0.0
     # via typing-inspect
 narwhals==1.8.0
     # via altair
-numpy==2.1.1
+nomenclature-iamc==0.19.0
+    # via iamcompact-nomenclature
+numpy==1.26.4
     # via contourpy
     # via matplotlib
+    # via nomenclature-iamc
     # via pandas
     # via pandera
     # via pyam-iamc
@@ -150,15 +156,19 @@ numpy==2.1.1
 openpyxl==3.1.5
     # via iamcompact-vetting
     # via ixmp4
+    # via nomenclature-iamc
     # via pyam-iamc
+    # via pysquirrel
 packaging==24.1
     # via altair
     # via matplotlib
     # via pandera
     # via plotly
+    # via pooch
     # via streamlit
 pandas==2.2.2
     # via ixmp4
+    # via nomenclature-iamc
     # via pandas-indexing
     # via pandera
     # via pyam-iamc
@@ -176,8 +186,12 @@ pillow==10.4.0
 pint==0.24.3
     # via iam-units
     # via pyam-iamc
+platformdirs==4.3.6
+    # via pooch
 plotly==5.24.1
     # via streamlit-extras
+pooch==1.8.2
+    # via pysquirrel
 prometheus-client==0.20.0
     # via streamlit-extras
 protobuf==5.28.1
@@ -188,14 +202,20 @@ psycopg==3.2.1
 psycopg-binary==3.2.1
     # via psycopg
 pyam-iamc @ git+https://github.com/IAMconsortium/pyam@e27e90e7babf31124cfde5cd3ae26a9f1ea4cf52
+    # via iamcompact-nomenclature
     # via iamcompact-vetting
+    # via nomenclature-iamc
 pyarrow==17.0.0
     # via streamlit
+pycountry==23.12.11
+    # via nomenclature-iamc
 pydantic==2.9.1
     # via fastapi
     # via ixmp4
+    # via nomenclature-iamc
     # via pandera
     # via pydantic-settings
+    # via pysquirrel
 pydantic-core==2.23.3
     # via pydantic
 pydantic-settings==2.5.2
@@ -210,6 +230,8 @@ pymdown-extensions==10.9
     # via markdownlit
 pyparsing==3.1.4
     # via matplotlib
+pysquirrel==1.0
+    # via nomenclature-iamc
 python-calamine==0.2.3
 python-dateutil==2.9.0.post0
     # via faker
@@ -221,6 +243,7 @@ python-dotenv==1.0.1
 pytz==2024.2
     # via pandas
 pyyaml==6.0.2
+    # via nomenclature-iamc
     # via pyam-iamc
     # via pymdown-extensions
 referencing==0.35.1
@@ -228,6 +251,7 @@ referencing==0.35.1
     # via jsonschema-specifications
 requests==2.32.3
     # via favicon
+    # via pooch
     # via pyam-iamc
     # via streamlit
 rich==13.8.1
