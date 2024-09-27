@@ -15,6 +15,12 @@ class PageName(StrEnum):
 
     UPLOAD = 'Upload data'
     """The front page, for uploading data"""
+
+    REGION_MAPPING = 'Run region mapping'
+    """Page for running region aggregation and mapping of model-native names"""
+
+    NAME_VALIDATION_SUMMARY = 'Run / summary'
+    """Page for running name validation and displaying summary results"""
     
     AR6_VETTING = 'IPCC AR6 vetting'
     """Page for running IPCC AR6 vetting checks"""
@@ -35,6 +41,14 @@ pages: tp.Final[dict[PageKey, StreamlitPage]] = {
         page_folder / 'Upload_data.py',
         title=PageName.UPLOAD,
         default=True,
+    ),
+    PageKey.REGION_MAPPING: st.Page(
+        page_folder / 'Region_mapping.py',
+        title=PageName.REGION_MAPPING,
+    ),
+    PageKey.NAME_VALIDATION_SUMMARY: st.Page(
+        page_folder / 'Validation_run_and_summary.py',
+        title=PageName.NAME_VALIDATION_SUMMARY,
     ),
     PageKey.AR6_VETTING: st.Page(
         page_folder / 'IPCC_AR6_vetting.py',

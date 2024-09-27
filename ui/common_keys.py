@@ -22,11 +22,20 @@ class SSKey(StrEnum):
 
     IAM_DF_UPLOADED = 'uploaded_iam_df'
     """The IamDataFrame with data from the uploaded file."""
+    IAM_DF_REGIONMAPPED = 'regionmapped_iam_df'
+    """"""
     IAM_DF_TIMESERIES = 'uploaded_iam_df_timeseries'
     """A generated timeseries table of the uploaded IamDataFrame."""
 
     DO_INSPECT_DATA = 'inspect_data'
     """Whether to display a table with the uploaded data, on the upload page."""
+
+    VALIDATION_INVALID_NAMES_DICT = 'validation_invalid_names_dict'
+    """Dictionary with invalid names per dimension.
+
+    Contains the output from the name check if performed, or is unset or None
+    if the name validation has not been run yet.
+    """
 
     AR6_CRITERIA_OUTPUT_DFS = 'ar6_criteria_output_dfs'
     """Output DataFrame from `.prepare_output` method of the AR6 criteria."""
@@ -69,6 +78,8 @@ data_file_upload_clear_keys: tp.Final[tp.List[SSKey]] = [
     SSKey.IAM_DF_UPLOADED,
     SSKey.DO_INSPECT_DATA,
     SSKey.IAM_DF_TIMESERIES,
+    SSKey.IAM_DF_REGIONMAPPED,
+    SSKey.VALIDATION_INVALID_NAMES_DICT,
     SSKey.AR6_CRITERIA_OUTPUT_DFS,
     SSKey.AR6_CRITERIA_ALL_PASSED,
     SSKey.AR6_CRITERIA_ALL_INCLUDED,

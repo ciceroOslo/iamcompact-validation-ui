@@ -12,11 +12,14 @@ from page_defs import (
 
 page: StreamlitPage = st.navigation(
     {
-        'Start': [
+        '1. Start/upload': [
             pages[PageKey.UPLOAD],
         ],
-        'Validation': [],
-        'Vetting': [
+        '2. Region mapping': [],
+        '3. Validation of names': [
+            pages[PageKey.NAME_VALIDATION_SUMMARY],
+        ],
+        '4. Vetting': [
             pages[PageKey.AR6_VETTING],
             pages[PageKey.GDP_POP_HARMONIZATION],
         ],
