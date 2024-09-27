@@ -83,9 +83,24 @@ def main():
         else:
             st.stop()
         button_field.empty()
-    invalid_var_unit_combos: pd.DataFrame|None = \
-        st.session_state[SSKey.VALIDATION_INVALID_UNIT_COMBOS_DF]
-    st.write('Did checks.')
+    else:
+        invalid_var_unit_combos: pd.DataFrame|None = \
+            st.session_state[SSKey.VALIDATION_INVALID_UNIT_COMBOS_DF]
+        st.markdown('**Name validation summary**')
+        st.markdown(
+            '\n'.join(
+                [
+                    f'* **{_dim.capitalize()}**: ✅ No unrecognized names found'
+                    if len(_invalid_names) == 0 else
+                    f'* **{_dim.capitalize()}**: ❌ Unrecognized names found'
+                    for _dim, _invalid_names in invalid_names_dict.items()
+                ] + [
+                    f'* **Variable/units**: ✅ No unrecognized combinations found'
+                    if invalid_var_unit_combos is None else
+                    f'* **Variable/units**: ❌ Unrecognized combinations found'
+                ]
+            )
+        )
 
 ###END def main
 
