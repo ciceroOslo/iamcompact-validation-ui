@@ -1,4 +1,5 @@
 """Common functions to be used for defining pages."""
+from collections.abc import Callable
 import functools
 from pathlib import Path
 import typing as tp
@@ -33,6 +34,22 @@ name_validation_dim_pagenames: tp.Final[dict[str, PageName]] = {
 
 page_folder: tp.Final[Path] = Path(__file__).parent / 'p'
 
+def _variable_func() -> None:
+    return make_name_validation_dim_page(dim_name='variable')
+def _model_func() -> None:
+    return make_name_validation_dim_page(dim_name='model')
+def _scenario_func() -> None:
+    return make_name_validation_dim_page(dim_name='scenario')
+def _region_func() -> None:
+    return make_name_validation_dim_page(dim_name='region')
+
+page_funcs: dict[str, Callable[[], None]] = {
+    'variable': _variable_func,
+    'model': _model_func,
+    'scenario': _scenario_func,
+    'region': _region_func,
+}
+
 pages: tp.Final[dict[PageKey, StreamlitPage]] = {
     PageKey.UPLOAD: st.Page(
         page_folder / 'Upload_data.py',
@@ -49,10 +66,7 @@ pages: tp.Final[dict[PageKey, StreamlitPage]] = {
     ),
     **{
         name_validation_dim_pagekeys[_dim]: st.Page(
-            functools.partial(
-                make_name_validation_dim_page,
-                dim_name=_dim,
-            ),
+            page_funcs[_dim],
             title=name_validation_dim_pagenames[_dim],
         )
         for _dim in name_validation_dims
