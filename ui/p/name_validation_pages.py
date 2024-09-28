@@ -39,13 +39,16 @@ def make_name_validation_dim_page(
         all_valid_names_tab_name: str = 'All valid names',
         display_all_valid_names_tab: bool = True,
         invalid_names_display_func: tp.Optional[
-            Callable[[list[str]|pd.DataFrame, str], None]
+            Callable[
+                [list[str]|pd.DataFrame, str, tp.Optional[bool]], None]
         ] = None,
         all_valid_names_display_func: tp.Optional[
-            Callable[[CodeList, str], None]
+            Callable[[CodeList, str, tp.Optional[bool]], None]
         ] = None,
         show_valid_code_attrs: tp.Optional[Iterable[str]] = None,
         show_valid_code_colnames: tp.Optional[Mapping[str, str]] = None,
+        sort_invalid_names: tp.Optional[bool] = None,
+        sort_valid_names: tp.Optional[bool] = None,
 ) -> None:
 
     common_setup()
@@ -147,7 +150,11 @@ def make_name_validation_dim_page(
 
     with invalid_names_tab:
         if invalid_names_display_func is not None:
-            invalid_names_display_func(invalid_names, dim_name)
+            invalid_names_display_func(
+                invalid_names,
+                dim_name,
+                sort_invalid_names,
+            )
         else:
             if len(invalid_names) == 0:
                 st.info(
@@ -155,31 +162,51 @@ def make_name_validation_dim_page(
                     icon='✅',
                 )
             else:
+                if isinstance(invalid_names, pd.DataFrame):
+                    raise TypeError(
+                        'Invalid names cannot be given as a DataFrame when '
+                        '`invalid_names_display_func` is not given.'
+                    )
+                _do_sort: bool
+                if sort_invalid_names is None:
+                    _do_sort = False if dim_name == 'region' else True
+                else:
+                    _do_sort = sort_invalid_names
                 st.write(
                     'The following <span style="color: red"><b>unrecognized'
                     f'</b></span> {dim_name} names were found:',
                     unsafe_allow_html=True,
                 )
+                display_series: pd.Series = pd.Series(invalid_names, name='Name')
+                if _do_sort:
+                    display_series = display_series.sort_values()
                 st.table(pd.Series(invalid_names, name='Name'))
 
     if display_all_valid_names_tab:
         with all_valid_names_tab:
             if all_valid_names_display_func is not None:
-                all_valid_names_display_func(getattr(dsd, dim_name), dim_name)
+                all_valid_names_display_func(
+                    getattr(dsd, dim_name),
+                    dim_name,
+                    sort_valid_names,
+                )
             else:
                 st.write(
                     'The following is a list of all <span style="color: green">'
                     f'recognized</span> {dim_name} names:',
                     unsafe_allow_html=True,
                 )
-                st.table(
-                    make_attribute_df(
-                        getattr(dsd, dim_name),
-                        attr_names=show_valid_code_attrs,
-                        column_names=show_valid_code_colnames,
-                        use_filler='',
-                    )
+                attribute_df: pd.DataFrame = make_attribute_df(
+                    getattr(dsd, dim_name),
+                    attr_names=show_valid_code_attrs,
+                    column_names=show_valid_code_colnames,
+                    use_filler='',
                 )
+                if sort_valid_names:
+                    attribute_df = attribute_df.sort_values(
+                        by=attribute_df.columns[0]
+                    )
+                st.table(attribute_df)
 
 ###END def make_name_validation_page
 
@@ -189,6 +216,7 @@ def make_variable_unit_combo_validation_page() -> None:
     def _invalid_names_display_func(
             invalid_combos: list[str]|pd.DataFrame,
             dim_name: str,
+            sort_names: tp.Optional[bool] = None,
     ) -> None:
         if not isinstance(invalid_combos, pd.DataFrame):
             raise ValueError(
@@ -205,8 +233,8 @@ def make_variable_unit_combo_validation_page() -> None:
                 'recognized units for each variable (does not include '
                 'unrecognized *variables*):'
             )
-            st.table(
-                invalid_combos.reset_index().astype(str).rename(
+            display_df: pd.DataFrame = invalid_combos.reset_index() \
+                .astype(str).rename(
                     {
                         'variable': 'Variable',
                         'invalid': 'Unrecognized unit',
@@ -214,7 +242,9 @@ def make_variable_unit_combo_validation_page() -> None:
                     },
                     axis=1,
                 )
-            )
+            if sort_names is None or sort_names==True:
+                display_df = display_df.sort_values('Variable')
+            st.table(display_df)
 
     return make_name_validation_dim_page(
         dim_name='variable/unit combination',
