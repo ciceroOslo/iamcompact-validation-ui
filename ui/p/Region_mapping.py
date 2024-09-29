@@ -49,8 +49,7 @@ def main() -> None:
     if st.session_state.get(SSKey.IAM_DF_REGIONMAPPED, None) is not None:
         st.info(
             'You have already performed the region-mapping step. You only need '
-            'to press the button below if you for some reason want to run it '
-            'again.',
+            'to run it again if you want to change the exclusion options.',
             icon='✅'
         )
 
@@ -77,8 +76,26 @@ def main() -> None:
         'dimensions, and apply region mapping to only parts of the data with '
         'recognized names:'
     )
-    exclude_invalid_regions: bool = st.checkbox('Regions')
-    exclude_invalid_variables: bool = st.checkbox('Variables')
+    def _toggle_exclude_invalid_regions():
+        st.session_state[SSKey.REGION_MAPPING_EXCLUDE_INVALID_REGIONS] = \
+            not st.session_state.get(SSKey.REGION_MAPPING_EXCLUDE_INVALID_REGIONS,
+                                     False)
+    def _toggle_exclude_invalid_variables():
+        st.session_state[SSKey.REGION_MAPPING_EXCLUDE_INVALID_VARIABLES] = \
+            not st.session_state.get(SSKey.REGION_MAPPING_EXCLUDE_INVALID_VARIABLES,
+                                     False)
+    exclude_invalid_regions: bool = st.checkbox(
+        'Regions',
+        value=st.session_state.get(SSKey.REGION_MAPPING_EXCLUDE_INVALID_REGIONS,
+                                   False),
+        on_change=_toggle_exclude_invalid_regions,
+    )
+    exclude_invalid_variables: bool = st.checkbox(
+        'Variables',
+        value=st.session_state.get(SSKey.REGION_MAPPING_EXCLUDE_INVALID_VARIABLES,
+                                   False),
+        on_change=_toggle_exclude_invalid_variables,
+    )
     
     iam_df_excluded_vars: pyam.IamDataFrame|None = None
     if exclude_invalid_variables:

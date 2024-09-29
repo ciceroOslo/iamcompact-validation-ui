@@ -46,6 +46,17 @@ class SSKey(StrEnum):
     None otherwise.
     """
 
+    REGION_MAPPING_EXCLUDE_INVALID_REGIONS = 'region_mapping_exclude_invalid_regions'
+    """Whether to exclude invalid regions from the region-mapping step, and thus
+    avoid letting the processing crash. This is the last state of the checkbox
+    on the region-mapping page.
+    """
+    REGION_MAPPING_EXCLUDE_INVALID_VARIABLES = 'region_mapping_exclude_invalid_variables'
+    """Whether to exclude invalid variables from the region-mapping step, and thus
+    avoid letting the processing crash. This is the last state of the checkbox
+    on the region-mapping page.
+    """
+
     AR6_CRITERIA_OUTPUT_DFS = 'ar6_criteria_output_dfs'
     """Output DataFrame from `.prepare_output` method of the AR6 criteria."""
     AR6_CRITERIA_ALL_PASSED = 'ar6_criteria_all_passed'
