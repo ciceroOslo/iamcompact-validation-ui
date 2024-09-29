@@ -160,11 +160,6 @@ def make_name_validation_dim_page(
                     icon='✅',
                 )
             else:
-                if isinstance(invalid_names, pd.DataFrame):
-                    raise TypeError(
-                        'Invalid names cannot be given as a DataFrame when '
-                        '`invalid_names_display_func` is not given.'
-                    )
                 _do_sort: bool
                 if sort_invalid_names is None:
                     _do_sort = False if dim_name == 'region' else True
@@ -175,10 +170,19 @@ def make_name_validation_dim_page(
                     f'</b></span> {dim_name} names were found:',
                     unsafe_allow_html=True,
                 )
-                display_series: pd.Series = pd.Series(invalid_names, name='Name')
-                if _do_sort:
-                    display_series = display_series.sort_values()
-                st.table(pd.Series(invalid_names, name='Name'))
+                if isinstance(invalid_names, pd.DataFrame):
+                    display_df: pd.DataFrame = invalid_names
+                    if _do_sort:
+                        display_df = display_df.sort_values(
+                            by=display_df.columns[0],
+                        )
+                    st.table(display_df)
+                else:
+                    display_series: pd.Series \
+                        = pd.Series(invalid_names, name='Name')
+                    if _do_sort:
+                        display_series = display_series.sort_values()
+                    st.table(pd.Series(invalid_names, name='Name'))
 
     if display_all_valid_names_tab:
         with all_valid_names_tab:

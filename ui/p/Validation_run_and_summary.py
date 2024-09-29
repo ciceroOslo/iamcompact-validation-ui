@@ -1,3 +1,4 @@
+from collections.abc import Mapping
 
 import pandas as pd
 import pyam
@@ -5,6 +6,7 @@ import streamlit as st
 
 from iamcompact_vetting.output.excel import MultiDataFrameExcelWriter
 from iamcompact_nomenclature.validation import (
+    get_invalid_model_regions,
     get_invalid_names,
     get_invalid_variable_units,
 )
@@ -52,7 +54,7 @@ def main():
         )
         iam_df = st.session_state[SSKey.IAM_DF_UPLOADED]
 
-    invalid_names_dict: dict[str, list[str]]|None = \
+    invalid_names_dict: Mapping[str, list[str]|pd.DataFrame]|None = \
         st.session_state.get(SSKey.VALIDATION_INVALID_NAMES_DICT, None)
     # Print an info message, with an "info" icon
     if invalid_names_dict is None:
@@ -64,13 +66,37 @@ def main():
         button_field = st.empty()
         if button_field.button('Run name checks'):
             button_field.empty()
-            with st.spinner('Validating names and units...'):
-                dsd: DataStructureDefinition = \
-                    get_validation_dsd(allow_load=True, show_spinner=True)
-                invalid_names_dict = get_invalid_names(iam_df, dsd)
+            dsd: DataStructureDefinition = \
+                get_validation_dsd(allow_load=True, show_spinner=True)
+            dsd_dims: list[str] = [str(_dim) for _dim in dsd.dimensions]
+            non_region_dims: list[str] = [_dim for _dim in dsd_dims
+                                           if _dim != 'region']
+            with st.spinner(
+                'Validating ' + ', '.join(non_region_dims) + ' names...'
+            ):
+                invalid_names_dict = \
+                    get_invalid_names(iam_df, dsd, dimensions= non_region_dims)
+            with st.spinner('Validating region names...'):
+                invalid_region_and_model_names_dict: Mapping[str, list[str]] = \
+                    get_invalid_model_regions(iam_df, dsd=dsd)
+                invalid_region_and_model_names_df: pd.DataFrame = \
+                    pd.DataFrame(
+                        {
+                            'Name': list(
+                                invalid_region_and_model_names_dict.keys()
+                            ),
+                            'Used by models': [
+                                ', '.join(_models) for _models in
+                                invalid_region_and_model_names_dict.values()
+                            ]
+                        },
+                        dtype='string',
+                    )
+                invalid_names_dict['region'] = invalid_region_and_model_names_df
+            st.session_state[SSKey.VALIDATION_INVALID_NAMES_DICT] = \
+                invalid_names_dict
+            with st.spinner('Validating variable/unit combinations...'):
                 invalid_var_unit_combos = get_invalid_variable_units(iam_df, dsd)
-                st.session_state[SSKey.VALIDATION_INVALID_NAMES_DICT] = \
-                    invalid_names_dict
                 st.session_state[SSKey.VALIDATION_INVALID_UNIT_COMBOS_DF] = \
                     invalid_var_unit_combos
             st.rerun()
