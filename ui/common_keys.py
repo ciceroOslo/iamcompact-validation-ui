@@ -70,6 +70,12 @@ class SSKey(StrEnum):
     if no download file has been prepared yet.
     """
 
+    GDP_POP_RUN_WITH_NON_REGIONMAPPED = 'gdp_pop_run_with_non_regionmapped'
+    """Whether the GDP and population harmonization checks may previously have
+    been run with non-region-mapped data. If True and region-mapped data is
+    available, it means that previously saved GDP/population harmonization
+    check data should be cleared.
+    """
     GDP_POP_OUTPUT_DFS = 'gdp_pop_output_harmonization_dfs'
     """Output DataFrame from `.prepare_output` method of the GDP and population
     harmonization criteria.

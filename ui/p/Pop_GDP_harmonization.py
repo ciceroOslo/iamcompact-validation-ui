@@ -58,6 +58,11 @@ def main():
             icon='❗️',
         )
         iam_df = st.session_state[SSKey.IAM_DF_UPLOADED]
+        st.session_state[SSKey.GDP_POP_RUN_WITH_NON_REGIONMAPPED] = True
+    else:
+        if st.session_state.get(SSKey.GDP_POP_RUN_WITH_NON_REGIONMAPPED, False):
+            st.session_state[SSKey.GDP_POP_OUTPUT_DFS] = None
+            st.session_state[SSKey.GDP_POP_RUN_WITH_NON_REGIONMAPPED] = False
 
     summary_df_key: str = get_summary_df_key()
     values_df_key: str = get_values_df_key()
