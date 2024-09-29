@@ -13,9 +13,6 @@ class PageName(StrEnum):
     UPLOAD = 'Upload data'
     """The front page, for uploading data"""
 
-    REGION_MAPPING = 'Run region mapping'
-    """Page for running region aggregation and mapping of model-native names"""
-
     NAME_VALIDATION_SUMMARY = 'Run / summary'
     """Page for running name validation and displaying summary results"""
 
@@ -34,6 +31,9 @@ class PageName(StrEnum):
     NAME_VALIDATION_VARIABLE_UNIT_COMBO = 'Variable/unit combinations'
     """Page for displaying validation results for variable/unit combinations"""
     
+    REGION_MAPPING = 'Run region mapping'
+    """Page for running region aggregation and mapping of model-native names"""
+
     AR6_VETTING = 'IPCC AR6 vetting'
     """Page for running IPCC AR6 vetting checks"""
 
