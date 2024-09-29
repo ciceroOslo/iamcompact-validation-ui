@@ -76,26 +76,10 @@ def main() -> None:
         'dimensions, and apply region mapping to only parts of the data with '
         'recognized names:'
     )
-    def _toggle_exclude_invalid_regions():
-        st.session_state[SSKey.REGION_MAPPING_EXCLUDE_INVALID_REGIONS] = \
-            not st.session_state.get(SSKey.REGION_MAPPING_EXCLUDE_INVALID_REGIONS,
-                                     False)
-    def _toggle_exclude_invalid_variables():
-        st.session_state[SSKey.REGION_MAPPING_EXCLUDE_INVALID_VARIABLES] = \
-            not st.session_state.get(SSKey.REGION_MAPPING_EXCLUDE_INVALID_VARIABLES,
-                                     False)
-    exclude_invalid_regions: bool = st.checkbox(
-        'Regions',
-        value=st.session_state.get(SSKey.REGION_MAPPING_EXCLUDE_INVALID_REGIONS,
-                                   False),
-        on_change=_toggle_exclude_invalid_regions,
-    )
-    exclude_invalid_variables: bool = st.checkbox(
-        'Variables',
-        value=st.session_state.get(SSKey.REGION_MAPPING_EXCLUDE_INVALID_VARIABLES,
-                                   False),
-        on_change=_toggle_exclude_invalid_variables,
-    )
+    exclude_invalid_regions: bool = st.checkbox('Regions')
+    exclude_invalid_variables: bool = st.checkbox('Variables')
+    st.session_state[SSKey.REGION_MAPPING_EXCLUDE_INVALID_VARIABLES] = \
+        exclude_invalid_variables
     
     iam_df_excluded_vars: pyam.IamDataFrame|None = None
     if exclude_invalid_variables:
