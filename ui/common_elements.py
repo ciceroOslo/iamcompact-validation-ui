@@ -1,13 +1,22 @@
 """Elements and navigation functions used across multiple pages."""
+from collections.abc import (
+    Iterable,
+    Mapping,
+)
 from pathlib import Path
 import typing as tp
 
+import iamcompact_nomenclature as icnom
 from iamcompact_vetting.output.base import (
     CriterionTargetRangeOutput,
     MultiCriterionTargetRangeOutput,
 )
 from iamcompact_vetting.output.timeseries import \
     TimeseriesRefComparisonAndTargetOutput
+from nomenclature import (
+    CodeList,
+    DataStructureDefinition,
+)
 import pandas as pd
 from pandas.io.formats.style import Styler as PandasStyler
 import streamlit as st
@@ -199,3 +208,109 @@ def download_excel_output_button(
     else:
         text_element.empty()
 ###END def download_excel_output_button
+
+
+@tp.overload
+def get_validation_dsd(
+    allow_load: tp.Literal[False],
+    force_load: bool = False,
+    show_spinner: bool = True,
+) -> DataStructureDefinition|None:
+    ...
+@tp.overload
+def get_validation_dsd(
+    allow_load: bool = True,
+    force_load: bool = False,
+    show_spinner: bool = True,
+) -> DataStructureDefinition:
+    ...
+def get_validation_dsd(
+    allow_load: bool = True,
+    force_load: bool = False,
+    show_spinner: bool = True,
+) -> DataStructureDefinition|None:
+    """Get the DataStructureDefinition object for the validation checks.
+    
+    Parameters
+    ----------
+    allow_load : bool, optional
+        Whether to allow loading the DataStructureDefinition object from the
+        source (the `iamcompact_nomenclature.get_dsd` method) if it has not
+        already been loaded. If False and the DataStructureDefinition object
+        has not already been loaded, the function will return None.
+    force_load : bool, optional
+        Whether to force loading of the DataStructureDefinition object, i.e.,
+        don't obtain it from the session state even if it is available.
+        Optional, by default False.
+    show_spinner : bool, optional
+        Whether to show a spinner while loading. Optional, by default True.
+
+    Returns
+    -------
+    DataStructureDefinition or None
+        The DataStructureDefinition object for the validation checks if already
+        loaded into session state or if `allow_load` is True. None if it has
+        not been loaded and `allow_load` is False.
+    """
+    dsd: DataStructureDefinition|None = st.session_state.get(
+        SSKey.VALIDATION_DSD, None)
+    if (dsd is None and allow_load) or force_load:
+        if show_spinner:
+            with st.spinner('Loading datastructure definition...'):
+                dsd = icnom.get_dsd(force_reload=force_load)
+        else:
+            dsd = icnom.get_dsd(force_reload=force_load)
+        st.session_state[SSKey.VALIDATION_DSD] = dsd
+    return dsd
+###END def get_validation_dsd
+
+
+def make_attribute_df(
+        codelist: CodeList,
+        attr_names: tp.Optional[Iterable[str]] = None,
+        column_names: tp.Optional[Mapping[str, str]] = None,
+        use_filler: bool|tp.Any = False,
+) -> pd.DataFrame:
+    """Make a DataFrame with the specified attributes of a CodeList.
+
+    Parameters
+    ----------
+    codelist : CodeList
+        The CodeList object to get the attributes from.
+    attr_names : Iterable[str]
+        The names of the attributes to include. Optional, by default
+        `['name', 'description']`.
+    column_names : Mapping[str, str]
+        A mapping from attribute name to column name. Optional, by default uses
+        the attribute names directly as column names.
+    use_filler : bool or any
+        Whether to use filler values for items that miss the given attributes
+        (as opposed to raising an `AttributeError`). If `False` (bool literal),
+        no filler will be used, and `AttributeError` will be most likely be
+        raised if any of `attr_names` is missing for any of the code items. If
+        any other value, that value will be used as for any attributes that are
+        not found.
+
+    Returns
+    -------
+    pd.DataFrame
+        A DataFrame with the specified attributes listed in columns.
+    """
+    if attr_names is None:
+        attr_names = ['name', 'description']
+    if column_names is None:
+        column_names = dict(zip(attr_names, attr_names))
+    return_df: pd.DataFrame = pd.DataFrame(
+        data=[
+            [getattr(_code, _attr_name) for _attr_name in attr_names]
+            if use_filler==False else
+            [getattr(_code, attrname, use_filler) for attrname in attr_names]
+            for _code in codelist.values()
+        ],
+        columns=list(column_names.values()),
+        dtype=str,
+    )
+    if use_filler is not False:
+        return_df = return_df.fillna(use_filler)
+    return return_df
+###END def make_attribute_df
