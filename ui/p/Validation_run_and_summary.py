@@ -1,15 +1,9 @@
-from pathlib import Path
-import typing as tp
 
 import pandas as pd
 import pyam
 import streamlit as st
 
 from iamcompact_vetting.output.excel import MultiDataFrameExcelWriter
-from iamcompact_nomenclature import (
-    get_dsd,
-    dimensions,
-)
 from iamcompact_nomenclature.validation import (
     get_invalid_names,
     get_invalid_variable_units,

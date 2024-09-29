@@ -6,16 +6,12 @@ from collections.abc import (
 import typing as tp
 
 import pandas as pd
-import pyam
 import streamlit as st
 
 from nomenclature import (
     DataStructureDefinition,
     CodeList,
 )
-from nomenclature.code import Code
-
-from iamcompact_nomenclature import get_dsd
 
 from common_elements import (
     check_data_is_uploaded,
