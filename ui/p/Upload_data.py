@@ -147,10 +147,8 @@ def main():
 
         inspect_info_text: str = 'File uploaded. Click ' \
             f'"{inspect_data_button_text}" to view the data in a table.'
-        proceed_info_text: str = f'Click "{continue_button_text}" to ' \
-            f'continue to the first vetting check ({next_page_name}), or ' \
-            'click a page name in the left sidebar to jump directly to ' \
-            'any check.'
+        proceed_info_text: str = 'Use the page list in the left sidebar to ' \
+            'proceed to validation and vetting checks.'
 
         if not st.session_state.get(SSKey.DO_INSPECT_DATA, False):
             st.info(
@@ -171,9 +169,9 @@ def main():
             # expensive. We should probably put them both inside a function
             # that can be st.cached.
             df_state = make_timeseries_table(df)
-        validate_data_btn = st.button(continue_button_text)
-        if validate_data_btn:
-            st.switch_page(pages[next_page_key])
+        # validate_data_btn = st.button(continue_button_text)
+        # if validate_data_btn:
+        #     st.switch_page(pages[next_page_key])
 
 ###END def main
 
