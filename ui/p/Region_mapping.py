@@ -13,6 +13,7 @@ from common_keys import (
     PAGE_RUN_NAME,
     SSKey,
 )
+from page_ids import PageName
 
 
 
@@ -45,20 +46,6 @@ def main() -> None:
 
     iam_df: pyam.IamDataFrame = st.session_state[SSKey.IAM_DF_UPLOADED]
 
-    st.info(
-        'Only recognized variable names can be included in the region '
-        'mapping. Unrecognized variable names will cause the mapping function '
-        'to fail. Please make sure that you have performed the name validation '
-        'step and fixed or removed any unrecognized variables before '
-        'proceeding.',
-        icon='ℹ️',
-    )
-
-    include_excluded = st.checkbox(
-        'Include regions/models that were excluded from region mapping in '
-        'further processing.'
-    )
-
     if st.session_state.get(SSKey.IAM_DF_REGIONMAPPED, None) is not None:
         st.info(
             'You have already performed the region-mapping step. You only need '
@@ -66,6 +53,56 @@ def main() -> None:
             'again.',
             icon='✅'
         )
+
+    st.info(
+        'Only recognized variable and region names can be included in the '
+        'region mapping. Unrecognized  names will cause the mapping function '
+        'to fail. Please make sure that you have performed the name validation '
+        'step and fixed or removed any unrecognized variable and region names '
+        'before proceeding.\n\n'
+        'If you want to run the region despite having unrecognized region or '
+        'variable names in the data, you can check the boxes below to perform '
+        'region mapping on only the valid parts of the data. The data after '
+        'this step will then be a mix of region-mapped fully valid data and '
+        'non-mapped data that contains unrecognized region and/or variable '
+        'names. **NB!** Note that this can lead to unexpected results in the '
+        'vetting checks, including false fails or passes, or data being '
+        'silently excluded from harmonization checks because region names do '
+        'not match the harmonization data.',
+        icon='ℹ️',
+    )
+
+    st.write(
+        'Yes, I want to silently accept unrecognized names in the following '
+        'dimensions, and apply region mapping to only parts of the data with '
+        'recognized names:'
+    )
+    exclude_invalid_regions: bool = st.checkbox('Regions')
+    exclude_invalid_variables: bool = st.checkbox('Variables')
+    
+    iam_df_excluded_vars: pyam.IamDataFrame|None = None
+    if exclude_invalid_variables:
+        invalid_names_dict = \
+            st.session_state.get(SSKey.VALIDATION_INVALID_NAMES_DICT, None)
+        if invalid_names_dict is None:
+            st.info(
+                'You must run the name validation step before you can proceed '
+                'with invalid variable names. Please uncheck the box or go to '
+                f'the page "{PageName.NAME_VALIDATION_SUMMARY}',
+                icon='⛔',
+            )
+            st.stop()
+        else:
+            invalid_var_names: list[str] = invalid_names_dict['variable']
+            iam_df_excluded_vars = iam_df.filter(variable=invalid_var_names)
+            iam_df = iam_df.filter(variable=invalid_var_names, keep=False)
+            if iam_df is None or len(iam_df) == 0:
+                st.info(
+                    'The data contains no valid variable names, cannot proceed '
+                    'with region mapping.',
+                    icon='⚠️',
+                )
+
     run_mapping_button_area = st.empty()
     if not run_mapping_button_area.button('Perform region mapping'):
         st.stop()
@@ -74,22 +111,27 @@ def main() -> None:
     regmapped_iam_df: pyam.IamDataFrame
     regmap_excluded_iam_df: pyam.IamDataFrame|None = None
     with st.spinner('Performing region mapping...'):
-        if include_excluded:
+        if exclude_invalid_regions:
             regmapped_iam_df, regmap_excluded_iam_df = map_regions(
                 iam_df,
-                return_excluded=include_excluded,
+                return_excluded=True,
             )
         else:
             regmapped_iam_df = map_regions(iam_df, return_excluded=False)
 
     result_iam_df: pyam.IamDataFrame
-    if include_excluded:
-        with st.spinner('Combining results with excluded items...'):
+    if exclude_invalid_regions:
+        with st.spinner('Combining results with excluded regions...'):
             result_iam_df = pyam.concat(
                 [regmapped_iam_df, regmap_excluded_iam_df]
             )
     else:
         result_iam_df = regmapped_iam_df
+    if iam_df_excluded_vars is not None:
+        with st.spinner('Combining results with excluded variables...'):
+            result_iam_df = pyam.concat(
+                [result_iam_df, iam_df_excluded_vars]
+            )
 
     st.session_state[SSKey.IAM_DF_REGIONMAPPED] = result_iam_df
 
