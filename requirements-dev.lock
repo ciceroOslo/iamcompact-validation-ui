@@ -94,7 +94,7 @@ hyperframe==6.0.1
 iam-units==2023.9.12
     # via pyam-iamc
 iamcompact-nomenclature @ git+https://github.com/ciceroOslo/iamcompact-nomenclature.git@acae7be5d43a5eaf16e5794d8c10c4a88380f453
-iamcompact-vetting @ git+https://github.com/ciceroOslo/iamcompact-vetting.git@476ec62704cc1aad73625ad477b39c0b8c1806fc
+iamcompact-vetting @ git+https://github.com/ciceroOslo/iamcompact-vetting.git@ecbe1ea88e5fa0c14649240d686808bac5e3e197
 idna==3.9
     # via anyio
     # via httpx
