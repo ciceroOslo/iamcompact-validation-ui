@@ -24,6 +24,8 @@ from common_keys import (
 )
 
 
+DATAFRAME_PIXELS_HEIGHT: int = 480
+
 # The functions below depend on a common iamcompact_vetting
 # MultiCriterionTargetRangeOutput object to compute vetting checks and to
 # produce output. It is set in the line below as a global variable (within this
@@ -76,7 +78,7 @@ def main():
     _tab_data: PandasStyler
     with in_range_tab:
         st.markdown(
-            'Pass status per model and scenario. '
+            'Pass status per model and scenario.\n\n'
                 '<span style="color: green"><b>✅</b></span> for passed, '
                 '<span style="color: red"><b>❌</b></span> for not passed, '
                 'blank or `None` with <span style="background-color: lightgrey">grey background</span> for not assessed (required data not present):',
@@ -89,7 +91,8 @@ def main():
             # _tab_data.data.map(lambda x: 'missing' if pd.isna(x) else '✅' if x==True else '❌' if x==False else 'unknown'),
             _tab_data.format(lambda x: 'missing' if pd.isna(x) else '✅' if x==True else '❌' if x==False else '', na_rep='missing'),
             column_config={_col: st.column_config.TextColumn()
-                           for _col in _tab_data.data.columns}
+                           for _col in _tab_data.data.columns},
+            height=DATAFRAME_PIXELS_HEIGHT,
         )
     with values_tab:
         st.markdown(
@@ -106,6 +109,7 @@ def main():
             # column_config={
             #     _col: st.column_config.TextColumn()
             #     for _col in _tab_data.data.columns}
+            height=DATAFRAME_PIXELS_HEIGHT,
         )
     with descriptions_tab:
         st.markdown('Descriptions of each vetting criterion: ')

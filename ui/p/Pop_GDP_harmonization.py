@@ -25,7 +25,10 @@ from common_keys import (
     SSKey,
     Ar6CriterionOutputKey,
 )
+from page_ids import PageName
 
+
+DATAFRAME_PIXELS_HEIGHT: int = 480
 
 # The functions below depend on a common iamcompact_vetting
 # MultiCriterionTargetRangeOutput object to compute vetting checks and to
@@ -41,7 +44,20 @@ def main():
     st.header('GDP and population harmonization assessment')
 
     check_data_is_uploaded(stop=True, display_message=True)
-    uploaded_iamdf: pyam.IamDataFrame = st.session_state[SSKey.IAM_DF_UPLOADED]
+
+    iam_df: pyam.IamDataFrame = st.session_state.get(SSKey.IAM_DF_REGIONMAPPED,
+                                                     None)
+    if iam_df is None:
+        st.info(
+            '**NB!** You have not run the region mapping step. If your results '
+            'contain model-specific region names, and the file you uploaded '
+            'has not already gone through region mapping, you will probably '
+            'see unrecognized names or errors in the region name check. Please '
+            f'return to the page "{PageName.REGION_MAPPING}" if you need to '
+            'remedy this.',
+            icon='❗️',
+        )
+        iam_df = st.session_state[SSKey.IAM_DF_UPLOADED]
 
     summary_df_key: str = get_summary_df_key()
     values_df_key: str = get_values_df_key()
@@ -49,7 +65,7 @@ def main():
     if st.session_state.get(SSKey.GDP_POP_OUTPUT_DFS, None) is None:
         with st.spinner('Computing GDP and population harmonization checks...'):
             _styled_dfs: Mapping[str, PandasStyler] = \
-                compute_gdp_pop_harmonization_check(uploaded_iamdf)
+                compute_gdp_pop_harmonization_check(iam_df)
             _dfs: Mapping[str, pd.DataFrame] = {
                 _key: _styled_df.data
                 for _key, _styled_df in _styled_dfs.items()
@@ -92,7 +108,9 @@ def main():
     _tab_data: PandasStyler
     with summary_tab:
         st.markdown(
-            'Status per model, scenario and region.\n\n'
+            'Status per model, scenario and region. Note that models not shown '
+                'in the table below have <b>not</b> been assessed, most likely '
+                'due to no matching region in the harmonization data.\n\n'
                 '<span style="color: green"><b>✅</b></span> for all values in '
                 'range, <span style="color: red"><b>❌</b></span> for some '
                 'values out of range, blank or `None` with '
@@ -120,6 +138,7 @@ def main():
                 _col: st.column_config.TextColumn(_column_title_dict[_col])
                 for _col in _tab_data.data.columns
             },
+            height=DATAFRAME_PIXELS_HEIGHT,
         )
     with values_tab:
         st.markdown(
@@ -136,6 +155,7 @@ def main():
             # column_config={
             #     _col: st.column_config.TextColumn()
             #     for _col in _tab_data.data.columns}
+            height=DATAFRAME_PIXELS_HEIGHT,
         )
     with descriptions_tab:
         st.markdown('Descriptions of each vetting criterion: ')

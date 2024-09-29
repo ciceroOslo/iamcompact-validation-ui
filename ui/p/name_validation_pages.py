@@ -167,7 +167,9 @@ def make_name_validation_dim_page(
                     _do_sort = sort_invalid_names
                 st.write(
                     'The following <span style="color: red"><b>unrecognized'
-                    f'</b></span> {dim_name} names were found:',
+                    f'</b></span> {dim_name} names were found'
+                    + (' (valid names may vary by model):'
+                       if dim_name=='region' else ':'),
                     unsafe_allow_html=True,
                 )
                 if isinstance(invalid_names, pd.DataFrame):

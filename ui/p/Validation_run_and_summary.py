@@ -40,19 +40,7 @@ def main():
 
     check_data_is_uploaded(display_message=True, stop=True) 
 
-    iam_df: pyam.IamDataFrame = st.session_state.get(SSKey.IAM_DF_REGIONMAPPED,
-                                                     None)
-    if iam_df is None:
-        st.info(
-            '**NB!** You have not run the region mapping step. If your results '
-            'contain model-specific region names, and the file you uploaded '
-            'has not already gone through region mapping, you will probably '
-            'see unrecognized names or errors in the region name check. Please '
-            f'return to the page "{PageName.REGION_MAPPING}" if you need to '
-            'remedy this.',
-            icon='❗️',
-        )
-        iam_df = st.session_state[SSKey.IAM_DF_UPLOADED]
+    iam_df = st.session_state[SSKey.IAM_DF_UPLOADED]
 
     invalid_names_dict: Mapping[str, list[str]|pd.DataFrame]|None = \
         st.session_state.get(SSKey.VALIDATION_INVALID_NAMES_DICT, None)
@@ -85,7 +73,7 @@ def main():
                             'Name': list(
                                 invalid_region_and_model_names_dict.keys()
                             ),
-                            'Used by models': [
+                            'Unrecognized use by models': [
                                 ', '.join(_models) for _models in
                                 invalid_region_and_model_names_dict.values()
                             ]
