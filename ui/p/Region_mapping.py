@@ -1,5 +1,8 @@
 """Page to run reigon mapping and add it to session state before vetting."""
+from io import BytesIO
+from pathlib import Path
 
+import pandas as pd
 import pyam
 import streamlit as st
 
@@ -135,10 +138,26 @@ def main() -> None:
             )
 
     st.session_state[SSKey.IAM_DF_REGIONMAPPED] = result_iam_df
+    with st.spinner('Preparing output...'):
+        xlsx_io: BytesIO = BytesIO()
+        xlsx_writer = pd.ExcelWriter(xlsx_io, engine='xlsxwriter')
+        result_iam_df.to_excel(xlsx_writer)
+        xlsx_writer.close()
+        xlsx_bytes: bytes = xlsx_io.getvalue()
 
     st.info(
-        'Region mapping complete. You can now proceed with the vetting steps.',
+        'Region mapping complete. You can now proceed with the vetting steps. '
+        'You can download the results as an IAMC Excel file for later use.',
         icon='✅',
+    )
+
+    excel_download_filename: str = str(
+        Path(st.session_state[SSKey.FILE_CURRENT_NAME]).stem
+    ) + '_regionmapped.xlsx'
+    st.download_button(
+        'Download region-mapped Excel',
+        data=xlsx_bytes,
+        file_name=excel_download_filename,
     )
     
 ###END def mail
