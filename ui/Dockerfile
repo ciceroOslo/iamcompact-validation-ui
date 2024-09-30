@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM python:3.12
 
 WORKDIR /app
 
@@ -17,4 +17,4 @@ EXPOSE 8501
 
 HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
 
-ENTRYPOINT ["streamlit", "run", "1_Upload_data.py", "--server.port=8501", "--server.address=0.0.0.0"]
+ENTRYPOINT ["streamlit", "run", "main.py", "--server.port=8501", "--server.address=0.0.0.0"]

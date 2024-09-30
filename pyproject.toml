@@ -1,0 +1,27 @@
+[project]
+name = "iamcompact-validation-ui"
+version = "0.1.0"
+description = "User interface for IAM results validation and vetting in the IAM COMPACT project"
+authors = [
+    { name = "George Xexakis" },
+    { name = "Jan Ivar Korsbakken", email = "janko@cicero.oslo.no" }
+]
+dependencies = [
+    "streamlit>=1.38",
+    "streamlit-extras>=0.4.7",
+    "watchdog>=4.0.2",
+    "pandas>=2.2.2",
+    "python-calamine>=0.2.3",
+    "pyam-iamc @ git+https://github.com/IAMconsortium/pyam@main",  # Can change to >=2.2.5 once released
+    "iamcompact-vetting @ git+https://github.com/ciceroOslo/iamcompact-vetting.git",
+    "iamcompact-nomenclature @ git+https://github.com/ciceroOslo/iamcompact-nomenclature.git",
+]
+readme = "README.md"
+requires-python = ">= 3.12"
+
+[tool.rye]
+managed = true
+virtual = true
+dev-dependencies = [
+    "ipython>=8.26.0",
+]
