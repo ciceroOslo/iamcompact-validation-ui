@@ -13,7 +13,7 @@ The app is built in Python and Streamlit and will be eventually integrated in I2
 
 To run the Streamlit app locally:
 
-    streamlit run 1_Upload_data.py
+    streamlit run ui/main.py
 
 To run the app in a production server, simply download the data and run the Docker file at the source directory.
 
