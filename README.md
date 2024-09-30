@@ -35,7 +35,16 @@ You can then run the app as follows:
 * In the repo directory, type `streamlit run ui/main.py`
 * Go to `http://localhost:8501` in your browser.
 
-To run the app in a production server, simply download the data and run the Docker file at the source directory.
+To run the app in a production server, build and run a docker image from
+`ui/Dockerfile`. This can also be done locally on your computer if you are
+familiar with using Docker and don't want to create a separate Python
+environment. The commands are (assuming you want to name your image
+`iamcompact_validation_ui`:
+
+* While in the `ui/` directory: `docker build -t iamcompact_validation_ui .`
+  (make sure to include the final `.` period!)
+* Run the image: `docker run -p 8501:8501 iamcompact_validation_ui`. The `-p`
+  option is needed to connect to the required network port.
 
 
 ## Documentation
