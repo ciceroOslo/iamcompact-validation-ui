@@ -93,8 +93,8 @@ hyperframe==6.0.1
     # via h2
 iam-units==2023.9.12
     # via pyam-iamc
-iamcompact-nomenclature @ git+https://github.com/ciceroOslo/iamcompact-nomenclature.git@8bbd13f2c1d220516d8bd5b7105bde91c485b9fb
-iamcompact-vetting @ git+https://github.com/ciceroOslo/iamcompact-vetting.git@ecbe1ea88e5fa0c14649240d686808bac5e3e197
+iamcompact-nomenclature @ git+https://github.com/ciceroOslo/iamcompact-nomenclature.git@0f872224fe78711010abced30ad5b8a26ee40950
+iamcompact-vetting @ git+https://github.com/ciceroOslo/iamcompact-vetting.git@ab7866341dda7e4abfb719d9cfe823dfb19dbc61
 idna==3.9
     # via anyio
     # via httpx
@@ -149,7 +149,7 @@ mypy-extensions==1.0.0
     # via typing-inspect
 narwhals==1.8.0
     # via altair
-nomenclature-iamc==0.19.0
+nomenclature-iamc @ git+https://github.com/ciceroOslo/nomenclature@385ae1173f13f3126596db29af56f0111e964b9c
     # via iamcompact-nomenclature
 numpy==1.26.4
     # via contourpy
