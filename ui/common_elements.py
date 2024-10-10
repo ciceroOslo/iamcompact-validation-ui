@@ -3,6 +3,7 @@ from collections.abc import (
     Iterable,
     Mapping,
 )
+import io
 from pathlib import Path
 import typing as tp
 
@@ -314,3 +315,126 @@ def make_attribute_df(
         return_df = return_df.fillna(use_filler)
     return return_df
 ###END def make_attribute_df
+
+
+class GetOnReadBytesIO(io.BytesIO):
+    """A BytesIO object that fetches data from a callable on first read.
+
+    This class can be used to define an BytesIO object that calls a function to
+    generate or fetch data the first time one of its read methods is called. The
+    data must return a bytes object, which is cached and used on later calls to
+    any of the read methods (caching can be disabled).
+
+    Init parameters
+    ----------
+    on_read : Callable
+        A callable that returns a bytes object when called. This callable is
+        called on the first call to any of the following `BytesIO` methods:
+        `getvalue()`, `getbuffer()`, `read()`, `read1()`, `readinto()`,
+        `readinto1()`, `readline()`, and `readlines()`.
+    initial_bytes : bytes, optional
+        The initial bytes to store in the BytesIO object. Optional, by default
+        `b''`.
+    cache_data : bool, optional
+        Whether to cache the data returned by `on_read`. Optional, by default
+        `True`.
+
+    Attributes
+    ----------
+    on_read : Callable
+        The `on_read` attribute is set to the given `on_read` function.
+    is_cached : bool
+        Whether data has been read from `on_read` and is cached.
+
+    Methods
+    -------
+    clear_cache()
+        Clears cached data. `on_read` will be called again on the next read. If
+        no data has been cached yet (or if `cache_data` is `False`), this method
+        does nothing.
+    """
+
+    def __init__(
+            self,
+            on_read: tp.Callable[[], bytes],
+            *,
+            initial_bytes: bytes = b'',
+            cache_data: bool = True,
+    ) -> None:
+        super().__init__(initial_bytes)
+        self.on_read: tp.Callable[[], bytes] = on_read
+        self.is_cached: bool = False
+        self.cache_data: bool = cache_data
+    ###END def GetOnReadBytesIO.__init__
+
+    def _get_data(self) -> None:
+        """Reads data from `on_read` or from cache."""
+        if self.is_cached:
+            return
+        self.write(self.on_read())
+        self.seek(0)
+        if self.cache_data:
+            self.is_cached = True
+    ###END def _get_data
+
+    def clear_cache(self) -> None:
+        """Clears data. `on_read` will be called again on the next read."""
+        self.seek(0)
+        self.truncate(0)
+        self.is_cached = False
+    ###END def clear_cache
+
+    def read(self, size: int = -1) -> bytes:
+        """Reads data from `on_read` or from cache."""
+        self._get_data()
+        return super().read(size)
+    ###END def read
+
+    def read1(self, size: int = -1) -> bytes:
+        """Reads data from `on_read` or from cache."""
+        self._get_data()
+        return super().read1(size)
+    ###END def read1
+
+    def readline(self, size: int = -1) -> bytes:
+        """Reads data from `on_read` or from cache."""
+        self._get_data()
+        return super().readline(size)
+    ###END def readline
+
+    def readlines(self, size: int = -1) -> list[bytes]:
+        """Reads data from `on_read` or from cache."""
+        self._get_data()
+        return super().readlines(size)
+    ###END def readlines
+
+    def getvalue(self) -> bytes:
+        """Reads data from `on_read` or from cache."""
+        self._get_data()
+        return super().getvalue()
+    ###END def getvalue
+
+    def getbuffer(self) -> memoryview:
+        """Reads data from `on_read` or from cache."""
+        self._get_data()
+        return super().getbuffer()
+    ###END def getbuffer
+
+    def readinto(self, b: bytes) -> int:
+        """Reads data from `on_read` or from cache."""
+        self._get_data()
+        return super().readinto(b)
+    ###END def readinto
+
+    def readinto1(self, b: bytes) -> int:
+        """Reads data from `on_read` or from cache."""
+        self._get_data()
+        return super().readinto1(b)
+    ###END def readinto1
+
+###END class GetOnReadBytesIO
+
+# def prepare_download_button(
+#         prepare_button_text: str = 'Prepare download',
+#         download_button_text: str = 'Download',
+# )
