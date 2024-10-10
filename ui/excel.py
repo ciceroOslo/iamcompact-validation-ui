@@ -145,7 +145,7 @@ def get_excel_writer(
 
 
 @tp.overload
-def write_excel_output(
+def write_excel_targetrange_output(
         output_data: pd.DataFrame|PandasStyler \
             | dict[str, pd.DataFrame|PandasStyler],
         outputter: CriterionTargetRangeOutput|MultiCriterionTargetRangeOutput,
@@ -158,7 +158,7 @@ def write_excel_output(
 ) -> ExcelFileSpecTypeVar:
     ...
 @tp.overload
-def write_excel_output(
+def write_excel_targetrange_output(
         output_data: pd.DataFrame|PandasStyler \
             | dict[str, pd.DataFrame|PandasStyler],
         outputter: CriterionTargetRangeOutput|MultiCriterionTargetRangeOutput,
@@ -171,7 +171,7 @@ def write_excel_output(
 ) -> Path:
     ...
 @tp.overload
-def write_excel_output(
+def write_excel_targetrange_output(
         output_data: pd.DataFrame|PandasStyler \
             | dict[str, pd.DataFrame|PandasStyler],
         outputter: CriterionTargetRangeOutput|MultiCriterionTargetRangeOutput,
@@ -183,7 +183,7 @@ def write_excel_output(
         ] = None,
 ) -> tp.Any:
     ...
-def write_excel_output(
+def write_excel_targetrange_output(
         output_data: pd.DataFrame|PandasStyler \
             | dict[str, pd.DataFrame|PandasStyler],
         outputter: CriterionTargetRangeOutput \

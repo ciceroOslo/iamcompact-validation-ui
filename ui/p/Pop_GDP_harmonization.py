@@ -17,7 +17,7 @@ from common_elements import (
     check_data_is_uploaded,
     common_instructions,
     common_setup,
-    download_excel_output_button,
+    download_excel_targetrange_output_button,
     make_passed_status_message,
 )
 from common_keys import (
@@ -172,7 +172,7 @@ def main():
             'GDP_pop_harmonization_check.xlsx',
         ]
     )
-    download_excel_output_button(
+    download_excel_targetrange_output_button(
         output_data=st.session_state[SSKey.GDP_POP_OUTPUT_DFS],
         outputter=outputter,
         download_path_key=SSKey.GDP_POP_EXCEL_DOWNLOAD_PATH,

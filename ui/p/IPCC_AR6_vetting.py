@@ -14,7 +14,7 @@ from common_elements import (
     check_data_is_uploaded,
     common_instructions,
     common_setup,
-    download_excel_output_button,
+    download_excel_targetrange_output_button,
     make_passed_status_message,
 )
 from common_keys import (
@@ -121,7 +121,7 @@ def main():
             'AR6_vetting.xlsx',
         ]
     )
-    download_excel_output_button(
+    download_excel_targetrange_output_button(
         output_data=st.session_state[SSKey.AR6_CRITERIA_OUTPUT_DFS],
         outputter=outputter,
         download_path_key=SSKey.AR6_EXCEL_DOWNLOAD_PATH,

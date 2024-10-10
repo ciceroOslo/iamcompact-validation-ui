@@ -22,7 +22,7 @@ from pandas.io.formats.style import Styler as PandasStyler
 import streamlit as st
 
 from common_keys import SSKey
-from excel import write_excel_output
+from excel import write_excel_targetrange_output
 from page_ids import PageName
 
 
@@ -125,7 +125,7 @@ def make_passed_status_message(all_passed: bool, all_included: bool) -> str:
 
 
 @st.fragment
-def download_excel_output_button(
+def download_excel_targetrange_output_button(
     output_data: pd.DataFrame|PandasStyler \
         | dict[str, pd.DataFrame|PandasStyler],
     outputter: CriterionTargetRangeOutput | MultiCriterionTargetRangeOutput \
@@ -191,7 +191,7 @@ def download_excel_output_button(
                 text_element.markdown(prepare_download_text)
             if not prepare_button:
                 return
-        download_file_path = write_excel_output(
+        download_file_path = write_excel_targetrange_output(
             output_data=output_data,
             outputter=outputter,
             file=None,
