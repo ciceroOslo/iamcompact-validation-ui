@@ -17,7 +17,7 @@ dependencies = [
     "iamcompact-nomenclature @ git+https://github.com/ciceroOslo/iamcompact-nomenclature.git",
 ]
 readme = "README.md"
-requires-python = ">= 3.11"
+requires-python = ">= 3.12"
 
 [tool.rye]
 managed = true
