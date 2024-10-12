@@ -584,3 +584,77 @@ class CachingFunction[ReturnTypeVar]:
 
 ###END class CachingFunction
 
+
+
+def deferred_download_button(
+        data_func: tp.Callable[[], bytes|Path] | CachingFunction,
+        download_file_name: str,
+        prepare_button_text: str = 'Prepare download',
+        download_button_text: str = 'Download',
+        prepare_notice: tp.Optional[str|Callable[[], None]] = None,
+        download_notice: tp.Optional[str|Callable[[], None]] = None,
+        bypass_prepare: bool = False,
+) -> bool:
+    """Two-stage download button that prepares data on first press.
+
+    The function creates a button that will prepare data using a function
+    provided by the caller. When the button is pressed, the data preparation
+    function is called, and once the function returns, a Streamlit download
+    button is displayed for downloading the data.
+
+    If a `CachingFunction` object is passed as the `data_func` argument, its
+    `cached` property will be checked to see if it has cached data. If so, the
+    prepare step will be skipped, and the download button will be displayed
+    directly.
+
+    Explanatory texts can be displayed belwow the prepare button and/or below
+    the download button, using the `prepare_notice` and `download_notice`
+    arguments respectively. These arguments can also be functions that render
+    other elements than text. The rendering wll take place directly below the
+    respective buttons.
+
+    Parameters
+    ----------
+    data_func : Callable[[], bytes] or CachingFunction
+        The function that prepares the data. Will be called when the prpare
+        button is pressed. Must be callable without arguments, and return a
+        `bytes` object with the data to be downloaded, or a Path to a file to be
+        downloaded. If a `CachingFunction` object is passed, its `cached`
+        property will be checked to see if it has cached data. If so, the
+        prepare step will be skipped and the download button and
+        `download_notice` will be displayed.
+        *NB!* Note that the returned data or file contents are passed to
+        `streamlit.download_button`, which may keep the data in memory for the
+        duration of the user session, with no way of explicitly clearing it.
+        This is a feature of `streamlit.download_button`, and unfortunately
+        cannot be overridden.
+    download_file_name : str
+        The default name to give to the downloaded file (i.e., what is displayed
+        in the browser download dialogue, not the name of a file on the server
+        that is to be downloaded).
+    prepare_button_text : str
+        The text to display on the prepare button. Optional, by default
+        'Prepare download'.
+    download_button_text : str
+        The text to display on the download button. Optional, by default
+        'Download'.
+    prepare_notice : str or Callable[[], None], optional
+        Text or a function that generates Streamlit elements that are displayed
+        below the prepare button. Optional, by default None.
+    download_notice : str or Callable[[], None], optional
+        Text or a function that generates Streamlit elements that are displayed
+        below the download button. Optional, by default None.
+    bypass_prepare : bool, optional
+        Whether to bypass the prepare step. If True, the prepare step is
+        skipped, `data_func` is called (or its `cached` property is checked if
+        a `CachingFunction` object) directly, and the download button is shown
+        immediately once the data is ready. Optional, by default False.
+
+    Returns
+    -------
+    bool
+        The return value of the `st.button` function during the peparation step,
+        and the return value of the `st.download_button` function during the
+        download step.
+    """
+    pass
