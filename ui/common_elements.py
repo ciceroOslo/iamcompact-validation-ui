@@ -1,5 +1,7 @@
 """Elements and navigation functions used across multiple pages."""
 from collections.abc import (
+    Callable,
+    Hashable,
     Iterable,
     Mapping,
 )
@@ -34,7 +36,7 @@ def check_data_is_uploaded(
         display_message: bool = True,
 ) -> bool:
     """Check whether data has been uploaded, and optionally stop if not.
-    
+
     The function checks whether the session state `SSKey.IAM_DF_UPLOADED` has a
     exists and has a non-None value. If not, the function by default displays
     a message telling the user to go back to the upload page, and by deafult
@@ -76,7 +78,7 @@ def common_setup() -> None:
 
 def common_instructions() -> None:
     """Display common instructions for all pages.
-    
+
     Note that some content may be displayed in the sidebar, and some may be
     displayed directly in the page body. This may also change over time. For
     that reason, the function should always be called at a point in the page
@@ -231,7 +233,7 @@ def get_validation_dsd(
     show_spinner: bool = True,
 ) -> DataStructureDefinition|None:
     """Get the DataStructureDefinition object for the validation checks.
-    
+
     Parameters
     ----------
     allow_load : bool, optional
@@ -434,7 +436,151 @@ class GetOnReadBytesIO(io.BytesIO):
 
 ###END class GetOnReadBytesIO
 
-# def prepare_download_button(
-#         prepare_button_text: str = 'Prepare download',
-#         download_button_text: str = 'Download',
-# )
+
+class _NoCachedValue:
+    """A class to represent absence of a cahced value for a CachingFunction."""
+    def __init__(self, parent: 'CachingFunction') -> None:
+        self.parent: 'CachingFunction' = parent
+    def __repr__(self) -> str:
+        return f'NoCachedValue for {repr(self.parent)}'
+    def __str__(self) -> str:
+        return f'NoCachedValue for {str(self.parent)}'
+###END class CachingFunction._NoCachedValue
+
+class CachingFunction[ReturnTypeVar]:
+    """A class to cache results from a function.
+
+    Instances of the class act as a wrapper around a single provided function,
+    and will cache the result from that function the first time it is called, or
+    if the cache is cleared with the `clear_cache` method. The return value can
+    be stored either internally, or assigned to an externally provided dict
+    under a specified key.
+
+    The class is only intended to hold be used with functions that do not take
+    any arguments, and is not intended as a replacement for `lru_cache` or any
+    other general caching technique.
+
+    Init parameters
+    ---------------
+    function : Callable
+        The function to cache the return value from. Must take no arguments.
+    cache_dict : dict, optional
+        A dictionary to store the cached return values in. Optional, by default
+        `None`, in which case the return value will be stored internally.
+    cache_key : str, optional
+        The key under which to store the return value in `cache_dict`. This
+        parameter is mandatory if `cache_dict` is not `None`, but ignored if it
+        is `None`. *NB!* It is the responsibility of the caller to ensure that
+        the provided key is not already set in `cache_dict`, and that any values
+        stored under `cache_key` are not changed externally. To function
+        properly, only the `CachingFunction` instance must assign, delete, or
+        make changes to the item stored under `cache_key`.
+
+    Properties
+    ----------
+    has_cached_value : bool
+        Whether a return value is cached. If True, a return value from the
+        cached function has been cached, and will be returned whenever the
+        instance is called.
+
+    Methods
+    -------
+    clear_cache()
+        Clears the cache. The next time the instance is called, the cached
+        function will be called again, and the resulting return value will be
+        stored in the cache.
+    """
+
+    def __init__(
+            self,
+            function: tp.Callable[[], ReturnTypeVar],
+            *,
+            cache_dict: tp.Optional[dict] = None,
+            cache_key: Hashable = None,
+    ) -> None:
+        self._function: tp.Callable[[], ReturnTypeVar] = function
+        self._no_cached_value: tp.Final[_NoCachedValue] = _NoCachedValue(self)
+        if cache_dict is None:
+            self._cache_value: ReturnTypeVar|_NoCachedValue = \
+                self._no_cached_value
+        else:
+            self._cache_dict: dict = cache_dict
+            self._cache_key: Hashable = cache_key
+            cache_dict[cache_key] = self._no_cached_value
+        self.cache_type: tp.Final[tp.Literal['internal', 'external_dict']] = \
+            'internal' if hasattr(self, '_cache_value') else 'external_dict'
+        if self.cache_type == 'external_dict' and not hasattr(self, '_cache_dict'):
+            raise RuntimeError(
+                '`self.cache_type == "external_dict"` but `self._cache_dict` '
+                'is not set. This should not be possible.'
+            )
+    ###END def CachingFunction.__init__
+
+    def __repr__(self) -> str:
+        return f'CachingFunction({repr(self._function)})'
+    ###END def CachingFunction.__repr__
+    def __str__(self) -> str:
+        return f'CachingFunction({str(self._function)})'
+    ###END def CachingFunction.__str__
+
+    def _get_cached_value(self) -> ReturnTypeVar|_NoCachedValue:
+        """Get the cached value, or `NoCachedValue` if not cached."""
+        if self.cache_type == 'internal':
+            return self._cache_value
+        elif self.cache_type == 'external_dict':
+            return self._cache_dict[self._cache_key]
+        else:
+            raise RuntimeError(
+                f'Unknown `self.cache_type`: {self.cache_type}'
+            )
+    ###END def CachingFunction._get_cached_value
+
+    def _set_cached_value(self, value: ReturnTypeVar) -> None:
+        """Set the cached value."""
+        if self.cache_type == 'internal':
+            self._cache_value = value
+        elif self.cache_type == 'external_dict':
+            self._cache_dict[self._cache_key] = value
+        else:
+            raise RuntimeError(
+                f'Unknown `self.cache_type`: {self.cache_type}'
+            )
+    ###END def CachingFunction._set_cached_value
+
+    @property
+    def has_cached_value(self) -> bool:
+        """Whether a return value is cached."""
+        return not self._get_cached_value() is self._no_cached_value
+    ###END def CachingFunction.has_cached_value
+
+    def __call__(self) -> ReturnTypeVar:
+        """Get the cached value, or call the function."""
+        cached_value: ReturnTypeVar|_NoCachedValue = self._get_cached_value()
+        if not cached_value is self._no_cached_value:
+            if isinstance(cached_value, _NoCachedValue):
+                raise RuntimeError(
+                    'Cached value is the `_NoCachedValue` instance of a '
+                    'CachingFunction instance. This should not be possible.'
+                )
+            return cached_value
+        func_value: ReturnTypeVar = self._function()
+        self._set_cached_value(func_value)
+        return func_value
+    ###END def CachingFunction.__call__
+
+    def clear_cache(self) -> None:
+        """Clears the cache. The next time the instance is called, the cached
+        function will be called again, and the resulting return value will be
+        stored in the cache."""
+        if self.cache_type == 'internal':
+            self._cache_value = self._no_cached_value
+        elif self.cache_type == 'external_dict':
+            self._cache_dict[self._cache_key] = self._no_cached_value
+        else:
+            raise RuntimeError(
+                f'Unknown `self.cache_type`: {self.cache_type}'
+            )
+    ###END def CachingFunction.clear_cache
+
+###END class CachingFunction
+
