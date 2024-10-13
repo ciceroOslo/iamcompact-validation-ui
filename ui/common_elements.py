@@ -786,21 +786,34 @@ def deferred_download_button(
         )
     button_element = st.empty()
     notice_element = st.empty()
-    if not (isinstance(data_func, CachingFunction)
-            and data_func.has_cached_value) and not bypass_prepare:
+    download_data: bytes  # Variable to hold the data to download
+    if not data_func.has_cached_value and not bypass_prepare:
         _prepare_button: bool = button_element.button(prepare_button_label,
                                                       **prepare_button_kwargs)
-        if _prepare_button:
-            button_element.empty()
-            with button_element:
-                with st.spinner(spinner_text):
-                    data_func()
-            st.rerun()
-        if isinstance(prepare_notice, str):
-            notice_element.write(prepare_notice)
-        elif callable(prepare_notice):
-            prepare_notice(notice_element)
-        return False
+        if prepare_notice is not None:
+            if isinstance(prepare_notice, str):
+                notice_element.write(prepare_notice)
+            else:
+                prepare_notice(notice_element)
+        if not _prepare_button:
+            return False
+    if not data_func.has_cached_value:  # Show a spinner if data is not cached
+        button_element.empty()
+        with button_element:
+            with st.spinner(spinner_text):
+                download_data = data_func()
     else:
-        _download_button: bool = button_element.download_button(
-
+        download_data = data_func()
+    _download_button: bool = button_element.download_button(
+        download_button_label,
+        data=download_data,
+        file_name=download_file_name,
+        **download_button_kwargs
+    )
+    if download_notice is not None:
+        if isinstance(download_notice, str):
+            notice_element.write(download_notice)
+        else:
+            download_notice(notice_element)
+    return _download_button
+###END def download_excel_output_button
