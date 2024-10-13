@@ -1,13 +1,18 @@
 """Page to run reigon mapping and add it to session state before vetting."""
+from io import BytesIO
+from pathlib import Path
 
 import pyam
 import streamlit as st
+from streamlit.delta_generator import DeltaGenerator
 
 from iamcompact_nomenclature.mapping import map_regions
 
 from common_elements import (
     check_data_is_uploaded,
     common_setup,
+    deferred_download_button,
+    stateful_checkbox,
 )
 from common_keys import (
     PAGE_RUN_NAME,
@@ -76,10 +81,14 @@ def main() -> None:
         'dimensions, and apply region mapping to only parts of the data with '
         'recognized names:'
     )
-    exclude_invalid_regions: bool = st.checkbox('Regions')
-    exclude_invalid_variables: bool = st.checkbox('Variables')
-    st.session_state[SSKey.REGION_MAPPING_EXCLUDE_INVALID_VARIABLES] = \
-        exclude_invalid_variables
+    exclude_invalid_regions: bool = stateful_checkbox(
+        label='Regions',
+        state_key=SSKey.REGION_MAPPING_EXCLUDE_INVALID_REGIONS
+    )
+    exclude_invalid_variables: bool = stateful_checkbox(
+        label='Variables',
+        state_key=SSKey.REGION_MAPPING_EXCLUDE_INVALID_VARIABLES,
+    )
     
     iam_df_excluded_vars: pyam.IamDataFrame|None = None
     if exclude_invalid_variables:
@@ -105,40 +114,86 @@ def main() -> None:
                 )
 
     run_mapping_button_area = st.empty()
-    if not run_mapping_button_area.button('Perform region mapping'):
-        st.stop()
-
-    run_mapping_button_area.empty()
-    regmapped_iam_df: pyam.IamDataFrame
-    regmap_excluded_iam_df: pyam.IamDataFrame|None = None
-    with st.spinner('Performing region mapping...'):
-        if exclude_invalid_regions:
-            regmapped_iam_df, regmap_excluded_iam_df = map_regions(
-                iam_df,
-                return_excluded=True,
-            )
-        else:
-            regmapped_iam_df = map_regions(iam_df, return_excluded=False)
-
     result_iam_df: pyam.IamDataFrame
-    if exclude_invalid_regions:
-        with st.spinner('Combining results with excluded regions...'):
-            result_iam_df = pyam.concat(
-                [regmapped_iam_df, regmap_excluded_iam_df]
-            )
-    else:
-        result_iam_df = regmapped_iam_df
-    if iam_df_excluded_vars is not None:
-        with st.spinner('Combining results with excluded variables...'):
-            result_iam_df = pyam.concat(
-                [result_iam_df, iam_df_excluded_vars]
-            )
 
-    st.session_state[SSKey.IAM_DF_REGIONMAPPED] = result_iam_df
+    def _run_mapping(
+            _iam_df: pyam.IamDataFrame = iam_df,
+            _button_area: DeltaGenerator = run_mapping_button_area,
+            _exclude_invalid_regions: bool = exclude_invalid_regions,
+            _iam_df_excluded_vars: pyam.IamDataFrame|None \
+                = iam_df_excluded_vars,
+    ) -> pyam.IamDataFrame:
+        _button_area.empty()
+        _regmapped_iam_df: pyam.IamDataFrame
+        _regmap_excluded_iam_df: pyam.IamDataFrame|None = None
+        with st.spinner('Performing region mapping...'):
+            if _exclude_invalid_regions:
+                _regmapped_iam_df, _regmap_excluded_iam_df = map_regions(
+                    _iam_df,
+                    return_excluded=True,
+                )
+            else:
+                _regmapped_iam_df = map_regions(_iam_df, return_excluded=False)
+
+        if _exclude_invalid_regions:
+            with st.spinner('Combining results with excluded regions...'):
+                _result_iam_df = pyam.concat(
+                    [_regmapped_iam_df, _regmap_excluded_iam_df]
+                )
+        else:
+            _result_iam_df = _regmapped_iam_df
+        if _iam_df_excluded_vars is not None:
+            with st.spinner('Combining results with excluded variables...'):
+                _result_iam_df = pyam.concat(
+                    [_result_iam_df, _iam_df_excluded_vars]
+                )
+        return _result_iam_df
+    ###END def main._run_mapping
+
+    if st.session_state.get(SSKey.IAM_DF_REGIONMAPPED, None) is None:
+        if not run_mapping_button_area.button('Perform region mapping'):
+            st.stop()
+        result_iam_df = _run_mapping()
+        st.session_state[SSKey.IAM_DF_REGIONMAPPED] = result_iam_df
+    else:
+        if run_mapping_button_area.button('Rerun region mapping'):
+            result_iam_df = _run_mapping()
+            st.session_state[SSKey.IAM_DF_REGIONMAPPED] = result_iam_df
+        else:
+            result_iam_df = st.session_state[SSKey.IAM_DF_REGIONMAPPED]
 
     st.info(
-        'Region mapping complete. You can now proceed with the vetting steps.',
+        'Region mapping complete. You can proceed with the vetting steps.',
         icon='✅',
+    )
+
+    def _prepare_download_data() -> bytes:
+        download_io: BytesIO = BytesIO()
+        result_iam_df.to_excel(download_io)
+        return download_io.getvalue()
+    ##END def main._prepare_download_data
+
+    download_info_text: str = \
+        'You can download the region-mapped data as an Excel file. If you ' \
+        'need to rerun the vetting checks later with the same data, you can ' \
+        'then upload the region-mapped file instead of the original data and ' \
+        'skip the region-mapping step to save time.'
+
+    prepare_download_extra_text: str = \
+        'Click the button above to prepare the data for download, and again ' \
+        'to start the download when it is ready. Note that peparing the ' \
+        'Excel file can take some time, typically close to the time required ' \
+        'for the region-mapping itself.'
+
+    deferred_download_button(
+        _prepare_download_data,
+        download_file_name=Path(st.session_state[SSKey.FILE_CURRENT_NAME]).stem \
+            + 'regionmapped.xlsx',
+        data_cache_key=SSKey.IAM_DF_REGIONMAPPED_EXCEL_DOWNLOAD_BYTES,
+        prepare_notice=lambda _element: _element.write(
+            '\n'.join([download_info_text, prepare_download_extra_text]),
+        ),
+        download_notice=lambda _element: _element.write(download_info_text)
     )
     
 ###END def mail
