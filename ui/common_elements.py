@@ -640,9 +640,9 @@ def deferred_download_button(
         prepare_button_label: str = 'Prepare download',
         download_button_label: str = 'Download',
         spinner_text: str = 'Preparing download',
-        prepare_notice: tp.Optional[str|Callable[[DeltaGenerator], None]] \
+        prepare_notice: tp.Optional[str|Callable[[DeltaGenerator], tp.Any]] \
             = None,
-        download_notice: tp.Optional[str|Callable[[DeltaGenerator], None]] \
+        download_notice: tp.Optional[str|Callable[[DeltaGenerator], tp.Any]] \
             = None,
         bypass_prepare: bool = False,
         prepare_button_kwargs: tp.Optional[dict] = None,
