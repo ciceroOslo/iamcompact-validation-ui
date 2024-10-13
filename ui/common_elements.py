@@ -5,6 +5,7 @@ from collections.abc import (
     Iterable,
     Mapping,
     MutableMapping,
+    Sequence,
 )
 import io
 from pathlib import Path
@@ -817,3 +818,85 @@ def deferred_download_button(
             download_notice(notice_element)
     return _download_button
 ###END def download_excel_output_button
+
+
+@st.fragment
+def stateful_checkbox(
+        label: str,
+        state_key: str,
+        value: bool = False,
+        key: tp.Optional[str] = None,
+        help: tp.Optional[str] = None,
+        on_change: tp.Optional[Callable[[], None]] = None,
+        args: tp.Optional[Sequence] = None,
+        kwargs: tp.Optional[dict] = None,
+        *,
+        disabled: bool = False,
+        label_visibility: tp.Literal['visible', 'hidden', 'collapsed'] \
+            = 'visible',
+) -> bool:
+    """Checkbox with persistent state.
+
+    Creates a checkbox that will remember its state across Streamlite reruns and
+    page switches, and that does not trigger a rerun when toggled.
+
+    The checkbox stores its state in `st.session_state` when toggled, and reads
+    it from there when re-rendered.
+
+    Note that toggling the checkbox does not trigger a rerun of the entire app.
+    To get the updated state of the checkbox after the `stateful_checkbox`
+    function has been called, read the value from `st.session_state[state_key]`.
+    If you do wish every toggling to trigger an app rerun, set `on_change` equal
+    to `st.rerun` or a function that calls it.
+
+    Parameters
+    ----------
+    state_key : str
+        The key used to store the checkbox state in `st.session_state`. If an
+        item already exists for this key when the function is called, it will be
+        used to set the checkbox state. It is the responsibility of the caller
+        to ensure that the item contains a bool value if it exists. Any other
+        type of value will raise a `TypeError`.
+    value : bool, optional
+        The initial value of the checkbox. NB! This value is only used if
+        `streamlit.session_state[state_key]` does not exist. Optional, by
+        default False.
+    on_change : callable, optional
+        Function to call when the checkbox is toggled. Note that
+        `streamlit.session_state[state_key]` will be toggled before
+        `on_change` is called, i.e., it will have the new value of the checkbox
+        when `on_change` is called. Optional, by default None.
+
+    The function additionally accepts all other parameters accepted by
+    `stremlit.checkbox`, with the same behavior.
+    """
+    if not isinstance(value, bool):
+        raise TypeError(f'`value` must be a bool, not {type(value)}.')
+    use_value: bool|None = st.session_state.get(state_key, None)
+    if not isinstance(use_value, bool) or use_value is None:
+        raise TypeError(
+            f'`streamlit.session_state["{state_key}"]` must be a bool.'
+        )
+    if use_value is None:
+        use_value = value
+        st.session_state[state_key] = use_value
+
+    def _toggle_value() -> None:
+        if on_change is not None:
+            on_change()
+        st.session_state[state_key] = not st.session_state[state_key]
+
+    st.checkbox(
+        label,
+        value=use_value,
+        key=key,
+        help=help,
+        on_change=_toggle_value,
+        args=args,
+        kwargs=kwargs,
+        disabled=disabled,
+        label_visibility=label_visibility
+    )
+
+    return use_value
+###END def stateful_checkbox
