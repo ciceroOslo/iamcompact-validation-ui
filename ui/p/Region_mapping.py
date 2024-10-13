@@ -12,6 +12,7 @@ from common_elements import (
     check_data_is_uploaded,
     common_setup,
     deferred_download_button,
+    stateful_checkbox,
 )
 from common_keys import (
     PAGE_RUN_NAME,
@@ -80,10 +81,14 @@ def main() -> None:
         'dimensions, and apply region mapping to only parts of the data with '
         'recognized names:'
     )
-    exclude_invalid_regions: bool = st.checkbox('Regions')
-    exclude_invalid_variables: bool = st.checkbox('Variables')
-    st.session_state[SSKey.REGION_MAPPING_EXCLUDE_INVALID_VARIABLES] = \
-        exclude_invalid_variables
+    exclude_invalid_regions: bool = stateful_checkbox(
+        label='Regions',
+        state_key=SSKey.REGION_MAPPING_EXCLUDE_INVALID_REGIONS
+    )
+    exclude_invalid_variables: bool = stateful_checkbox(
+        label='Variables',
+        state_key=SSKey.REGION_MAPPING_EXCLUDE_INVALID_VARIABLES,
+    )
     
     iam_df_excluded_vars: pyam.IamDataFrame|None = None
     if exclude_invalid_variables:

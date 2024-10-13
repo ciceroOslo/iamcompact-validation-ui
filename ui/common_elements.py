@@ -873,7 +873,7 @@ def stateful_checkbox(
     if not isinstance(value, bool):
         raise TypeError(f'`value` must be a bool, not {type(value)}.')
     use_value: bool|None = st.session_state.get(state_key, None)
-    if not isinstance(use_value, bool) or use_value is None:
+    if not (isinstance(use_value, bool) or use_value is None):
         raise TypeError(
             f'`streamlit.session_state["{state_key}"]` must be a bool.'
         )
