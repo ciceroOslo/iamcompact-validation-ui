@@ -4,6 +4,7 @@ from pathlib import Path
 
 import pyam
 import streamlit as st
+from streamlit.delta_generator import DeltaGenerator
 
 from iamcompact_nomenclature.mapping import map_regions
 
@@ -108,39 +109,56 @@ def main() -> None:
                 )
 
     run_mapping_button_area = st.empty()
-    if not run_mapping_button_area.button('Perform region mapping'):
-        st.stop()
-
-    run_mapping_button_area.empty()
-    regmapped_iam_df: pyam.IamDataFrame
-    regmap_excluded_iam_df: pyam.IamDataFrame|None = None
-    with st.spinner('Performing region mapping...'):
-        if exclude_invalid_regions:
-            regmapped_iam_df, regmap_excluded_iam_df = map_regions(
-                iam_df,
-                return_excluded=True,
-            )
-        else:
-            regmapped_iam_df = map_regions(iam_df, return_excluded=False)
-
     result_iam_df: pyam.IamDataFrame
-    if exclude_invalid_regions:
-        with st.spinner('Combining results with excluded regions...'):
-            result_iam_df = pyam.concat(
-                [regmapped_iam_df, regmap_excluded_iam_df]
-            )
-    else:
-        result_iam_df = regmapped_iam_df
-    if iam_df_excluded_vars is not None:
-        with st.spinner('Combining results with excluded variables...'):
-            result_iam_df = pyam.concat(
-                [result_iam_df, iam_df_excluded_vars]
-            )
 
-    st.session_state[SSKey.IAM_DF_REGIONMAPPED] = result_iam_df
+    def _run_mapping(
+            _iam_df: pyam.IamDataFrame = iam_df,
+            _button_area: DeltaGenerator = run_mapping_button_area,
+            _exclude_invalid_regions: bool = exclude_invalid_regions,
+            _iam_df_excluded_vars: pyam.IamDataFrame|None \
+                = iam_df_excluded_vars,
+    ) -> pyam.IamDataFrame:
+        _button_area.empty()
+        _regmapped_iam_df: pyam.IamDataFrame
+        _regmap_excluded_iam_df: pyam.IamDataFrame|None = None
+        with st.spinner('Performing region mapping...'):
+            if _exclude_invalid_regions:
+                _regmapped_iam_df, _regmap_excluded_iam_df = map_regions(
+                    _iam_df,
+                    return_excluded=True,
+                )
+            else:
+                _regmapped_iam_df = map_regions(_iam_df, return_excluded=False)
+
+        if _exclude_invalid_regions:
+            with st.spinner('Combining results with excluded regions...'):
+                _result_iam_df = pyam.concat(
+                    [_regmapped_iam_df, _regmap_excluded_iam_df]
+                )
+        else:
+            _result_iam_df = _regmapped_iam_df
+        if _iam_df_excluded_vars is not None:
+            with st.spinner('Combining results with excluded variables...'):
+                _result_iam_df = pyam.concat(
+                    [_result_iam_df, _iam_df_excluded_vars]
+                )
+        return _result_iam_df
+    ###END def main._run_mapping
+
+    if st.session_state.get(SSKey.IAM_DF_REGIONMAPPED, None) is None:
+        if not run_mapping_button_area.button('Perform region mapping'):
+            st.stop()
+        result_iam_df = _run_mapping()
+        st.session_state[SSKey.IAM_DF_REGIONMAPPED] = result_iam_df
+    else:
+        if run_mapping_button_area.button('Rerun region mapping'):
+            result_iam_df = _run_mapping()
+            st.session_state[SSKey.IAM_DF_REGIONMAPPED] = result_iam_df
+        else:
+            result_iam_df = st.session_state[SSKey.IAM_DF_REGIONMAPPED]
 
     st.info(
-        'Region mapping complete. You can now proceed with the vetting steps.',
+        'Region mapping complete. You can proceed with the vetting steps.',
         icon='✅',
     )
 
