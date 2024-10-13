@@ -1,6 +1,6 @@
 [project]
 name = "iamcompact-validation-ui"
-version = "0.3.0"
+version = "0.3.1"
 description = "User interface for IAM results validation and vetting in the IAM COMPACT project"
 authors = [
     { name = "Jan Ivar Korsbakken", email = "janko@cicero.oslo.no" },
