@@ -447,6 +447,11 @@ class _NoCachedValue:
         return f'NoCachedValue for {str(self.parent)}'
 ###END class CachingFunction._NoCachedValue
 
+class NoCachedValueError(RuntimeError):
+    """Raised when a CachingFunction unexpectedly has no cached value."""
+    ...
+###END class NoCachedValueError
+
 class CachingFunction[ReturnTypeVar]:
     """A class to cache results from a function.
 
@@ -466,15 +471,23 @@ class CachingFunction[ReturnTypeVar]:
         The function to cache the return value from. Must take no arguments.
     cache_dict : dict, optional
         A dictionary to store the cached return values in. Optional, by default
-        `None`, in which case the return value will be stored internally.
+        `None`, in which case the return value will be stored internally. Note
+        that if `cache_dict` is not `None`, `cache_key` must also be provided.
+        Also note that in the current implementation, `cache_dict[cache_key]` is
+        immediately set to an object that represents no cached value if it does
+        not already exist. If it does exist, the existing value will be assumed
+        to be a previously cached return value from `function` and will be
+        return when the instance is called. This ensures that a cached value,
+        e.g., can be reused in cases new instances of `CachingFunction` are
+        instantiated with the same `function` on different iterations of a loop
+        or in different calls to another function.
     cache_key : str, optional
         The key under which to store the return value in `cache_dict`. This
         parameter is mandatory if `cache_dict` is not `None`, but ignored if it
         is `None`. *NB!* It is the responsibility of the caller to ensure that
-        the provided key is not already set in `cache_dict`, and that any values
-        stored under `cache_key` are not changed externally. To function
-        properly, only the `CachingFunction` instance must assign, delete, or
-        make changes to the item stored under `cache_key`.
+        `cache_dict[cache_key]` either does not exist or is set to a value that
+        is a valid cached value and that can be reused by the new
+        `CachingFunction` instance.
 
     Properties
     ----------
@@ -506,7 +519,8 @@ class CachingFunction[ReturnTypeVar]:
         else:
             self._cache_dict: dict = cache_dict
             self._cache_key: Hashable = cache_key
-            cache_dict[cache_key] = self._no_cached_value
+            if self._cache_key not in self._cache_dict:
+                self._cache_dict[cache_key] = self._no_cached_value
         self.cache_type: tp.Final[tp.Literal['internal', 'external_dict']] = \
             'internal' if hasattr(self, '_cache_value') else 'external_dict'
         if self.cache_type == 'external_dict' and not hasattr(self, '_cache_dict'):
@@ -515,6 +529,28 @@ class CachingFunction[ReturnTypeVar]:
                 'is not set. This should not be possible.'
             )
     ###END def CachingFunction.__init__
+
+    def _is_not_cached_value(self, value: ReturnTypeVar|_NoCachedValue) -> bool:
+        """Whether a value indicates that no value has been cached.
+
+        In the base implementation, this function returns True if the value is
+        any instance of `_NoCachedValue`, and False otherwise. Subclasses may
+        want to override this to require other conditions, such as the value
+        being an instance of `_NoCachedValue` that was created by `self` or some
+        other conditions.
+
+        Parameters
+        ----------
+        value : object
+            The value to check.
+
+        Returns
+        -------
+        bool
+            Whether the value is a `_NoCachedValue`.
+        """
+        return isinstance(value, _NoCachedValue)
+    ###END def CachingFunction._is_not_cached_value
 
     def __repr__(self) -> str:
         return f'CachingFunction({repr(self._function)})'
@@ -535,6 +571,18 @@ class CachingFunction[ReturnTypeVar]:
             )
     ###END def CachingFunction._get_cached_value
 
+    def _require_cached_value(self) -> ReturnTypeVar:
+        """Get the cached value, or raise an error if not cached."""
+        cached_value: ReturnTypeVar|_NoCachedValue = self._get_cached_value()
+        if self._is_not_cached_value(cached_value):
+            raise NoCachedValueError(
+                f'`CachingFunction` instance {repr(self)} was expected to have '
+                'a cached value, but doesn\'t.'
+            )
+        cached_value = tp.cast(ReturnTypeVar, cached_value)
+        return cached_value
+    ###END def CachingFunction._require_cached_value
+
     def _set_cached_value(self, value: ReturnTypeVar) -> None:
         """Set the cached value."""
         if self.cache_type == 'internal':
@@ -550,19 +598,13 @@ class CachingFunction[ReturnTypeVar]:
     @property
     def has_cached_value(self) -> bool:
         """Whether a return value is cached."""
-        return not self._get_cached_value() is self._no_cached_value
+        return not self._is_not_cached_value(self._get_cached_value())
     ###END def CachingFunction.has_cached_value
 
     def __call__(self) -> ReturnTypeVar:
         """Get the cached value, or call the function."""
-        cached_value: ReturnTypeVar|_NoCachedValue = self._get_cached_value()
-        if not cached_value is self._no_cached_value:
-            if isinstance(cached_value, _NoCachedValue):
-                raise RuntimeError(
-                    'Cached value is the `_NoCachedValue` instance of a '
-                    'CachingFunction instance. This should not be possible.'
-                )
-            return cached_value
+        if self.has_cached_value:
+            return self._require_cached_value()
         func_value: ReturnTypeVar = self._function()
         self._set_cached_value(func_value)
         return func_value
