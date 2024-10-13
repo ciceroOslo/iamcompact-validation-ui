@@ -1,4 +1,6 @@
 """Page to run reigon mapping and add it to session state before vetting."""
+from io import BytesIO
+from pathlib import Path
 
 import pyam
 import streamlit as st
@@ -8,6 +10,7 @@ from iamcompact_nomenclature.mapping import map_regions
 from common_elements import (
     check_data_is_uploaded,
     common_setup,
+    deferred_download_button,
 )
 from common_keys import (
     PAGE_RUN_NAME,
@@ -139,6 +142,35 @@ def main() -> None:
     st.info(
         'Region mapping complete. You can now proceed with the vetting steps.',
         icon='✅',
+    )
+
+    def _prepare_download_data() -> bytes:
+        download_io: BytesIO = BytesIO()
+        result_iam_df.to_excel(download_io)
+        return download_io.getvalue()
+    ##END def main._prepare_download_data
+
+    download_info_text: str = \
+        'You can download the region-mapped data as an Excel file. If you ' \
+        'need to rerun the vetting checks later with the same data, you can ' \
+        'then upload the region-mapped file instead of the original data and ' \
+        'skip the region-mapping step to save time.'
+
+    prepare_download_extra_text: str = \
+        'Click the button above to prepare the data for download, and again ' \
+        'to start the download when it is ready. Note that peparing the ' \
+        'Excel file can take some time, typically close to the time required ' \
+        'for the region-mapping itself.'
+
+    deferred_download_button(
+        _prepare_download_data,
+        download_file_name=Path(st.session_state[SSKey.FILE_CURRENT_NAME]).stem \
+            + 'regionmapped.xlsx',
+        data_cache_key=SSKey.IAM_DF_REGIONMAPPED_EXCEL_DOWNLOAD_BYTES,
+        prepare_notice=lambda _element: _element.write(
+            '\n'.join([download_info_text, prepare_download_extra_text]),
+        ),
+        download_notice=lambda _element: _element.write(download_info_text)
     )
     
 ###END def mail

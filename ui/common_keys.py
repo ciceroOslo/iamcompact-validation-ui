@@ -23,7 +23,10 @@ class SSKey(StrEnum):
     IAM_DF_UPLOADED = 'uploaded_iam_df'
     """The IamDataFrame with data from the uploaded file."""
     IAM_DF_REGIONMAPPED = 'regionmapped_iam_df'
-    """"""
+    """Resulting IamDataFrame after region mapping."""
+    IAM_DF_REGIONMAPPED_EXCEL_DOWNLOAD_BYTES = \
+        'regionmapped_iam_df_excel_download_bytes'
+    """Prepared Excel for downloading region-mapped data, as a bytes object."""
     IAM_DF_TIMESERIES = 'uploaded_iam_df_timeseries'
     """A generated timeseries table of the uploaded IamDataFrame."""
 
