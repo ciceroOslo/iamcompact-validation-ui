@@ -4,10 +4,12 @@ from collections.abc import (
     Hashable,
     Iterable,
     Mapping,
+    MutableMapping,
 )
 import io
 from pathlib import Path
 import typing as tp
+import warnings
 
 import iamcompact_nomenclature as icnom
 from iamcompact_vetting.output.base import (
@@ -23,6 +25,7 @@ from nomenclature import (
 import pandas as pd
 from pandas.io.formats.style import Styler as PandasStyler
 import streamlit as st
+from streamlit.delta_generator import DeltaGenerator
 
 from common_keys import SSKey
 from excel import write_excel_targetrange_output
@@ -508,7 +511,7 @@ class CachingFunction[ReturnTypeVar]:
             self,
             function: tp.Callable[[], ReturnTypeVar],
             *,
-            cache_dict: tp.Optional[dict] = None,
+            cache_dict: tp.Optional[MutableMapping] = None,
             cache_key: Hashable = None,
     ) -> None:
         self._function: tp.Callable[[], ReturnTypeVar] = function
@@ -517,7 +520,7 @@ class CachingFunction[ReturnTypeVar]:
             self._cache_value: ReturnTypeVar|_NoCachedValue = \
                 self._no_cached_value
         else:
-            self._cache_dict: dict = cache_dict
+            self._cache_dict: MutableMapping = cache_dict
             self._cache_key: Hashable = cache_key
             if self._cache_key not in self._cache_dict:
                 self._cache_dict[cache_key] = self._no_cached_value
@@ -628,14 +631,22 @@ class CachingFunction[ReturnTypeVar]:
 
 
 
+@st.fragment
 def deferred_download_button(
-        data_func: tp.Callable[[], bytes|Path] | CachingFunction,
+        data_func: tp.Callable[[], bytes] | CachingFunction[bytes],
         download_file_name: str,
-        prepare_button_text: str = 'Prepare download',
-        download_button_text: str = 'Download',
-        prepare_notice: tp.Optional[str|Callable[[], None]] = None,
-        download_notice: tp.Optional[str|Callable[[], None]] = None,
+        data_cache_key: tp.Optional[str] = None,
+        *,
+        prepare_button_label: str = 'Prepare download',
+        download_button_label: str = 'Download',
+        spinner_text: str = 'Preparing download',
+        prepare_notice: tp.Optional[str|Callable[[DeltaGenerator], None]] \
+            = None,
+        download_notice: tp.Optional[str|Callable[[DeltaGenerator], None]] \
+            = None,
         bypass_prepare: bool = False,
+        prepare_button_kwargs: tp.Optional[dict] = None,
+        download_button_kwargs: tp.Optional[dict] = None,
 ) -> bool:
     """Two-stage download button that prepares data on first press.
 
@@ -649,6 +660,13 @@ def deferred_download_button(
     prepare step will be skipped, and the download button will be displayed
     directly.
 
+    The data returned by the `data_func` function will be cached, and on later
+    reruns of the page, the prepare step will be skipped. To reset the cache
+    and repeat the prepare step, clear the cache. This is done by calling
+    `data_func.clear_cache()` if `data_func` is a `CachingFunction` object, or
+    by removing the `data_cache_key` item from `st.session_state` if `data_func`
+    is a regular function or other type of callable.
+
     Explanatory texts can be displayed belwow the prepare button and/or below
     the download button, using the `prepare_notice` and `download_notice`
     arguments respectively. These arguments can also be functions that render
@@ -660,12 +678,11 @@ def deferred_download_button(
     data_func : Callable[[], bytes] or CachingFunction
         The function that prepares the data. Will be called when the prpare
         button is pressed. Must be callable without arguments, and return a
-        `bytes` object with the data to be downloaded, or a Path to a file to be
-        downloaded. If a `CachingFunction` object is passed, its `cached`
-        property will be checked to see if it has cached data. If so, the
-        prepare step will be skipped and the download button and
-        `download_notice` will be displayed.
-        *NB!* Note that the returned data or file contents are passed to
+        `bytes` object with the data to be downloaded. If a `CachingFunction`
+        object is passed, its `cached` property will be checked to see if it has
+        cached data. If so, the prepare step will be skipped and the download
+        button and `download_notice` will be displayed. *NB!* Note that the
+        returned data or file contents are passed to
         `streamlit.download_button`, which may keep the data in memory for the
         duration of the user session, with no way of explicitly clearing it.
         This is a feature of `streamlit.download_button`, and unfortunately
@@ -674,23 +691,47 @@ def deferred_download_button(
         The default name to give to the downloaded file (i.e., what is displayed
         in the browser download dialogue, not the name of a file on the server
         that is to be downloaded).
-    prepare_button_text : str
-        The text to display on the prepare button. Optional, by default
+    data_cache_key : str, optional
+        A key to be used to store the data in the `st.session_state`. This is
+        mandatory if `data_func` is a function, but is ignored if `data_func`
+        is a `CachingFunction` (in which case the cache dict and key in the
+        `data_func` object will be used instead). Note that if
+        `st.session_state` already contains the key, whatever data it contains
+        will be used as the cached data, and `data_func` will not be called.
+    prepare_button_label : str
+        The label to display on the prepare button. Optional, by default
         'Prepare download'.
-    download_button_text : str
-        The text to display on the download button. Optional, by default
+    download_button_label : str
+        The label to display on the download button. Optional, by default
         'Download'.
-    prepare_notice : str or Callable[[], None], optional
+    spinner_text : str
+        Text to display in a spinner when preparing the data. Optional, by
+        default 'Preparing download'.
+    prepare_notice : str or callable, optional
         Text or a function that generates Streamlit elements that are displayed
-        below the prepare button. Optional, by default None.
+        below the prepare button. If a function, it must take an `st.empty()`
+        instance as its sole argument, and render the desired elements inside
+        it.
     download_notice : str or Callable[[], None], optional
         Text or a function that generates Streamlit elements that are displayed
-        below the download button. Optional, by default None.
+        below the download button. If a function, it must take an `st.empty()`
+        instance as its sole argument, and render the desired elements inside
+        it.
     bypass_prepare : bool, optional
         Whether to bypass the prepare step. If True, the prepare step is
         skipped, `data_func` is called (or its `cached` property is checked if
         a `CachingFunction` object) directly, and the download button is shown
         immediately once the data is ready. Optional, by default False.
+    prepare_button_kwargs : dict, optional
+        Additional keyword arguments to pass to the `st.button` function for
+        the prepare button. *NB!* Note that the `label` argument is ignored
+        if present (overridden by `prepare_button_label`)
+    download_button_kwargs : dict, optional
+        Additional keyword arguments to pass to the `st.download_button`
+        function for the download button. *NB!* Note that the `label`, `data`
+        and `file_name` arguments are ignored if present (overridden by other
+        parameters to this function).
+
 
     Returns
     -------
@@ -699,4 +740,67 @@ def deferred_download_button(
         and the return value of the `st.download_button` function during the
         download step.
     """
-    pass
+    if prepare_button_kwargs is None:
+        prepare_button_kwargs = {}
+    if 'label' in prepare_button_kwargs:
+        prepare_button_kwargs.pop('label')
+        warnings.warn(
+            'The `label` item in `prepare_button_kwargs` is ignored, use the '
+            '`prepare_button_label` parameter instead.'
+        )
+    if download_button_kwargs is None:
+        download_button_kwargs = {}
+    if 'label' in download_button_kwargs:
+        download_button_kwargs.pop('label')
+        warnings.warn(
+            'The `label` item in `download_button_kwargs` is ignored, use the '
+            '`download_button_label` parameter instead.'
+        )
+    if 'file_name' in download_button_kwargs:
+        download_button_kwargs.pop('file_name')
+        warnings.warn(
+            'The `file_name` item in `download_button_kwargs` is ignored, use '
+            'the `download_file_name` parameter instead.'
+        )
+    if 'data' in download_button_kwargs:
+        download_button_kwargs.pop('data')
+        warnings.warn(
+            'The `data` item in `download_button_kwargs` is ignored. the '
+            'value returned by `data_func` will be used instead.'
+        )
+    if not isinstance(data_func, CachingFunction):
+        if not callable(data_func):
+            raise TypeError(
+                'The `data_func` parameter must be a callable or a '
+                f'`CachingFunction` object, not {type(data_func)}.'
+            )
+        if data_cache_key is None:
+            raise ValueError(
+                'The `data_cache_key` parameter must be provided if `data_func` '
+                'is a function.'
+            )
+        data_func = CachingFunction(
+            data_func,
+            cache_dict=st.session_state,
+            cache_key=data_cache_key
+        )
+    button_element = st.empty()
+    notice_element = st.empty()
+    if not (isinstance(data_func, CachingFunction)
+            and data_func.has_cached_value) and not bypass_prepare:
+        _prepare_button: bool = button_element.button(prepare_button_label,
+                                                      **prepare_button_kwargs)
+        if _prepare_button:
+            button_element.empty()
+            with button_element:
+                with st.spinner(spinner_text):
+                    data_func()
+            st.rerun()
+        if isinstance(prepare_notice, str):
+            notice_element.write(prepare_notice)
+        elif callable(prepare_notice):
+            prepare_notice(notice_element)
+        return False
+    else:
+        _download_button: bool = button_element.download_button(
+
