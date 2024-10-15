@@ -87,7 +87,7 @@ hyperframe==6.0.1
     # via h2
 iam-units==2023.9.12
     # via pyam-iamc
-iamcompact-nomenclature @ git+https://github.com/ciceroOslo/iamcompact-nomenclature.git@cc9db2401dc3227555d344faa0109af8c65b7f8c
+iamcompact-nomenclature @ git+https://github.com/ciceroOslo/iamcompact-nomenclature.git@9cc94593e989252567f626c511a7940c50b07183
 iamcompact-vetting @ git+https://github.com/ciceroOslo/iamcompact-vetting.git@ab7866341dda7e4abfb719d9cfe823dfb19dbc61
 idna==3.10
     # via anyio
@@ -138,7 +138,7 @@ mypy-extensions==1.0.0
     # via typing-inspect
 narwhals==1.9.3
     # via altair
-nomenclature-iamc @ git+https://github.com/ciceroOslo/nomenclature@385ae1173f13f3126596db29af56f0111e964b9c
+nomenclature-iamc @ git+https://github.com/ciceroOslo/nomenclature@b0ae4f7dd383c433391b0ceaee2072db0db070e0
     # via iamcompact-nomenclature
 numpy==1.26.4
     # via contourpy
@@ -164,7 +164,6 @@ packaging==24.1
     # via matplotlib
     # via pandera
     # via plotly
-    # via pooch
     # via streamlit
 pandas==2.2.3
     # via ixmp4
@@ -186,12 +185,8 @@ pillow==10.4.0
 pint==0.24.3
     # via iam-units
     # via pyam-iamc
-platformdirs==4.3.6
-    # via pooch
 plotly==5.24.1
     # via streamlit-extras
-pooch==1.8.2
-    # via pysquirrel
 prometheus-client==0.21.0
     # via streamlit-extras
 protobuf==5.28.2
@@ -230,7 +225,7 @@ pymdown-extensions==10.11.2
     # via markdownlit
 pyparsing==3.2.0
     # via matplotlib
-pysquirrel==1.0
+pysquirrel==1.1
     # via nomenclature-iamc
 python-calamine==0.2.3
 python-dateutil==2.9.0.post0
@@ -246,12 +241,12 @@ pyyaml==6.0.2
     # via nomenclature-iamc
     # via pyam-iamc
     # via pymdown-extensions
+    # via pysquirrel
 referencing==0.35.1
     # via jsonschema
     # via jsonschema-specifications
 requests==2.32.3
     # via favicon
-    # via pooch
     # via pyam-iamc
     # via streamlit
 rich==13.9.2
