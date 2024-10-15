@@ -69,6 +69,18 @@ def main() -> None:
         )
         st.stop()
 
+    if len(invalid_names_dict['model']) > 0:
+        st.info(
+            '**Invalid model names were found in the data.**\n\n'
+            'You can in principle proceed with region-mapping, but the '
+            'model-specific regions for the unrecognized model names will not '
+            'be region-mapped. This means that any deviations from '
+            'harmonization data in those regions will **not** be detected '
+            'during the vetting steps. It is recommended that you correct the '
+            'unrecognized model names and rerun before proceeding.',
+            icon='⚠️',
+        )
+
     if (len(invalid_names_dict['region']) > 0) or \
             (len(invalid_names_dict['variable']) > 0):
         st.info(
