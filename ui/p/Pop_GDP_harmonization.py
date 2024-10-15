@@ -52,9 +52,12 @@ def main():
             '**NB!** You have not run the region mapping step. If your results '
             'contain model-specific region names, and the file you uploaded '
             'has not already gone through region mapping, you will probably '
-            'see unrecognized names or errors in the region name check. Please '
-            f'return to the page "{PageName.REGION_MAPPING}" if you need to '
-            'remedy this.',
+            'see unrecognized names or errors in the region name check. '
+            'Model-specific regions will also not be checked for deviations, '
+            'and you will likely **miss** any deviations in those regions. If '
+            'the file you uploaded had not already been region-mapped, please '
+            f'return to the page "{PageName.REGION_MAPPING}" and run '
+            'region mapping.',
             icon='❗️',
         )
         iam_df = st.session_state[SSKey.IAM_DF_UPLOADED]
