@@ -58,60 +58,82 @@ def main() -> None:
             icon='✅'
         )
 
-    st.info(
-        'Only recognized variable and region names can be included in the '
-        'region mapping. Unrecognized  names will cause the mapping function '
-        'to fail. Please make sure that you have performed the name validation '
-        'step and fixed or removed any unrecognized variable and region names '
-        'before proceeding.\n\n'
-        'If you want to run the region despite having unrecognized region or '
-        'variable names in the data, you can check the boxes below to perform '
-        'region mapping on only the valid parts of the data. The data after '
-        'this step will then be a mix of region-mapped fully valid data and '
-        'non-mapped data that contains unrecognized region and/or variable '
-        'names. **NB!** Note that this can lead to unexpected results in the '
-        'vetting checks, including false fails or passes, or data being '
-        'silently excluded from harmonization checks because region names do '
-        'not match the harmonization data.',
-        icon='ℹ️',
-    )
+    invalid_names_dict = \
+        st.session_state.get(SSKey.VALIDATION_INVALID_NAMES_DICT, None)
+    if invalid_names_dict is None:
+        st.info(
+            'You have not yet run the name validation step. You must first go '
+            f'to the page {PageName.NAME_VALIDATION_SUMMARY} and run the '
+            'name validation step before proceeding.',
+            icon='⛔',
+        )
+        st.stop()
 
-    st.write(
-        'Yes, I want to silently accept unrecognized names in the following '
-        'dimensions, and apply region mapping to only parts of the data with '
-        'recognized names:'
-    )
-    exclude_invalid_regions: bool = stateful_checkbox(
-        label='Regions',
-        state_key=SSKey.REGION_MAPPING_EXCLUDE_INVALID_REGIONS
-    )
-    exclude_invalid_variables: bool = stateful_checkbox(
-        label='Variables',
-        state_key=SSKey.REGION_MAPPING_EXCLUDE_INVALID_VARIABLES,
-    )
-    
-    iam_df_excluded_vars: pyam.IamDataFrame|None = None
-    if exclude_invalid_variables:
-        invalid_names_dict = \
-            st.session_state.get(SSKey.VALIDATION_INVALID_NAMES_DICT, None)
-        if invalid_names_dict is None:
-            st.info(
-                'You must run the name validation step before you can proceed '
-                'with invalid variable names. Please uncheck the box or go to '
-                f'the page "{PageName.NAME_VALIDATION_SUMMARY}',
-                icon='⛔',
-            )
-            st.stop()
-        else:
-            invalid_var_names: list[str] = invalid_names_dict['variable']
-            iam_df_excluded_vars = iam_df.filter(variable=invalid_var_names)
-            iam_df = iam_df.filter(variable=invalid_var_names, keep=False)
-            if iam_df is None or len(iam_df) == 0:
+    if (len(invalid_names_dict['region']) > 0) or \
+            (len(invalid_names_dict['variable']) > 0):
+        st.info(
+            '**Invalid region and/or variable names were found in the data.**\n\n'
+            'Only recognized variable and region names can be included in the '
+            'region mapping. Unrecognized  names will cause the mapping function '
+            'to fail. Please make sure that you have performed the name validation '
+            'step and fixed or removed any unrecognized variable and region names '
+            'before proceeding.\n\n'
+            'If you want to run the region despite having unrecognized region or '
+            'variable names in the data, you can check the boxes below to perform '
+            'region mapping on only the valid parts of the data. The data after '
+            'this step will then be a mix of region-mapped fully valid data and '
+            'non-mapped data that contains unrecognized region and/or variable '
+            'names.\n\n'
+            '**NB!** Note that this can lead to unexpected results in the '
+            'vetting checks, including false fails or passes, or data being '
+            'silently excluded from harmonization checks because region names do '
+            'not match the harmonization data. It should only be done as a '
+            'temporary quick-fix to proceed with vetting checks. You should later '
+            'correct the issues by either fixing the model variable/region names '
+            'or having the missing names added to the project variable/region name '
+            'definitions.',
+            icon='⚠️',
+        )
+
+        st.write(
+            'Yes, I want to silently accept unrecognized names in the following '
+            'dimensions, and apply region mapping to only parts of the data with '
+            'recognized names:'
+        )
+        exclude_invalid_regions: bool = stateful_checkbox(
+            label='Regions',
+            state_key=SSKey.REGION_MAPPING_EXCLUDE_INVALID_REGIONS
+        )
+        exclude_invalid_variables: bool = stateful_checkbox(
+            label='Variables',
+            state_key=SSKey.REGION_MAPPING_EXCLUDE_INVALID_VARIABLES,
+        )
+        
+        iam_df_excluded_vars: pyam.IamDataFrame|None = None
+        if exclude_invalid_variables:
+            invalid_names_dict = \
+                st.session_state.get(SSKey.VALIDATION_INVALID_NAMES_DICT, None)
+            if invalid_names_dict is None:
                 st.info(
-                    'The data contains no valid variable names, cannot proceed '
-                    'with region mapping.',
-                    icon='⚠️',
+                    'You must run the name validation step before you can proceed '
+                    'with invalid variable names. Please uncheck the box or go to '
+                    f'the page "{PageName.NAME_VALIDATION_SUMMARY}',
+                    icon='⛔',
                 )
+                st.stop()
+            else:
+                invalid_var_names: list[str] = invalid_names_dict['variable']
+                iam_df_excluded_vars = iam_df.filter(variable=invalid_var_names)
+                iam_df = iam_df.filter(variable=invalid_var_names, keep=False)
+                if iam_df is None or len(iam_df) == 0:
+                    st.info(
+                        'The data contains no valid variable names, cannot proceed '
+                        'with region mapping.',
+                        icon='⚠️',
+                    )
+    else:
+        exclude_invalid_regions = False
+        iam_df_excluded_vars = None
 
     run_mapping_button_area = st.empty()
     result_iam_df: pyam.IamDataFrame
