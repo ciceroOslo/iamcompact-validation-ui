@@ -55,7 +55,8 @@ def main():
         if button_field.button('Run name checks'):
             button_field.empty()
             dsd: DataStructureDefinition = \
-                get_validation_dsd(allow_load=True, show_spinner=True)
+                get_validation_dsd(force_load=True, allow_load=True,
+                                   show_spinner=True)
             dsd_dims: list[str] = [str(_dim) for _dim in dsd.dimensions]
             non_region_dims: list[str] = [_dim for _dim in dsd_dims
                                            if _dim != 'region']

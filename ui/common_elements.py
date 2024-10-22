@@ -115,10 +115,10 @@ def make_passed_status_message(all_passed: bool, all_included: bool) -> str:
     all_included_message: str
     if all_passed:
         all_passed_message = '<p style="font-weight: bold">Status: ' \
-            '<span style="color: green">All AR6 checks passed</span></p>'
+            '<span style="color: green">All checks passed</span></p>'
     else:
         all_passed_message = '<p style="font-weight: bold">Status: ' \
-            '<span style="color: red">Some AR6 checks failed</span></p>'
+            '<span style="color: red">Some checks failed</span></p>'
     if all_included:
         all_included_message = '<p style="font-weight: bold">Coverage: ' \
             '<span style="color: green">All models/scenarios assessed for ' \
