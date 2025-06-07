@@ -14,7 +14,7 @@ dependencies = [
     "python-calamine>=0.2.3",
     "pyam-iamc @ git+https://github.com/IAMconsortium/pyam@main",  # Can change to >=2.2.5 once released
     "iamcompact-vetting @ git+https://github.com/ciceroOslo/iamcompact-vetting.git",
-    "iamcompact-nomenclature @ git+https://github.com/ciceroOslo/iamcompact-nomenclature.git",
+    "iamcompact-nomenclature @ git+https://github.com/ciceroOslo/iamcompact-nomenclature.git@test_common_definitions_updates",
 ]
 readme = "README.md"
 requires-python = ">= 3.12"
