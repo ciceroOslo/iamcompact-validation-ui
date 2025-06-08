@@ -550,7 +550,7 @@ wheels = [
 [[package]]
 name = "iamcompact-nomenclature"
 version = "0.9.1"
-source = { git = "https://github.com/ciceroOslo/iamcompact-nomenclature.git?rev=replace-rye-with-uv#25f2885f476a94d0c2d4dd771d6e1e9c5eb170dc" }
+source = { git = "https://github.com/ciceroOslo/iamcompact-nomenclature.git?rev=use-common-definitions-fork-only#34940d98b5021c1f3cbc11c36f2427bff9fc7a9e" }
 dependencies = [
     { name = "nomenclature-iamc" },
     { name = "pyam-iamc" },
@@ -573,7 +573,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "iamcompact-nomenclature", git = "https://github.com/ciceroOslo/iamcompact-nomenclature.git?rev=replace-rye-with-uv" },
+    { name = "iamcompact-nomenclature", git = "https://github.com/ciceroOslo/iamcompact-nomenclature.git?rev=use-common-definitions-fork-only" },
     { name = "iamcompact-vetting", git = "https://github.com/ciceroOslo/iamcompact-vetting.git" },
     { name = "pandas", specifier = ">=2.2.2" },
     { name = "pyam-iamc", specifier = ">=3.0.0" },
