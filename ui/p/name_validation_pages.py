@@ -97,7 +97,7 @@ def make_name_validation_dim_page(
     else:
         st.header(f'Validation of {dim_name} names')
 
-    check_data_is_uploaded(display_message=True, stop=True)
+    check_data_is_uploaded(display_message=True, stop=False)
 
     if invalid_names_dict_key not in st.session_state:
         st.info(
@@ -106,7 +106,7 @@ def make_name_validation_dim_page(
             'to the left to run it.',
             icon='⛔',
         )
-        st.stop()
+        # st.stop()
 
     if intro_message is not None:
         st.write(intro_message)
@@ -128,10 +128,12 @@ def make_name_validation_dim_page(
     if extra_message is not None:
         st.write(extra_message)
 
-    invalid_names_obj: dict[str, str]|pd.DataFrame \
-        = st.session_state[invalid_names_dict_key]
-    invalid_names: list[str]|pd.DataFrame
-    if not isinstance(invalid_names_obj, pd.DataFrame):
+    invalid_names_obj: dict[str, str]|pd.DataFrame|None \
+        = st.session_state.get(invalid_names_dict_key)
+    invalid_names: list[str]|pd.DataFrame|None
+    if invalid_names_obj is None:
+        invalid_names = None
+    elif not isinstance(invalid_names_obj, pd.DataFrame):
         invalid_names = st.session_state[invalid_names_dict_key][dim_name]
     else:
         invalid_names = invalid_names_obj
@@ -147,7 +149,13 @@ def make_name_validation_dim_page(
         invalid_names_tab, = st.tabs([invalid_names_tab_name])
 
     with invalid_names_tab:
-        if invalid_names_display_func is not None:
+        if invalid_names is None:
+            st.info(
+                'The name validation check has not been run yet, no results to '
+                'display.',
+                icon='⛔',
+            )
+        elif invalid_names_display_func is not None:
             invalid_names_display_func(
                 invalid_names,
                 dim_name,
