@@ -146,5 +146,5 @@ class Ar6CriterionOutputKey(StrEnum):
 ###END class CriterionOutputKey
 
 
-PAGE_RUN_NAME: tp.Final[str] = '__page__'
+PAGE_RUN_NAME: tp.Final[str] = '__main__'
 """Value of the `__name__` attribute of a page being run."""
