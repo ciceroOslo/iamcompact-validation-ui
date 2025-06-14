@@ -1,5 +1,6 @@
 from collections.abc import Mapping
 
+import io
 import pandas as pd
 import pyam
 import streamlit as st
@@ -13,8 +14,10 @@ from iamcompact_nomenclature.validation import (
 from nomenclature import DataStructureDefinition
 
 from common_elements import (
+    CachingFunction,
     check_data_is_uploaded,
     common_setup,
+    deferred_download_button,
 )
 from common_keys import (
     PAGE_RUN_NAME,
@@ -22,6 +25,17 @@ from common_keys import (
 )
 from p.name_validation_pages import get_validation_dsd
 from page_ids import PageName
+
+
+
+def make_dsd_excel_file() -> bytes:
+    """Create an Excel file with the current data structure definition."""
+    dsd: DataStructureDefinition = get_validation_dsd(force_load=True)
+    output_bytes: io.BytesIO = io.BytesIO()
+    dsd.to_excel(output_bytes)
+    output_bytes.seek(0)
+    return output_bytes.getvalue()
+###END def make_dsd_excel_file
 
 
 def main():
@@ -36,6 +50,20 @@ def main():
         'For each dimension, a red cross (❌) will be shown if any '
         'unrecognized names or variable/unit combinations were found, and a '
         'green checkmark (✅) otherwise.'
+    )
+
+    st.write(
+        'If you want to view a full list of valid names offline, you can download '
+        'an Excel file with the current data structure definition by pressing '
+        'the button below to first prepare the file for download, and then again '
+        'to download the file.'
+    )
+
+    deferred_download_button(
+        data_func=CachingFunction[bytes](make_dsd_excel_file),
+        download_file_name='iamcompact_validation_dsd.xlsx',
+        prepare_button_label='Prepare DSD download',
+        download_button_label='Download DSD file',
     )
 
     check_data_is_uploaded(display_message=True, stop=True) 
