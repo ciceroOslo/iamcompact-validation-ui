@@ -1,13 +1,11 @@
-FROM python:3.13
+FROM debian:bookworm-slim
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
-    software-properties-common \
     git \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 COPY . .
