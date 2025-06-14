@@ -1,4 +1,5 @@
-FROM python:3.12
+FROM python:3.13
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 WORKDIR /app
 
@@ -11,10 +12,10 @@ RUN apt-get update && apt-get install -y \
 
 COPY . .
 
-RUN pip3 install -r ui/requirements.txt
+RUN uv sync
 
 EXPOSE 8501
 
 HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
 
-ENTRYPOINT ["streamlit", "run", "ui/main.py", "--server.port=8501", "--server.address=0.0.0.0"]
+ENTRYPOINT ["uv", "run", "streamlit", "run", "ui/main.py", "--server.port=8501", "--server.address=0.0.0.0"]
